@@ -1,0 +1,350 @@
+/* 文章卡片组件统一样式 - 适用于最新文章、热门文章、相关文章 */
+
+/* 热门文章背景模式 */
+.popular-posts-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.popular-posts-card-with-bg {
+  position: relative;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popular-posts-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.popular-posts-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* 最新文章背景模式 */
+.recent-posts-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.recent-posts-card-with-bg {
+  position: relative;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recent-posts-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.recent-posts-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.aside-recent,
+.popular-posts,
+.related-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.recent-item,
+.popular-item,
+.related-item {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--fg) 40%, transparent);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.recent-item:last-child,
+.popular-item:last-child,
+.related-item:last-child {
+  border-bottom: none;
+}
+
+.recent-item:hover,
+.popular-item:hover,
+.related-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+  border-radius: 6px;
+}
+
+/* 背景模式下的文章项样式优化 */
+.popular-posts-card-with-bg .popular-item {
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .popular-posts-card-with-bg .popular-item {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.popular-posts-card-with-bg .popular-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .popular-posts-card-with-bg .popular-item:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.recent-thumb,
+.popular-thumb,
+.related-thumb {
+  width: 64px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+}
+
+.recent-thumb img,
+.popular-thumb img,
+.related-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.recent-item:hover .recent-thumb img,
+.popular-item:hover .popular-thumb img,
+.related-item:hover .related-thumb img {
+  transform: scale(1.1);
+}
+
+.recent-meta,
+.popular-meta,
+.related-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.recent-title,
+.popular-title,
+.related-title {
+  font-size: 0.88rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0.2rem;
+}
+
+.recent-date,
+.popular-stats,
+.related-date {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* 背景模式下的缩略图样式优化 */
+.popular-posts-card-with-bg .popular-thumb {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .popular-posts-card-with-bg .popular-thumb {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 背景模式下的标题样式优化 */
+.popular-posts-card-with-bg .popular-title {
+  font-weight: 600;
+  opacity: 1;
+}
+
+/* 背景模式下的日期/统计信息样式优化 */
+.popular-posts-card-with-bg .popular-stats {
+  opacity: 0.85;
+}
+
+/* 背景模式下的侧栏标题样式 */
+.popular-posts-card-with-bg .aside-title {
+  opacity: 1;
+}
+
+/* 背景模式下的空状态样式 */
+.popular-posts-card-with-bg .aside-empty {
+  opacity: 0.8;
+}
+
+/* ===================================================================
+   最新文章背景模式下的样式优化
+   =================================================================== */
+
+/* 背景模式下的文章项样式优化 */
+.recent-posts-card-with-bg .recent-item {
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .recent-posts-card-with-bg .recent-item {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.recent-posts-card-with-bg .recent-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .recent-posts-card-with-bg .recent-item:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* 背景模式下的缩略图样式优化 */
+.recent-posts-card-with-bg .recent-thumb {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .recent-posts-card-with-bg .recent-thumb {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 背景模式下的标题样式优化 */
+.recent-posts-card-with-bg .recent-title {
+  font-weight: 600;
+  opacity: 1;
+}
+
+/* 背景模式下的日期样式优化 */
+.recent-posts-card-with-bg .recent-date {
+  opacity: 0.85;
+}
+
+/* 背景模式下的侧栏标题样式 */
+.recent-posts-card-with-bg .aside-title {
+  opacity: 1;
+}
+
+/* 背景模式下的空状态样式 */
+.recent-posts-card-with-bg .aside-empty {
+  opacity: 0.8;
+}
+
+/* ===================================================================
+   相关文章组件背景模式样式
+   =================================================================== */
+
+/* 相关文章卡片基础样式 */
+.related-posts-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景图片/颜色模式 */
+.related-posts-card-with-bg {
+  position: relative;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 背景遮罩层 */
+.related-posts-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 内容容器 */
+.related-posts-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* 背景模式下的文章项优化 */
+.related-posts-card-with-bg .related-item {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .related-posts-card-with-bg .related-item {
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+.related-posts-card-with-bg .related-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] .related-posts-card-with-bg .related-item:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* 背景模式下的缩略图优化 */
+.related-posts-card-with-bg .related-thumb {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .related-posts-card-with-bg .related-thumb {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.related-posts-card-with-bg .related-item:hover .related-thumb {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] .related-posts-card-with-bg .related-item:hover .related-thumb {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 背景模式下的标题样式优化 */
+.related-posts-card-with-bg .related-title {
+  font-weight: 600;
+  opacity: 1;
+}
+
+/* 背景模式下的日期样式优化 */
+.related-posts-card-with-bg .related-date {
+  opacity: 0.85;
+}
+
+/* 背景模式下的侧栏标题样式 */
+.related-posts-card-with-bg .aside-title {
+  opacity: 1;
+}
+
+/* 背景模式下的空状态样式 */
+.related-posts-card-with-bg .aside-empty {
+  opacity: 0.8;
+}

@@ -1,0 +1,221 @@
+{{ define "content" }}
+{{ $data := index site.Data "bangumi-planet" }}
+<div class="bangumi-planet-page">
+  <header class="bangumi-header">
+    <h1 class="bangumi-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="bangumi-desc">{{ . }}</p>{{ end }}
+  </header>
+
+  <div class="bangumi-container">
+    <!-- 追番列表 -->
+    {{ if and $data $data.bangumi }}
+    <div class="bangumi-tabs">
+      <button class="tab-btn active" data-tab="wantWatch">想看</button>
+      <button class="tab-btn" data-tab="watching">在看</button>
+      <button class="tab-btn" data-tab="watched">看过</button>
+    </div>
+
+    <!-- 想看列表 -->
+    <div class="bangumi-tab-content active" id="wantWatch">
+      {{ if $data.bangumi.wantWatch }}
+      <div class="bangumi-grid">
+        {{ range $data.bangumi.wantWatch }}
+        <div class="bangumi-card" onclick="window.open('{{ .link }}', '_blank')">
+          <div class="bangumi-cover">
+            <img src="{{ .cover }}" alt="{{ .title }}" loading="lazy" onerror="this.src='/img/404.jpg'">
+            {{ if .score }}<div class="bangumi-score">{{ .score }}</div>{{ end }}
+          </div>
+          <div class="bangumi-info">
+            <h3 class="bangumi-title-text">{{ .title }}</h3>
+            <div class="bangumi-meta">
+              {{ if .type }}<span class="bangumi-type">{{ .type }}</span>{{ end }}
+              {{ if .area }}<span class="bangumi-area">{{ .area }}</span>{{ end }}
+              {{ if .totalCount }}<span class="bangumi-count">{{ .totalCount }}</span>{{ end }}
+            </div>
+            {{ if .des }}
+            <p class="bangumi-description">{{ .des }}</p>
+            {{ end }}
+            {{ if .progress }}
+            <div class="bangumi-progress">
+              <span>观看进度：{{ .progress }}</span>
+              {{ $parts := split .progress "/" }}
+              {{ if eq (len $parts) 2 }}
+              {{ $current := index $parts 0 }}
+              {{ $total := index $parts 1 }}
+              <div class="progress-bar" data-current="{{ $current }}" data-total="{{ $total }}">
+                <div class="progress-fill"></div>
+              </div>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      {{ else }}
+      <div class="bangumi-empty">暂无想看的番剧</div>
+      {{ end }}
+    </div>
+
+    <!-- 在看列表 -->
+    <div class="bangumi-tab-content" id="watching">
+      {{ if $data.bangumi.watching }}
+      <div class="bangumi-grid">
+        {{ range $data.bangumi.watching }}
+        <div class="bangumi-card" onclick="window.open('{{ .link }}', '_blank')">
+          <div class="bangumi-cover">
+            <img src="{{ .cover }}" alt="{{ .title }}" loading="lazy" onerror="this.src='/img/404.jpg'">
+            {{ if .score }}<div class="bangumi-score">{{ .score }}</div>{{ end }}
+          </div>
+          <div class="bangumi-info">
+            <h3 class="bangumi-title-text">{{ .title }}</h3>
+            <div class="bangumi-meta">
+              {{ if .type }}<span class="bangumi-type">{{ .type }}</span>{{ end }}
+              {{ if .area }}<span class="bangumi-area">{{ .area }}</span>{{ end }}
+              {{ if .totalCount }}<span class="bangumi-count">{{ .totalCount }}</span>{{ end }}
+            </div>
+            {{ if .des }}
+            <p class="bangumi-description">{{ .des }}</p>
+            {{ end }}
+            {{ if .progress }}
+            <div class="bangumi-progress">
+              <span>观看进度：{{ .progress }}</span>
+              {{ $parts := split .progress "/" }}
+              {{ if eq (len $parts) 2 }}
+              {{ $current := index $parts 0 }}
+              {{ $total := index $parts 1 }}
+              <div class="progress-bar" data-current="{{ $current }}" data-total="{{ $total }}">
+                <div class="progress-fill"></div>
+              </div>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      {{ else }}
+      <div class="bangumi-empty">暂无在看的番剧</div>
+      {{ end }}
+    </div>
+
+    <!-- 看过列表 -->
+    <div class="bangumi-tab-content" id="watched">
+      {{ if $data.bangumi.watched }}
+      <div class="bangumi-grid">
+        {{ range $data.bangumi.watched }}
+        <div class="bangumi-card" onclick="window.open('{{ .link }}', '_blank')">
+          <div class="bangumi-cover">
+            <img src="{{ .cover }}" alt="{{ .title }}" loading="lazy" onerror="this.src='/img/404.jpg'">
+            {{ if .score }}<div class="bangumi-score">{{ .score }}</div>{{ end }}
+          </div>
+          <div class="bangumi-info">
+            <h3 class="bangumi-title-text">{{ .title }}</h3>
+            <div class="bangumi-meta">
+              {{ if .type }}<span class="bangumi-type">{{ .type }}</span>{{ end }}
+              {{ if .area }}<span class="bangumi-area">{{ .area }}</span>{{ end }}
+              {{ if .totalCount }}<span class="bangumi-count">{{ .totalCount }}</span>{{ end }}
+            </div>
+            {{ if .des }}
+            <p class="bangumi-description">{{ .des }}</p>
+            {{ end }}
+            {{ if .progress }}
+            <div class="bangumi-progress">
+              <span>观看进度：{{ .progress }}</span>
+              {{ $parts := split .progress "/" }}
+              {{ if eq (len $parts) 2 }}
+              {{ $current := index $parts 0 }}
+              {{ $total := index $parts 1 }}
+              <div class="progress-bar" data-current="{{ $current }}" data-total="{{ $total }}">
+                <div class="progress-fill"></div>
+              </div>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      {{ else }}
+      <div class="bangumi-empty">暂无看过的番剧</div>
+      {{ end }}
+    </div>
+    {{ else }}
+    <div class="bangumi-empty">暂无追番数据，请在 data/bangumi-planet.yaml 文件中添加数据。</div>
+    {{ end }}
+
+    <!-- 页面内容 -->
+    {{ with .Content }}
+    <div class="bangumi-content">
+      <div class="post-content">
+        {{ . }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <!-- 评论区 -->
+  {{ partial "comment.html" . }}
+</div>
+
+<script>
+// 选项卡切换和进度条计算 - 可重复调用以支持PJAX
+function initBangumiPage() {
+  // 使用事件委托处理选项卡切换，避免重复绑定
+  const bangumiContainer = document.querySelector('.bangumi-planet-page');
+  if (!bangumiContainer) return;
+  
+  // 移除旧的事件监听器（如果存在）
+  if (bangumiContainer._bangumiTabHandler) {
+    bangumiContainer.removeEventListener('click', bangumiContainer._bangumiTabHandler);
+  }
+  
+  // 创建新的事件处理函数
+  bangumiContainer._bangumiTabHandler = function(e) {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    
+    const targetTab = btn.getAttribute('data-tab');
+    if (!targetTab) return;
+    
+    // 移除所有活动状态
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.bangumi-tab-content').forEach(c => c.classList.remove('active'));
+    
+    // 激活当前选项卡
+    btn.classList.add('active');
+    const targetContent = document.getElementById(targetTab);
+    if (targetContent) {
+      targetContent.classList.add('active');
+    }
+  };
+  
+  // 绑定事件监听器
+  bangumiContainer.addEventListener('click', bangumiContainer._bangumiTabHandler);
+  
+  // 计算进度条宽度
+  const progressBars = document.querySelectorAll('.progress-bar[data-current][data-total]');
+  progressBars.forEach(bar => {
+    const current = parseInt(bar.getAttribute('data-current'));
+    const total = parseInt(bar.getAttribute('data-total'));
+    if (total > 0) {
+      const percent = Math.min(100, Math.round((current / total) * 100));
+      const fill = bar.querySelector('.progress-fill');
+      if (fill) {
+        fill.style.width = percent + '%';
+      }
+    }
+  });
+}
+
+// 页面加载时初始化
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initBangumiPage);
+} else {
+  initBangumiPage();
+}
+
+// PJAX切换后重新初始化
+document.addEventListener('pjax:complete', initBangumiPage);
+</script>
+{{ end }}

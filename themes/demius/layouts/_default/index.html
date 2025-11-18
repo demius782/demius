@@ -1,0 +1,47 @@
+{{ define "content" }}
+  {{ if .Site.Params.homeBigImage.enable }}
+    {{ if eq .Site.Params.homeBigImage.mode "mode1" }}
+      <!-- 模式一：中间栏大图点击切换效果 -->
+      <div class="home-big-image-mode1-container">
+        <!-- 大图区域（初始显示） -->
+        <section class="home-big-image-mode1 active" id="homeBigImageMode1">
+          <div class="home-big-image-content">
+            <h1 class="home-big-image-title">{{ .Site.Params.homeBigImage.title | default .Site.Title }}</h1>
+            <p class="home-big-image-subtitle">{{ .Site.Params.homeBigImage.subtitle | default .Site.Params.description }}</p>
+          </div>
+        </section>
+        
+        <!-- 内容区域（初始隐藏） -->
+        <section class="home-content-mode1" id="homeContentMode1">
+          {{ $engine := .Site.Params.homeColumns | default 1 }}
+          {{ if or (lt $engine 1) (gt $engine 3) }}{{ $engine = 1 }}{{ end }}
+          {{ partial (printf "main/engine-%d.html" $engine) . }}
+        </section>
+      </div>
+    {{ else if eq .Site.Params.homeBigImage.mode "mode2" }}
+      <!-- 模式二：Butterfly风格全屏大图 -->
+      <section class="home-big-image-mode2" id="homeBigImageMode2">
+        <div class="home-big-image-overlay"></div>
+        <div class="home-big-image-content">
+          <h1 class="home-big-image-title">{{ .Site.Params.homeBigImage.title | default .Site.Title }}</h1>
+          <p class="home-big-image-subtitle">{{ .Site.Params.homeBigImage.subtitle | default .Site.Params.description }}</p>
+        </div>
+        <div class="home-big-image-scroll-arrow">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </section>
+      
+      <!-- 正常显示的三栏布局内容 -->
+      <div class="home-content-mode2" id="homeContentMode2">
+        {{ $engine := .Site.Params.homeColumns | default 1 }}
+        {{ if or (lt $engine 1) (gt $engine 3) }}{{ $engine = 1 }}{{ end }}
+        {{ partial (printf "main/engine-%d.html" $engine) . }}
+      </div>
+    {{ end }}
+  {{ else }}
+    <!-- 默认模式：正常显示文章列表 -->
+    {{ $engine := .Site.Params.homeColumns | default 1 }}
+    {{ if or (lt $engine 1) (gt $engine 3) }}{{ $engine = 1 }}{{ end }}
+    {{ partial (printf "main/engine-%d.html" $engine) . }}
+  {{ end }}
+{{ end }}

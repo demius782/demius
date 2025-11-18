@@ -1,0 +1,35 @@
+<!-- 主插座：引擎内容直接往里怼 万能骨架-->
+<div class="site-wrap">
+    <!-- 左插座：配置文件有 left 数组才渲染 -->
+    {{ if .Site.Params.aside.left }}
+      <aside class="site-aside-left">
+        {{ $currentPage := . }}
+        {{ range .Site.Params.aside.left }}
+          {{ if or (eq . "toc") (eq . "related-Posts") }}
+            {{ partial (printf "aside/widgets/%s.html" .) $currentPage }}
+          {{ else }}
+            {{ partialCached (printf "aside/widgets/%s.html" .) $ }}
+          {{ end }}
+        {{ end }}
+      </aside>
+    {{ end }}
+  
+    <!-- 主插座：引擎内容直接往里怼 -->
+    <main class="site-main">
+      {{ block "content" . }}{{ end }}
+    </main>
+  
+    <!-- 右插座：同理 -->
+    {{ if .Site.Params.aside.right }}
+      <aside class="site-aside-right">
+        {{ $currentPage := . }}
+        {{ range .Site.Params.aside.right }}
+          {{ if or (eq . "toc") (eq . "related-Posts") }}
+            {{ partial (printf "aside/widgets/%s.html" .) $currentPage }}
+          {{ else }}
+            {{ partialCached (printf "aside/widgets/%s.html" .) $ }}
+          {{ end }}
+        {{ end }}
+      </aside>
+    {{ end }}
+  </div>

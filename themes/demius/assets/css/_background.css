@@ -1,0 +1,186 @@
+/* 背景图样式 */
+:root {
+  --home-cover-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+  --site-background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c');
+  --background-blur: 0px;
+  --background-brightness: 100%;
+  --background-opacity: 0.8;
+}
+
+/* 主页大图样式 */
+.home-cover {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), var(--home-cover-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.home-cover-content {
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.home-cover-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.home-cover-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  opacity: 0.9;
+}
+
+.home-cover-scroll {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+
+.home-cover-scroll i {
+  font-size: 2rem;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+/* 整站背景样式 */
+.site-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--site-background-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: -1;
+  filter: blur(var(--background-blur)) brightness(var(--background-brightness));
+  opacity: var(--background-opacity);
+}
+
+/* 内容区域背景 */
+.site-wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* 背景效果模式 */
+.site-wrap.effect-transparent {
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.site-wrap.effect-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.site-wrap.effect-translucent {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+.site-wrap.effect-solid {
+  background: var(--solid-color, rgba(255, 255, 255, 0.95));
+  backdrop-filter: none;
+}
+
+/* 暗色模式下的背景效果 */
+[data-theme="dark"] .site-wrap.effect-glass {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .site-wrap.effect-translucent {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .site-wrap.effect-solid {
+  background: rgba(0, 0, 0, 0.95);
+}
+
+
+
+/* 背景图配置类 */
+.background-enabled .site-background {
+  display: block;
+}
+
+.background-disabled .site-background {
+  display: none;
+}
+
+.home-cover-enabled .home-cover {
+  display: flex;
+}
+
+.home-cover-disabled .home-cover {
+  display: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .home-cover {
+    height: 50vh;
+    min-height: 300px;
+  }
+  
+  .home-cover-title {
+    font-size: 2.5rem;
+  }
+  
+  .home-cover-subtitle {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-cover {
+    height: 40vh;
+    min-height: 250px;
+  }
+  
+  .home-cover-title {
+    font-size: 2rem;
+  }
+  
+  .home-cover-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* 背景图切换动画 */
+.site-background {
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+.home-cover {
+  transition: opacity 0.5s ease;
+}

@@ -1,0 +1,6 @@
+{{ if and site.Params.comment.enable (eq site.Params.comment.system "artalk") }}
+  <!-- 评论容器（Artalk资源已在head中加载，初始化由PJAX统一管理） -->
+  <div id="artalk-comment" style="margin:2rem 0; border: 1px dashed var(--border-color, #ccc); padding: 20px; min-height: 200px;">
+    <p style="text-align: center; color: var(--text-muted, #666); margin: 0;">评论加载中...</p>
+  </div>
+{{ end }}

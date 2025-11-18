@@ -1,0 +1,71 @@
+{{ define "content" }}
+{{ $colorMode := site.Params.links.cardColorMode | default "transparent" }}
+{{ $customColor := site.Params.links.cardCustomColor | default "#f5f5f5" }}
+<div class="links-page" data-card-color-mode="{{ $colorMode }}">
+  <header class="links-header">
+    <h1 class="links-title">{{ .Title }}</h1>
+  </header>
+
+  <div class="links-container">
+    <!-- 友链分组区域 -->
+    <div class="links-groups">
+      {{ if .Site.Data.links }}
+        {{ $linksData := .Site.Data.links }}
+        {{ range $linksData.groups }}
+        <div class="links-group">
+          <h2 class="group-title">{{ .name }}</h2>
+          <div class="links-grid">
+            {{ range $index, $link := .links }}
+              {{ $colorIndex := add (mod $index 8) 1 }}
+              {{ if eq $colorMode "custom" }}
+              <div class="link-card custom-color" style="background-color: {{ $customColor }};" onclick="window.open('{{ $link.url }}', '_blank')" data-link-url="{{ $link.url }}">
+              {{ else if eq $colorMode "random" }}
+              <div class="link-card color-{{ $colorIndex }}" onclick="window.open('{{ $link.url }}', '_blank')" data-link-url="{{ $link.url }}">
+              {{ else }}
+              <div class="link-card" onclick="window.open('{{ $link.url }}', '_blank')" data-link-url="{{ $link.url }}">
+              {{ end }}
+                <div class="link-avatar">
+                  <img src="{{ $link.avatar }}" alt="{{ $link.name }}" onerror="this.src='/img/404.jpg'">
+                </div>
+                <div class="link-info">
+                  <h3 class="link-name">{{ $link.name }}</h3>
+                  <p class="link-description">{{ $link.description }}</p>
+                </div>
+                {{ if $link.tags }}
+                <div class="link-tags">
+                  {{ range first 3 $link.tags }}
+                  <span class="link-tag">{{ . }}</span>
+                  {{ end }}
+                </div>
+                {{ end }}
+                <!-- 通讯状态徽章（左下角） -->
+                <div class="link-status-badge" data-status="checking">
+                  <span class="status-icon"></span>
+                  <span class="status-text">检测中</span>
+                </div>
+              </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      {{ else }}
+        <div class="no-links-message">
+          <p>暂无友链数据，请在 data/links.yaml 文件中添加友链信息。</p>
+        </div>
+      {{ end }}
+    </div>
+
+    <!-- 友链说明内容（移动到友链列表下方） -->
+    {{ with .Content }}
+    <div class="links-description">
+      <div class="post-content">
+        {{ . }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <!-- 评论区 -->
+  {{ partial "comment.html" . }}
+</div>
+{{ end }}

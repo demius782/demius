@@ -1,0 +1,45 @@
+<footer class="site-footer">
+    <div class="footer-line">
+      <span>
+        © 
+        {{/* 使用建站日期作为起始年份 */}}
+        {{ $currentYear := now.Year }}
+        {{ $startYear := $currentYear }}
+        
+        {{/* 如果配置了建站日期，则使用建站年份 */}}
+        {{ if .Site.Params.footer.runningTime.startDate }}
+          {{ $startDate := time .Site.Params.footer.runningTime.startDate }}
+          {{ $startYear = $startDate.Year }}
+        {{ end }}
+        
+        {{/* 显示年份范围 */}}
+        {{ if eq $startYear $currentYear }}
+          {{ $currentYear }}
+        {{ else }}
+          {{ $startYear }}-{{ $currentYear }}
+        {{ end }}
+        
+        {{ .Site.Title }}
+      </span>
+    </div>
+    
+    {{/* 运行时间显示 */}}
+    {{ if .Site.Params.footer.runningTime.enable }}
+    <div class="footer-running-time" data-start-date="{{ .Site.Params.footer.runningTime.startDate }}">
+      <span class="running-time-prefix">{{ .Site.Params.footer.runningTime.prefix | default "本站已运行" }}</span>
+      <span class="running-time-value">加载中...</span>
+    </div>
+    {{ end }}
+  
+    {{ if .Site.Params.footer.beian }}
+    <div class="footer-line">
+      <a href="https://beian.miit.gov.cn" target="_blank" rel="noopener">{{ .Site.Params.footer.beian }}</a>
+    </div>
+    {{ end }}
+  
+    {{ if .Site.Params.footer.custom }}
+    <div class="footer-custom">
+      {{ .Site.Params.footer.custom | safeHTML }}
+    </div>
+    {{ end }}
+  </footer>

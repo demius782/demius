@@ -1,0 +1,56 @@
+.site-wrap {
+    display: grid;
+    grid-template-columns: var(--aside-width) 1fr var(--aside-width);
+    gap: var(--gap);
+    max-width: calc(var(--main-width) + var(--aside-width)*2 + var(--gap)*2);
+    margin: 2rem auto; padding: 0 var(--gap);
+  }
+  .site-aside-left,
+  .site-aside-right { position: sticky; top: 2rem; height: fit-content; }
+  .site-main { min-width: 0; }
+
+/* 侧栏隐藏状态 */
+/* 完全从布局流中移除侧栏，确保不影响中间栏和右侧栏的位置 */
+body.sidebar-hidden .site-aside-left,
+body.sidebar-hidden .site-aside-right {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+body.sidebar-hidden .site-wrap {
+  grid-template-columns: 1fr !important;
+  max-width: var(--main-width) !important;
+}
+
+/* 确保中间栏占据第一列，顺序正确 */
+/* 左侧栏被隐藏后，中间栏应该从左侧栏的位置顺位滑上来 */
+/* 添加过渡动画，让布局变化更平滑 */
+body.sidebar-hidden .site-wrap {
+  transition: grid-template-columns 0.3s ease, max-width 0.3s ease !important;
+}
+
+body.sidebar-hidden .site-main {
+  grid-column: 1 !important;
+  transition: grid-column 0.3s ease !important;
+}
+
+/* 响应式调整 - 在移动端不应用侧栏隐藏 */
+@media (max-width: 1023px) {
+  body.sidebar-hidden .site-aside-left,
+  body.sidebar-hidden .site-aside-right {
+    display: block;
+  }
+  
+  body.sidebar-hidden .site-wrap {
+    grid-template-columns: 1fr;
+  }
+}

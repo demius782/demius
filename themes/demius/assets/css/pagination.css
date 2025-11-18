@@ -1,0 +1,63 @@
+/* ===== 分页条：线条现代风 ===== */
+.pagination-wrapper {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+  .pagination li {
+    margin: 0;
+  }
+  .pagination a,
+  .pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.2rem;
+    height: 2.2rem;
+    padding: 0 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--fg) 20%, transparent);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  .pagination a {
+    color: var(--fg);
+    background: transparent;
+  }
+  .pagination a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+  .pagination .current {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+  .pagination .page-item:first-child a,
+  .pagination .page-item:last-child a {
+    min-width: auto;
+    padding: 0 0.75rem;
+  }
+  /* 移动端 */
+  @media (max-width: 768px) {
+    .pagination {
+      gap: 0.3rem;
+    }
+    .pagination a,
+    .pagination span {
+      min-width: 2rem;
+      height: 2rem;
+      font-size: 0.8rem;
+      padding: 0 0.4rem;
+    }
+  }

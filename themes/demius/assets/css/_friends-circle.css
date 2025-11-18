@@ -1,0 +1,679 @@
+/* ===================================================================
+   网友圈页面样式
+   =================================================================== */
+
+.friends-circle-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.friends-circle-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.friends-circle-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.friends-circle-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.friends-circle-content {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.friends-circle-content .post-content {
+  padding: 1rem 1.5rem 1.5rem;
+  line-height: 1.85;
+  font-size: 1.05rem;
+  max-width: 850px;
+  margin: 0 auto;
+  color: color-mix(in srgb, var(--fg) 90%, transparent);
+}
+
+/* 分组选项卡 */
+.friends-circle-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid color-mix(in srgb, var(--fg) 10%, transparent);
+  position: relative;
+}
+
+/* 当点击"全部"选项卡时，所有选项卡都有背景色（保持原有设置） */
+.friends-circle-groups.show-all-active .group-tab {
+  /* 保持原有的背景色设置（包括随机颜色和自定义颜色） */
+}
+
+/* 当点击分组选项卡时，只有激活的选项卡有背景色，其他选项卡背景色透明 */
+.friends-circle-groups:not(.show-all-active) .group-tab:not(.active) {
+  background: transparent !important;
+  border-color: var(--border-light);
+  color: var(--text-secondary) !important;
+}
+
+/* 覆盖随机颜色模式下的文字颜色（当非激活状态背景透明时） */
+.friends-circle-groups:not(.show-all-active) .group-tab:not(.active)[class*="tab-color-"] {
+  color: var(--text-secondary) !important;
+}
+
+/* 覆盖自定义颜色模式下的文字颜色（当非激活状态背景透明时） */
+.friends-circle-groups:not(.show-all-active) .group-tab:not(.active).tab-custom-color {
+  color: var(--text-secondary) !important;
+}
+
+/* 确保激活的选项卡始终有背景色 */
+.friends-circle-groups:not(.show-all-active) .group-tab.active {
+  /* 激活状态的背景色保持不变 */
+}
+
+.group-tab {
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.group-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, color-mix(in srgb, var(--accent-primary) 80%, transparent) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.group-tab span {
+  position: relative;
+  z-index: 1;
+}
+
+.group-tab:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 8%, transparent);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-primary) 20%, transparent);
+}
+
+.group-tab:hover::before {
+  opacity: 0.1;
+}
+
+/* 随机颜色模式下，hover时保持随机背景（仅在非激活状态） */
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-1:hover:not(.active) {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-2:hover:not(.active) {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-3:hover:not(.active) {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-4:hover:not(.active) {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-5:hover:not(.active) {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-6:hover:not(.active) {
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%) !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-7:hover:not(.active) {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%) !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-8:hover:not(.active) {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%) !important;
+}
+
+.group-tab.active {
+  color: #fff;
+  border-color: var(--accent-primary);
+  background: var(--accent-primary);
+  font-weight: 600;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--accent-primary) 35%, transparent);
+  border-width: 2px;
+}
+
+/* 随机颜色模式下，激活状态保持主题色（覆盖随机背景） */
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.active {
+  background: var(--accent-primary) !important;
+  color: #fff !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.group-tab.active::before {
+  opacity: 1;
+  background: var(--accent-primary);
+}
+
+.group-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: var(--accent-primary);
+  border-radius: 2px 2px 0 0;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 60%;
+    opacity: 1;
+  }
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .group-tab {
+  background: color-mix(in srgb, var(--bg-card) 80%, transparent);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .group-tab:hover {
+  background: color-mix(in srgb, var(--accent-primary) 15%, transparent);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-primary) 30%, transparent);
+}
+
+[data-theme="dark"] .group-tab.active {
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--accent-primary) 50%, transparent);
+}
+
+/* 文章卡片网格 */
+.friends-circle-articles {
+  margin-bottom: 2rem;
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* 文章卡片 */
+.article-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 1.2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+}
+
+.article-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  border-color: var(--accent-primary);
+}
+
+.article-card-avatar {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--border-light);
+  background: var(--bg-secondary);
+  transition: border-color 0.3s ease;
+}
+
+.article-card:hover .article-card-avatar {
+  border-color: var(--accent-primary);
+}
+
+.article-card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-card-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.article-card-site {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.article-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.article-card-date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* 加载状态 */
+.loading-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-secondary);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 1rem;
+  border: 3px solid var(--border-light);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 2px dashed var(--border-light);
+}
+
+/* 加载更多按钮 */
+.load-more-container {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.load-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.load-more-btn:hover {
+  background: var(--accent-primary);
+  color: #fff;
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.load-more-btn:active {
+  transform: translateY(0);
+}
+
+.load-more-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.load-more-btn:hover svg {
+  transform: translateY(2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .friends-circle-page {
+    padding: 1rem 0.5rem;
+  }
+
+  .friends-circle-title {
+    font-size: 1.75rem;
+  }
+
+  .friends-circle-groups {
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .friends-circle-groups {
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .group-tab {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  .group-tab.active::after {
+    bottom: -1rem;
+    height: 2px;
+  }
+
+  .carousel-container {
+    height: 160px;
+  }
+
+  .carousel-card {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .carousel-card-avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .carousel-card-title {
+    font-size: 1rem;
+    -webkit-line-clamp: 1;
+  }
+
+  .carousel-prev,
+  .carousel-next {
+    width: 2.5rem;
+    height: 2.5rem;
+    opacity: 0.7;
+  }
+
+  .carousel-prev {
+    left: 0.5rem;
+  }
+
+  .carousel-next {
+    right: 0.5rem;
+  }
+
+  .articles-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .article-card {
+    padding: 1rem;
+  }
+
+  .article-card-avatar {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-card-title {
+    font-size: 0.9rem;
+  }
+
+  .article-card-title {
+    font-size: 0.9rem;
+  }
+}
+
+/* ===================================================================
+   文章卡片背景色模式
+   =================================================================== */
+
+/* 随机彩色模式 - 8种渐变色 */
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-2 {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+  border-color: rgba(240, 147, 251, 0.3) !important;
+}
+
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-3 {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+  border-color: rgba(79, 172, 254, 0.3) !important;
+}
+
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-4 {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+  border-color: rgba(67, 233, 123, 0.3) !important;
+}
+
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-5 {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+  border-color: rgba(250, 112, 154, 0.3) !important;
+}
+
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-6 {
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%) !important;
+  border-color: rgba(48, 207, 208, 0.3) !important;
+}
+
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-7 {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%) !important;
+  border-color: rgba(168, 237, 234, 0.3) !important;
+}
+
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-8 {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%) !important;
+  border-color: rgba(255, 154, 158, 0.3) !important;
+}
+
+/* 随机彩色模式 - 文字颜色适配 */
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-1 .article-card-site,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-1 .article-card-title,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-1 .article-card-date,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-2 .article-card-site,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-2 .article-card-title,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-2 .article-card-date,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-3 .article-card-site,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-3 .article-card-title,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-3 .article-card-date,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-4 .article-card-site,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-4 .article-card-title,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-4 .article-card-date,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-5 .article-card-site,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-5 .article-card-title,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-5 .article-card-date,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-6 .article-card-site,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-6 .article-card-title,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-6 .article-card-date,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-7 .article-card-site,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-7 .article-card-title,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-7 .article-card-date,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-8 .article-card-site,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-8 .article-card-title,
+.friends-circle-page[data-card-color-mode="random"] .article-card.color-8 .article-card-date {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+.friends-circle-page[data-card-color-mode="random"] .article-card[class*="color-"] .article-card-date {
+  opacity: 0.9 !important;
+}
+
+/* 随机彩色模式 - 悬停效果增强 */
+.friends-circle-page[data-card-color-mode="random"] .article-card[class*="color-"]:hover {
+  transform: translateY(-5px) scale(1.03) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+.friends-circle-page[data-card-color-mode="random"] .article-card[class*="color-"]:hover .article-card-avatar {
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* 自定义颜色模式 - 文字颜色适配 */
+.friends-circle-page[data-card-color-mode="custom"] .article-card.custom-color .article-card-site,
+.friends-circle-page[data-card-color-mode="custom"] .article-card.custom-color .article-card-title,
+.friends-circle-page[data-card-color-mode="custom"] .article-card.custom-color .article-card-date {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 自定义颜色模式 - 悬停效果 */
+.friends-circle-page[data-card-color-mode="custom"] .article-card.custom-color:hover {
+  filter: brightness(1.05) !important;
+}
+
+/* 透明模式（默认） - 保持原有样式 */
+.friends-circle-page[data-card-color-mode="transparent"] .article-card {
+  background: var(--bg-card);
+}
+
+.friends-circle-page[data-card-color-mode="transparent"] .article-card:hover {
+  background: var(--bg-card);
+}
+
+/* ===================================================================
+   分组选项卡背景色模式
+   =================================================================== */
+
+/* 随机彩色模式 - 8种渐变色（非激活状态） */
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-1:not(.active) {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-color: rgba(102, 126, 234, 0.5) !important;
+  color: #ffffff !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-2:not(.active) {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+  border-color: rgba(240, 147, 251, 0.5) !important;
+  color: #ffffff !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-3:not(.active) {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+  border-color: rgba(79, 172, 254, 0.5) !important;
+  color: #ffffff !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-4:not(.active) {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+  border-color: rgba(67, 233, 123, 0.5) !important;
+  color: #ffffff !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-5:not(.active) {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
+  border-color: rgba(250, 112, 154, 0.5) !important;
+  color: #ffffff !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-6:not(.active) {
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%) !important;
+  border-color: rgba(48, 207, 208, 0.5) !important;
+  color: #ffffff !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-7:not(.active) {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%) !important;
+  border-color: rgba(168, 237, 234, 0.5) !important;
+  color: #333333 !important;
+}
+
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.tab-color-8:not(.active) {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%) !important;
+  border-color: rgba(255, 154, 158, 0.5) !important;
+  color: #333333 !important;
+}
+
+/* 随机彩色模式 - 激活状态（保持主题色，但增强视觉效果） */
+.friends-circle-page[data-tab-color-mode="random"] .group-tab.active {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* 随机彩色模式 - 悬停效果 */
+.friends-circle-page[data-tab-color-mode="random"] .group-tab[class*="tab-color-"]:hover:not(.active) {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+  filter: brightness(1.1) !important;
+}
+
+/* 自定义颜色模式 */
+.friends-circle-page[data-tab-color-mode="custom"] .group-tab.tab-custom-color:not(.active) {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.friends-circle-page[data-tab-color-mode="custom"] .group-tab.tab-custom-color:hover:not(.active) {
+  filter: brightness(1.1) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 自定义颜色模式下，激活状态保持主题色 */
+.friends-circle-page[data-tab-color-mode="custom"] .group-tab.tab-custom-color.active {
+  background: var(--accent-primary) !important;
+  color: #fff !important;
+  border-color: var(--accent-primary) !important;
+}
+
+/* 默认模式 - 保持原有样式（无需额外样式） */
+
+/* 暗色模式适配 */
+[data-theme="dark"] .friends-circle-page[data-card-color-mode="transparent"] .article-card {
+  background: var(--bg-card-dark);
+  border-color: var(--border-dark);
+}
+
+[data-theme="dark"] .friends-circle-page[data-card-color-mode="transparent"] .article-card:hover {
+  border-color: var(--accent-primary);
+}
+

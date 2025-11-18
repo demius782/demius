@@ -1,0 +1,252 @@
+/* ===== 文章详情页透明背景模式样式 ===== */
+
+/* 透明模式下，文章详情页容器使用透明毛玻璃效果 */
+.post-page-transparent {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 暗色模式下的透明效果 */
+[data-theme="dark"] .post-page-transparent {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 透明模式下的文章头部区域 */
+.post-page-transparent .post-header {
+  position: relative;
+  z-index: 1;
+}
+
+/* 透明模式下的文章元数据区域 */
+.post-page-transparent .post-meta {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .post-page-transparent .post-meta {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 透明模式下的封面图容器 */
+.post-page-transparent .post-cover {
+  position: relative;
+  z-index: 1;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* 透明模式下的文章内容区域 */
+.post-page-transparent .post-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* 透明模式下的标签区域 */
+.post-page-transparent .post-tags-simple {
+  position: relative;
+  z-index: 1;
+}
+
+.post-page-transparent .tags-divider-top,
+.post-page-transparent .tags-divider-bottom {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .post-page-transparent .tags-divider-top,
+[data-theme="dark"] .post-page-transparent .tags-divider-bottom {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 透明模式下的文章互动区域 */
+.post-page-transparent .post-actions-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* 透明模式下的版权信息区域 */
+.post-page-transparent .post-copyright {
+  position: relative;
+  z-index: 1;
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .post-page-transparent .post-copyright {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 透明模式下的导航区域 */
+.post-page-transparent .post-pager {
+  position: relative;
+  z-index: 1;
+}
+
+/* 透明模式下的评论区（保持原有样式，仅调整边框） */
+.post-page-transparent #artalk-comment {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] .post-page-transparent #artalk-comment {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 透明模式下的代码块容器 */
+.post-page-transparent .code-container {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .post-page-transparent .code-container {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 透明模式下的代码块头部 */
+.post-page-transparent .code-header {
+  background: rgba(0, 0, 0, 0.15);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .post-page-transparent .code-header {
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 透明模式下的引用块 */
+.post-page-transparent .post-content blockquote {
+  background: rgba(255, 255, 255, 0.05);
+  border-left-color: var(--accent);
+}
+
+[data-theme="dark"] .post-page-transparent .post-content blockquote {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* 透明模式下的行内代码 */
+.post-page-transparent .post-content :not(pre) > code {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .post-page-transparent .post-content :not(pre) > code {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 透明模式下的代码块 */
+.post-page-transparent .post-content pre {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .post-page-transparent .post-content pre {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* ===== 全透明模式样式（完全透明，无背景、无模糊、无边框） ===== */
+
+/* 全透明模式下，移除所有背景、模糊效果和边框 */
+.post-page-transparent-full {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 全透明模式下的评论区（保持轻微的透明背景以确保可读性） */
+.post-page-transparent-full #artalk-comment {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] .post-page-transparent-full #artalk-comment {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 全透明模式下的代码块容器（保持轻微背景以确保可读性） */
+.post-page-transparent-full .code-container {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .post-page-transparent-full .code-container {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 全透明模式下的代码块头部 */
+.post-page-transparent-full .code-header {
+  background: rgba(0, 0, 0, 0.15);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .post-page-transparent-full .code-header {
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 全透明模式下的引用块（保持轻微背景以确保可读性） */
+.post-page-transparent-full .post-content blockquote {
+  background: rgba(255, 255, 255, 0.05);
+  border-left-color: var(--accent);
+}
+
+[data-theme="dark"] .post-page-transparent-full .post-content blockquote {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* 全透明模式下的行内代码（保持轻微背景以确保可读性） */
+.post-page-transparent-full .post-content :not(pre) > code {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .post-page-transparent-full .post-content :not(pre) > code {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 全透明模式下的代码块（保持轻微背景以确保可读性） */
+.post-page-transparent-full .post-content pre {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .post-page-transparent-full .post-content pre {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* 全透明模式下的元数据区域边框（保持轻微边框以确保可读性） */
+.post-page-transparent-full .post-meta {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .post-page-transparent-full .post-meta {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 全透明模式下的标签区域边框（保持轻微边框以确保可读性） */
+.post-page-transparent-full .tags-divider-top,
+.post-page-transparent-full .tags-divider-bottom {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .post-page-transparent-full .tags-divider-top,
+[data-theme="dark"] .post-page-transparent-full .tags-divider-bottom {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 全透明模式下的版权信息区域边框（保持轻微边框以确保可读性） */
+.post-page-transparent-full .post-copyright {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .post-page-transparent-full .post-copyright {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}

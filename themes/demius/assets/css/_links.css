@@ -1,0 +1,632 @@
+/* ===================================================================
+   友链页面样式
+   =================================================================== */
+
+.links-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.links-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.links-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.links-description {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 2rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+}
+
+/* 友链页面内容区域使用与文章详情页一致的样式 */
+.links-description .post-content {
+  padding: 1rem 1.5rem 1.5rem;
+  line-height: 1.85;
+  font-size: 1.05rem;
+  max-width: 850px;
+  margin: 0 auto;
+  color: color-mix(in srgb, var(--fg) 90%, transparent);
+}
+
+.links-description .post-content p,
+.links-description .post-content ul,
+.links-description .post-content ol,
+.links-description .post-content dl,
+.links-description .post-content blockquote,
+.links-description .post-content pre,
+.links-description .post-content table {
+  margin: 1.2em 0;
+}
+
+.links-description .post-content p {
+  text-align: justify;
+}
+
+.links-description .post-content h1,
+.links-description .post-content h2,
+.links-description .post-content h3,
+.links-description .post-content h4,
+.links-description .post-content h5,
+.links-description .post-content h6 {
+  margin: 1.5em 0 0.8em;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.links-description .post-content h1 { font-size: 1.6rem; }
+.links-description .post-content h2 { font-size: 1.4rem; }
+.links-description .post-content h3 { font-size: 1.25rem; }
+
+.links-description .post-content ul,
+.links-description .post-content ol {
+  padding-left: 1.8em;
+}
+
+.links-description .post-content blockquote {
+  padding: 0.8em 1.2em;
+  margin: 1.5em 0;
+  border-left: 4px solid var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
+  border-radius: 4px;
+}
+
+.links-description .post-content :not(pre) > code {
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  color: var(--accent-primary);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Courier New', monospace;
+}
+
+.links-description .post-content pre {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 1.2em;
+  overflow-x: auto;
+  line-height: 1.6;
+  margin: 1.5em 0;
+}
+
+.links-description .post-content pre code {
+  background: transparent;
+  padding: 0;
+  color: var(--text-primary);
+  border-radius: 0;
+}
+
+.links-description .post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5em auto;
+  display: block;
+}
+
+.links-description .post-content a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.links-description .post-content a:hover {
+  border-bottom-color: var(--accent-primary);
+}
+
+.links-description .post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+}
+
+.links-description .post-content table th,
+.links-description .post-content table td {
+  padding: 0.8em;
+  border: 1px solid var(--border-light);
+  text-align: left;
+}
+
+.links-description .post-content table th {
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  font-weight: 600;
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .links-description {
+  border-top-color: var(--border-dark);
+}
+
+[data-theme="dark"] .links-description .post-content pre {
+  background: var(--bg-secondary-dark);
+  border-color: var(--border-dark);
+}
+
+[data-theme="dark"] .links-description .post-content table th,
+[data-theme="dark"] .links-description .post-content table td {
+  border-color: var(--border-dark);
+}
+
+.links-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.links-group {
+  background: var(--bg-card);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-light);
+}
+
+.group-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--accent-primary);
+  display: inline-block;
+}
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+  margin-top: 0.8rem;
+}
+
+.link-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 1.2rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.link-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border-color: var(--accent-primary);
+  background: var(--bg-card);
+}
+
+.link-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.link-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* 亮色划过效果 */
+.link-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.link-card:hover::after {
+  left: 100%;
+}
+
+.link-avatar {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--border-light);
+  transition: border-color 0.3s ease;
+}
+
+.link-card:hover .link-avatar {
+  border-color: var(--accent-primary);
+}
+
+.link-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.link-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.link-name {
+  margin: 0 0 0.4rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.link-name a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link-name a:hover {
+  color: var(--accent-primary);
+}
+
+.link-description {
+  margin: 0 0 0.6rem 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.link-tags {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  max-width: 60%;
+  justify-content: flex-end;
+}
+
+.link-tag {
+  color: white;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80px;
+}
+
+/* 友链通讯状态徽章（左下角） */
+.link-status-badge {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 10;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.link-status-badge .status-icon {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.link-status-badge .status-text {
+  font-size: 0.65rem;
+  white-space: nowrap;
+}
+
+/* 检测中状态 */
+.link-status-badge[data-status="checking"] {
+  background: rgba(59, 130, 246, 0.8);
+}
+
+.link-status-badge[data-status="checking"] .status-icon {
+  background: #3b82f6;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+}
+
+/* 正常状态 */
+.link-status-badge[data-status="normal"] {
+  background: rgba(34, 197, 94, 0.8);
+}
+
+.link-status-badge[data-status="normal"] .status-icon {
+  background: #22c55e;
+}
+
+.link-status-badge[data-status="normal"] .status-text {
+  display: none;  /* 正常状态只显示图标 */
+}
+
+/* 异常状态 */
+.link-status-badge[data-status="error"] {
+  background: rgba(239, 68, 68, 0.8);
+}
+
+.link-status-badge[data-status="error"] .status-icon {
+  background: #ef4444;
+}
+
+.link-status-badge[data-status="error"] .status-text {
+  display: inline;
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .link-status-badge {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .link-status-badge[data-status="checking"] {
+  background: rgba(59, 130, 246, 0.9);
+}
+
+[data-theme="dark"] .link-status-badge[data-status="normal"] {
+  background: rgba(34, 197, 94, 0.9);
+}
+
+[data-theme="dark"] .link-status-badge[data-status="error"] {
+  background: rgba(239, 68, 68, 0.9);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .links-page {
+    padding: 1rem 0.5rem;
+  }
+  
+  .links-title {
+    font-size: 2rem;
+  }
+  
+  .links-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .links-group {
+    padding: 1.5rem;
+  }
+  
+  .link-card {
+    padding: 1rem;
+  }
+  
+  .link-avatar {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .link-tags {
+    max-width: 50%;
+    gap: 0.2rem;
+  }
+  
+  .link-tag {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+    max-width: 70px;
+  }
+
+  /* 移动端状态徽章尺寸调整 */
+  .link-status-badge {
+    bottom: 0.5rem;
+    left: 0.5rem;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.65rem;
+  }
+
+  .link-status-badge .status-icon {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  .link-status-badge .status-text {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .link-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .link-avatar {
+    align-self: center;
+  }
+}
+
+/* 无数据提示样式 */
+.no-links-message {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 2px dashed var(--border-light);
+}
+
+.no-links-message p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ===================================================================
+   友链卡片背景色模式
+   =================================================================== */
+
+/* 随机彩色模式 - 8种渐变色 */
+.links-page[data-card-color-mode="random"] .link-card.color-1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.links-page[data-card-color-mode="random"] .link-card.color-2 {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-color: rgba(240, 147, 251, 0.3);
+}
+
+.links-page[data-card-color-mode="random"] .link-card.color-3 {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border-color: rgba(79, 172, 254, 0.3);
+}
+
+.links-page[data-card-color-mode="random"] .link-card.color-4 {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  border-color: rgba(67, 233, 123, 0.3);
+}
+
+.links-page[data-card-color-mode="random"] .link-card.color-5 {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  border-color: rgba(250, 112, 154, 0.3);
+}
+
+.links-page[data-card-color-mode="random"] .link-card.color-6 {
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+  border-color: rgba(48, 207, 208, 0.3);
+}
+
+.links-page[data-card-color-mode="random"] .link-card.color-7 {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  border-color: rgba(168, 237, 234, 0.3);
+}
+
+.links-page[data-card-color-mode="random"] .link-card.color-8 {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  border-color: rgba(255, 154, 158, 0.3);
+}
+
+/* 随机彩色模式 - 文字颜色适配 */
+.links-page[data-card-color-mode="random"] .link-card .link-name,
+.links-page[data-card-color-mode="random"] .link-card .link-description {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.links-page[data-card-color-mode="random"] .link-card .link-description {
+  opacity: 0.95;
+}
+
+/* 随机彩色模式 - 悬停效果增强 */
+.links-page[data-card-color-mode="random"] .link-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.links-page[data-card-color-mode="random"] .link-card:hover .link-avatar {
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* 自定义颜色模式 - 文字颜色适配 */
+.links-page[data-card-color-mode="custom"] .link-card.custom-color .link-name {
+  color: var(--text-primary);
+}
+
+.links-page[data-card-color-mode="custom"] .link-card.custom-color .link-description {
+  color: var(--text-secondary);
+}
+
+/* 自定义颜色模式 - 悬停效果 */
+.links-page[data-card-color-mode="custom"] .link-card.custom-color:hover {
+  filter: brightness(1.05);
+}
+
+/* 透明模式（默认） - 保持原有样式 */
+.links-page[data-card-color-mode="transparent"] .link-card {
+  background: var(--bg-primary);
+}
+
+.links-page[data-card-color-mode="transparent"] .link-card:hover {
+  background: var(--bg-card);
+}
+
+/* ===================================================================
+   暗色模式适配
+   =================================================================== */
+
+[data-theme="dark"] .links-group {
+  background: var(--bg-card-dark);
+  border-color: var(--border-dark);
+}
+
+/* 透明模式暗色适配 */
+[data-theme="dark"] .links-page[data-card-color-mode="transparent"] .link-card {
+  background: var(--bg-secondary-dark);
+  border-color: var(--border-dark);
+}
+
+[data-theme="dark"] .links-page[data-card-color-mode="transparent"] .link-card:hover {
+  border-color: var(--accent-primary);
+}
+
+/* 自定义颜色模式暗色适配 */
+[data-theme="dark"] .links-page[data-card-color-mode="custom"] .link-card.custom-color .link-name {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .links-page[data-card-color-mode="custom"] .link-card.custom-color .link-description {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .no-links-message {
+  background: var(--bg-card-dark);
+  border-color: var(--border-dark);
+  color: var(--text-secondary-dark);
+}

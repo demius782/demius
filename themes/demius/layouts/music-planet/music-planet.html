@@ -1,0 +1,38 @@
+{{ define "content" }}
+<article class="music-planet-page">
+  <header class="planet-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="desc">{{ . }}</p>{{ end }}
+  </header>
+
+  <div class="planet-content">
+    {{/* 渲染 data/music-planet.yaml */}}
+    {{ $data := index site.Data "music-planet" }}
+    {{ if and $data $data.sections }}
+    <div class="planet-grid">
+      {{ range $sec := $data.sections }}
+      <section class="planet-card">
+        <div class="planet-badge" data-color="{{ $sec.badge }}"></div>
+        {{ if $sec.title }}<h3>{{ $sec.title }}</h3>{{ end }}
+        {{ range $item := $sec.items }}
+          {{ if eq $item.server "local" }}
+            <audio controls preload="none" src="{{ $item.url }}">
+              您的浏览器不支持 audio 标签。
+            </audio>
+          {{ else }}
+            <meting-js server="{{ $item.server }}" type="{{ $item.type }}" id="{{ $item.id }}"></meting-js>
+          {{ end }}
+        {{ end }}
+      </section>
+      {{ end }}
+    </div>
+    {{ else }}
+      {{ .Content }}
+    {{ end }}
+  </div>
+
+  
+</article>
+{{ end }}
+
+

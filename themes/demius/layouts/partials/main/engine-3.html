@@ -1,0 +1,42 @@
+<!--瀑布流布局 + 无限滚动-->
+{{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{ $pinnedPages := where $pages "Params.pinned" true }}
+{{ $normalPages := where $pages "Params.pinned" "!=" true }}
+{{ $sortedPages := union $pinnedPages $normalPages }}
+
+<section class="home-posts{{ if .Site.Params.postCardTransparentMode }} home-posts-transparent{{ if eq .Site.Params.postCardTransparentType "full" }} home-posts-transparent-full{{ end }}{{ end }}" data-columns="3">
+  <div id="masonry-container" class="masonry-grid">
+    <div class="masonry-column" data-column="1">
+      {{ range $index, $page := $sortedPages }}
+        {{ $modResult := mod $index 3 }}
+        {{ if eq $modResult 0 }}
+          <div class="masonry-item">
+            {{ partial "post-card.html" $page }}
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+    <div class="masonry-column" data-column="2">
+      {{ range $index, $page := $sortedPages }}
+        {{ $modResult := mod $index 3 }}
+        {{ if eq $modResult 1 }}
+          <div class="masonry-item">
+            {{ partial "post-card.html" $page }}
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+    <div class="masonry-column" data-column="3">
+      {{ range $index, $page := $sortedPages }}
+        {{ $modResult := mod $index 3 }}
+        {{ if eq $modResult 2 }}
+          <div class="masonry-item">
+            {{ partial "post-card.html" $page }}
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+  
+  <!-- 瀑布流布局不需要加载更多按钮，因为已经显示所有文章 -->
+</section>

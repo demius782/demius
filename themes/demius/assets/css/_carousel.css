@@ -1,0 +1,484 @@
+/* 轮播图样式 */
+
+/* 轮播图容器 - 预设高度避免加载闪烁 */
+.carousel-container {
+  width: 100%;
+  height: 200px;  /* 默认高度，与配置文件默认值一致 */
+  margin: 0 0 1.5rem 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), height 0.8s ease, margin 0.8s ease;
+}
+
+/* 轮播图包装器 */
+.carousel-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;  /* 关键：隐藏所有溢出内容 */
+}
+
+/* 轮播轨道 - 水平方向 */
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  will-change: transform;
+}
+
+/* 垂直方向轮播轨道 */
+.carousel-container[data-direction="vertical"] .carousel-track {
+  flex-direction: column;
+  width: 100%;
+  height: 100%;  /* 保持100%高度，不使用auto */
+}
+
+/* 轮播项 - 确保每项独立占据100%空间 */
+.carousel-item {
+  flex: 0 0 100%;  /* 不伸缩，固定100%宽度 */
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* 垂直方向轮播项 */
+.carousel-container[data-direction="vertical"] .carousel-item {
+  flex: 0 0 100%;  /* 垂直方向固定100%高度 */
+  min-height: 100%;
+  max-height: 100%;
+  height: 100%;
+  width: 100%;
+}
+
+/* 轮播链接 */
+.carousel-link {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  padding: 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-link:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] .carousel-link:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 轮播图片 */
+.carousel-image {
+  flex-shrink: 0;
+  width: 280px;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.carousel-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.carousel-link:hover .carousel-image img {
+  transform: scale(1.05);
+}
+
+/* 全宽图片（纯图片轮播） */
+.carousel-image-full {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.carousel-item-image .carousel-link {
+  padding: 0;
+  position: relative;
+}
+
+/* 轮播内容 */
+.carousel-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+/* 覆盖层内容（纯图片时） */
+.carousel-content-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  padding: 2rem;
+  color: white;
+}
+
+/* 轮播标题 */
+.carousel-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.carousel-content-overlay .carousel-title {
+  color: white;
+}
+
+/* 轮播摘要 */
+.carousel-excerpt {
+  font-size: 0.95rem;
+  color: var(--fg-secondary);
+  margin: 0;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.carousel-content-overlay .carousel-excerpt {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 轮播元数据 */
+.carousel-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--fg-secondary);
+  opacity: 0.8;
+}
+
+.carousel-date {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.carousel-date svg {
+  opacity: 0.7;
+}
+
+/* 导航按钮 */
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  opacity: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-container:hover .carousel-nav {
+  opacity: 1;
+}
+
+.carousel-nav:hover {
+  background: white;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-nav:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-nav-prev {
+  left: 1rem;
+}
+
+.carousel-nav-next {
+  right: 1rem;
+}
+
+[data-theme="dark"] .carousel-nav {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+[data-theme="dark"] .carousel-nav:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* 垂直方向导航按钮 - 右侧固定位置，绝对不重叠 */
+.carousel-container[data-direction="vertical"] .carousel-nav {
+  left: auto !important;
+  right: 0.5rem !important;
+}
+
+.carousel-container[data-direction="vertical"] .carousel-nav-prev {
+  top: 1rem !important;
+  bottom: auto !important;
+  transform: rotate(90deg) !important;
+}
+
+.carousel-container[data-direction="vertical"] .carousel-nav-next {
+  top: auto !important;
+  bottom: 1rem !important;
+  transform: rotate(90deg) !important;
+}
+
+.carousel-container[data-direction="vertical"]:hover .carousel-nav-prev {
+  transform: rotate(90deg) !important;
+}
+
+.carousel-container[data-direction="vertical"]:hover .carousel-nav-next {
+  transform: rotate(90deg) !important;
+}
+
+.carousel-container[data-direction="vertical"] .carousel-nav:hover {
+  transform: rotate(90deg) scale(1.1) !important;
+}
+
+/* 指示器 - 水平模式底部居中 */
+.carousel-indicators {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+/* 垂直方向指示器 - 右侧中间，限制高度避免重叠 */
+.carousel-container[data-direction="vertical"] .carousel-indicators {
+  left: auto !important;
+  right: 0.5rem !important;
+  top: 50% !important;
+  bottom: auto !important;
+  transform: translateY(-50%) !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+  max-height: calc(100% - 8rem) !important;  /* 限制高度，为箭头留空间 */
+  overflow-y: auto !important;
+  scrollbar-width: thin !important;
+}
+
+.carousel-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.carousel-indicator:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
+.carousel-indicator.active {
+  background: white;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* 垂直方向指示器激活状态 */
+.carousel-container[data-direction="vertical"] .carousel-indicator.active {
+  width: 8px;
+  height: 24px;
+}
+
+[data-theme="dark"] .carousel-indicator {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .carousel-indicator:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="dark"] .carousel-indicator.active {
+  background: white;
+}
+
+/* 平板适配 (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .carousel-link {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+  
+  .carousel-image {
+    width: 220px;
+  }
+  
+  .carousel-title {
+    font-size: 1.3rem;
+  }
+  
+  .carousel-excerpt {
+    font-size: 0.9rem;
+  }
+  
+  .carousel-nav {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+/* 手机适配 (< 768px) */
+@media (max-width: 767px) {
+  .carousel-container {
+    margin: 1rem 0;
+    border-radius: 8px;
+  }
+  
+  .carousel-link {
+    flex-direction: column;
+    padding: 0;
+    gap: 0;
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: 150px;
+    border-radius: 0;
+  }
+  
+  .carousel-content {
+    padding: 1rem;
+  }
+  
+  .carousel-title {
+    font-size: 1.1rem;
+    -webkit-line-clamp: 1;
+  }
+  
+  .carousel-excerpt {
+    font-size: 0.85rem;
+    display: none;  /* 手机端隐藏摘要 */
+  }
+  
+  .carousel-meta {
+    font-size: 0.8rem;
+  }
+  
+  .carousel-nav {
+    width: 2rem;
+    height: 2rem;
+    opacity: 0.7;  /* 手机端始终显示 */
+  }
+  
+  .carousel-nav-prev {
+    left: 0.5rem;
+  }
+  
+  .carousel-nav-next {
+    right: 0.5rem;
+  }
+  
+  .carousel-indicators {
+    bottom: 0.75rem;
+    gap: 0.4rem;
+  }
+  
+  .carousel-indicator {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .carousel-indicator.active {
+    width: 18px;
+  }
+  
+  /* 纯图片轮播的内容覆盖层 */
+  .carousel-content-overlay {
+    padding: 1rem;
+  }
+  
+  .carousel-content-overlay .carousel-title {
+    font-size: 1rem;
+  }
+  
+  .carousel-content-overlay .carousel-excerpt {
+    display: -webkit-box;
+    font-size: 0.85rem;
+  }
+}
+
+/* 动画性能优化 */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track,
+  .carousel-nav,
+  .carousel-indicator,
+  .carousel-image img {
+    transition: none;
+  }
+}
+
+/* 加载状态 */
+.carousel-container.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Mode2 大图显示时隐藏轮播图 - 使用opacity和transform实现平滑过渡 */
+.carousel-container {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mode2大图激活时，轮播图初始状态：透明、高度0、无边距 */
+body:has(.home-big-image-mode2:not(.scrolled)) .carousel-container,
+body.home-big-image-active .carousel-container {
+  opacity: 0 !important;
+  transform: translateY(-20px) !important;
+  height: 0 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  pointer-events: none !important;
+}
+
+/* 大图上划后，轮播图平滑显示：渐显、高度恢复、位置归位 */
+body:has(.home-big-image-mode2.scrolled) .carousel-container {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  height: 200px !important;
+  margin: 0 0 1.5rem 0 !important;
+  pointer-events: auto !important;
+}
+

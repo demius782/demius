@@ -1,0 +1,72 @@
+{{ if .Site.Params.aside.showAnnouncement | default true }}
+{{ $announcementConfig := .Site.Params.aside.announcement }}
+{{ $enableBg := $announcementConfig.enableBackground | default false }}
+{{ $bgImage := $announcementConfig.backgroundImage }}
+{{ $bgColor := $announcementConfig.backgroundColor }}
+{{ $bgSize := $announcementConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $announcementConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $announcementConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $announcementConfig.textColor }}
+{{ $textShadow := $announcementConfig.textShadow | default false }}
+{{ $overlayColor := $announcementConfig.overlayColor }}
+{{ $borderRadius := $announcementConfig.borderRadius }}
+
+<section class="aside-card announcement-card{{ if $enableBg }} announcement-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="announcement-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="announcement-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title">
+      <i class="fas fa-bullhorn"></i> 站点公告
+    </h3>
+    <div class="announcement-content">
+      {{ with .Site.Params.announcement }}
+        {{ if .enable }}
+          <div class="announcement-item {{ if .important }}announcement-important{{ end }}">
+            <div class="announcement-title">{{ .title }}</div>
+            <div class="announcement-desc">{{ .content | safeHTML }}</div>
+            {{ with .link }}
+              <a href="{{ .url }}" class="announcement-link">{{ .text }}</a>
+            {{ end }}
+            <div class="announcement-date">{{ .date }}</div>
+          </div>
+        {{ else }}
+          <div class="announcement-default">
+            <i class="fas fa-info-circle"></i>
+            <p>本站运行正常，感谢访问！</p>
+          </div>
+        {{ end }}
+      {{ else }}
+        <div class="announcement-default">
+          <i class="fas fa-info-circle"></i>
+          <p>欢迎访问本站！</p>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

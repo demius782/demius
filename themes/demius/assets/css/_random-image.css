@@ -1,0 +1,145 @@
+/* 侧栏随机图片组件样式 */
+.random-image-card {
+  margin-bottom: 1rem;
+}
+
+.random-image-card-with-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.random-image-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.random-image-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.random-image-content {
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.random-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.random-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+  transition: opacity 0.3s ease;
+}
+
+.random-image-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+  z-index: 1;
+}
+
+.random-image-loading i {
+  font-size: 1.5rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.random-image-error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+  z-index: 1;
+}
+
+.random-image-error i {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+.random-image-refresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.random-image-refresh:hover {
+  background: var(--accent-hover, var(--accent));
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.random-image-refresh:active {
+  transform: translateY(0);
+}
+
+.random-image-refresh i {
+  font-size: 0.9rem;
+}
+
+.random-image-refresh:active i {
+  animation: spin 0.5s linear;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .random-image-container {
+    min-height: 150px;
+  }
+  
+  .random-image-refresh {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+

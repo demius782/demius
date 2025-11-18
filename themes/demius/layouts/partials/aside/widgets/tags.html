@@ -1,0 +1,59 @@
+{{ if .Site.Params.aside.showTags | default true }}
+{{ $tagsConfig := .Site.Params.aside.tags }}
+{{ $enableBg := $tagsConfig.enableBackground | default false }}
+{{ $bgImage := $tagsConfig.backgroundImage }}
+{{ $bgColor := $tagsConfig.backgroundColor }}
+{{ $bgSize := $tagsConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $tagsConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $tagsConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $tagsConfig.textColor }}
+{{ $textShadow := $tagsConfig.textShadow | default false }}
+{{ $overlayColor := $tagsConfig.overlayColor }}
+{{ $borderRadius := $tagsConfig.borderRadius }}
+
+<section class="aside-card tags-card{{ if $enableBg }} tags-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="tags-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="tags-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title"><i class="fas fa-tags"></i> 标签</h3>
+    <div class="tag-cloud">
+      {{- $tagsCount := .Site.Params.aside.tagsCount | default 20 -}}
+      {{- $tags := .Site.Taxonomies.tags -}}
+      {{- $sortedTags := sort $tags "Count" "desc" -}}
+      {{- if and (gt $tagsCount 0) (gt (len $sortedTags) $tagsCount) -}}
+        {{- $sortedTags = first $tagsCount $sortedTags -}}
+      {{- end -}}
+      {{- range $sortedTags -}}
+      <a class="tag-link" href="{{ .Page.Permalink }}">
+        {{ .Page.Title }}<sup>{{ .Count }}</sup>
+      </a>
+      {{- end -}}
+    </div>
+  </div>
+</section>
+{{ end }}

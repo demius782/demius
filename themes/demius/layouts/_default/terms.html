@@ -1,0 +1,18 @@
+{{ define "content" }}
+<section class="terms-cloud">
+  <header class="terms-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="terms-desc">{{ . }}</div>{{ end }}
+  </header>
+  <div class="terms-list">
+    {{ range $index, $term := .Pages }}
+      {{ $count := len $term.Pages }}
+      <a href="{{ $term.RelPermalink }}" class="term-item color-{{ add (mod $index 10) 1 }}">
+        <span class="term-text">{{ $term.Title }}</span>
+        <span class="term-count">{{ $count }}</span>
+      </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+

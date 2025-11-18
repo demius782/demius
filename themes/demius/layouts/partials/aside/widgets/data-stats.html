@@ -1,0 +1,123 @@
+{{ if .Site.Params.aside.showDataStats | default true }}
+{{ $dataStatsConfig := .Site.Params.aside.dataStats }}
+{{ $enableBg := $dataStatsConfig.enableBackground | default false }}
+{{ $bgImage := $dataStatsConfig.backgroundImage }}
+{{ $bgColor := $dataStatsConfig.backgroundColor }}
+{{ $bgSize := $dataStatsConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $dataStatsConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $dataStatsConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $dataStatsConfig.textColor }}
+{{ $textShadow := $dataStatsConfig.textShadow | default false }}
+{{ $overlayColor := $dataStatsConfig.overlayColor }}
+{{ $borderRadius := $dataStatsConfig.borderRadius }}
+
+<section class="aside-card data-stats-card{{ if $enableBg }} data-stats-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="data-stats-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="data-stats-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title">
+      <i class="fas fa-database"></i> {{ $dataStatsConfig.title | default "数据统计" }}
+    </h3>
+    <div class="data-stats-list">
+      {{ if $dataStatsConfig.showPostsCount | default true }}
+      <div class="data-stats-item">
+        <div class="data-stats-label">文章总数</div>
+        <div class="data-stats-value">{{ len (where .Site.RegularPages "Type" "posts") }}</div>
+      </div>
+      {{ end }}
+
+      {{ if $dataStatsConfig.showTagsCount | default true }}
+      <div class="data-stats-item">
+        <div class="data-stats-label">标签数量</div>
+        <div class="data-stats-value">{{ len .Site.Taxonomies.tags }}</div>
+      </div>
+      {{ end }}
+
+      {{ if $dataStatsConfig.showCategoriesCount | default true }}
+      <div class="data-stats-item">
+        <div class="data-stats-label">分类数量</div>
+        <div class="data-stats-value">{{ len .Site.Taxonomies.categories }}</div>
+      </div>
+      {{ end }}
+
+      {{ if $dataStatsConfig.showRunningYear | default true }}
+      <div class="data-stats-item">
+        <div class="data-stats-label">运行年份</div>
+        <div class="data-stats-value">{{ now.Year }}</div>
+      </div>
+      {{ end }}
+
+      {{ if $dataStatsConfig.showTotalWords | default true }}
+      {{ $totalWords := 0 }}
+      {{ range where .Site.RegularPages "Type" "posts" }}
+        {{ $content := .Content | plainify | chomp }}
+        {{ $totalWords = add $totalWords (len $content) }}
+      {{ end }}
+      <div class="data-stats-item" id="sidebar-stat-total-words">
+        <div class="data-stats-label">全站字数</div>
+        <div class="data-stats-value loading-skeleton" data-words="{{ $totalWords }}">--</div>
+      </div>
+      {{ end }}
+
+      {{ if $dataStatsConfig.showResponseTime | default true }}
+      <div class="data-stats-item" id="sidebar-stat-response-time">
+        <div class="data-stats-label">响应耗时</div>
+        <div class="data-stats-value loading-skeleton">--</div>
+      </div>
+      {{ end }}
+
+      {{ if $dataStatsConfig.showLastUpdate | default true }}
+      <div class="data-stats-item" id="sidebar-stat-last-update">
+        <div class="data-stats-label">最后更新</div>
+        <div class="data-stats-value loading-skeleton">--</div>
+      </div>
+      {{ end }}
+
+      {{ if and $dataStatsConfig.showCommentCount (site.Params.comment.enable | default false) (eq site.Params.comment.system "artalk") }}
+      <div class="data-stats-item" id="sidebar-stat-comment-count">
+        <div class="data-stats-label">评论数目</div>
+        <div class="data-stats-value loading-skeleton">--</div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{/* 传递Artalk配置到JavaScript（用于获取评论数目） */}}
+{{ if and site.Params.comment.enable (eq site.Params.comment.system "artalk") }}
+<script>
+  if (!window.artalkConfig) {
+    window.artalkConfig = {
+      server: '{{ site.Params.comment.artalk.server }}',
+      site: '{{ site.Params.comment.artalk.site }}'
+    };
+  }
+</script>
+{{ end }}
+

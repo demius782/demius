@@ -1,0 +1,126 @@
+/* 广告位样式 */
+.ad-container {
+    text-align: center;
+  }
+  
+  .ad-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+  
+  .ad-link:hover {
+    transform: translateY(-2px);
+  }
+  
+  .ad-image {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 0.8rem;
+  }
+  
+  .ad-content {
+    padding: 0.5rem;
+  }
+  
+  .ad-title {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+  }
+  
+  .ad-desc {
+    font-size: 0.8rem;
+    color: color-mix(in srgb, var(--fg) 70%, transparent);
+    margin-bottom: 0.5rem;
+  }
+  
+  .ad-tag {
+    display: inline-block;
+    padding: 0.1rem 0.4rem;
+    background: color-mix(in srgb, var(--fg) 20%, transparent);
+    color: color-mix(in srgb, var(--fg) 60%, transparent);
+    border-radius: 3px;
+    font-size: 0.7rem;
+  }
+  
+  .ad-placeholder {
+    padding: 2rem 1rem;
+    background: color-mix(in srgb, var(--fg) 5%, transparent);
+    border-radius: 8px;
+    color: color-mix(in srgb, var(--fg) 60%, transparent);
+  }
+
+/* 背景图片/颜色模式 */
+.advertisement-card-with-bg {
+  position: relative;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* 背景遮罩层 */
+.advertisement-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 内容容器 */
+.advertisement-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* 背景模式下的广告内容优化 */
+.advertisement-card-with-bg .ad-container {
+  position: relative;
+  z-index: 2;
+}
+
+.advertisement-card-with-bg .ad-link {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .advertisement-card-with-bg .ad-link {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.advertisement-card-with-bg .ad-title,
+.advertisement-card-with-bg .ad-desc {
+  opacity: 1;
+}
+
+.advertisement-card-with-bg .ad-tag {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] .advertisement-card-with-bg .ad-tag {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.advertisement-card-with-bg .ad-placeholder {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .advertisement-card-with-bg .ad-placeholder {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.15);
+}

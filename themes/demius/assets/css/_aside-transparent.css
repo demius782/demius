@@ -1,0 +1,50 @@
+/* ===== 侧栏组件透明背景模式样式 ===== */
+
+/* 透明模式下，所有侧栏卡片使用透明毛玻璃效果 */
+/* 注意：如果组件自己设置了背景（enableBackground），则使用组件自己的背景，不使用透明效果 */
+.aside-transparent .aside-card:not([class*="-card-with-bg"]) {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* 暗色模式下的透明效果 */
+[data-theme="dark"] .aside-transparent .aside-card:not([class*="-card-with-bg"]) {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 透明模式下，如果组件自己设置了背景（enableBackground），保持组件自己的背景样式 */
+.aside-transparent .aside-card[class*="-card-with-bg"] {
+  /* 保持组件自己的背景，不使用透明效果 */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* 透明模式下的一体化容器 */
+.aside-transparent.aside-unified {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+[data-theme="dark"] .aside-transparent.aside-unified {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 透明模式下的一体化卡片（保持透明，不叠加透明效果） */
+.aside-transparent.aside-unified .aside-card {
+  background: transparent !important;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+

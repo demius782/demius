@@ -1,0 +1,5 @@
+# 网友圈 JSON 生成脚本依赖包
+feedparser>=6.0.10
+pyyaml>=6.0
+requests>=2.31.0
+

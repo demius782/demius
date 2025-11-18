@@ -1,0 +1,45 @@
+{{- /* 
+彩色文字 Shortcode
+用法:
+{{< color "颜色" >}}文字内容{{< /color >}}
+
+颜色支持:
+- 预设颜色名: red, blue, green, yellow, orange, purple, pink, cyan, gray
+- 十六进制: #ff0000, #00ff00, #0000ff
+- RGB: rgb(255, 0, 0)
+- RGBA: rgba(255, 0, 0, 0.5)
+
+示例:
+{{< color "red" >}}红色文字{{< /color >}}
+{{< color "#ff6b6b" >}}自定义颜色{{< /color >}}
+{{< color "rgb(255, 107, 107)" >}}RGB颜色{{< /color >}}
+*/ -}}
+
+{{- $color := .Get 0 | default "inherit" -}}
+
+{{- /* 预设颜色映射 */ -}}
+{{- $colorMap := dict 
+  "red" "#e74c3c"
+  "blue" "#3498db"
+  "green" "#2ecc71"
+  "yellow" "#f1c40f"
+  "orange" "#e67e22"
+  "purple" "#9b59b6"
+  "pink" "#e91e63"
+  "cyan" "#00bcd4"
+  "gray" "#95a5a6"
+  "grey" "#95a5a6"
+  "black" "#2c3e50"
+  "white" "#ecf0f1"
+  "primary" "var(--accent)"
+  "accent" "var(--accent)"
+-}}
+
+{{- /* 检查是否为预设颜色 */ -}}
+{{- $finalColor := $color -}}
+{{- if index $colorMap (lower $color) -}}
+  {{- $finalColor = index $colorMap (lower $color) -}}
+{{- end -}}
+
+<span class="color-text" style="color: {{ $finalColor }};">{{- .Inner | markdownify -}}</span>
+

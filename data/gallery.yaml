@@ -1,0 +1,64 @@
+# 相册配置文件
+# 支持分组、命名、精选置顶、自定义封面
+
+groups:
+  # 第一个相册组
+  - name: "旅行足迹"
+    description: "记录旅行中的美好瞬间"
+    featured: true  # 精选相册，置顶显示
+    cover: "https://mpimg.cn/view.php/9a0c6d6330e8f84f82bc59ec7c57f129.jpg"  # 相册封面
+    photos:
+      - url: "https://mpimg.cn/view.php/9a0c6d6330e8f84f82bc59ec7c57f129.jpg"
+        title: "美丽风景"
+        description: "旅行中遇到的美景"
+        date: "2024-01-01"
+      
+      - url: "https://mpimg.cn/view.php/7fc51efccb605654697bee5740ee2b44.jpg"
+        title: "城市夜景"
+        description: "夜幕降临的城市"
+        date: "2024-01-02"
+      
+      - url: "https://mpimg.cn/view.php/7597d20300793aff89b959686e0e266b.jpg"
+        title: "自然风光"
+        description: "大自然的鬼斧神工"
+        date: "2024-01-03"
+
+      - url: "https://mpimg.cn/view.php/28708ba322530b31a2addb9d98573466.jpg"
+        title: "风光"
+        description: "自然的鬼斧神工"
+        date: "2025-10-22"
+
+  # 第二个相册组
+  - name: "特别时刻"
+    description: "值得纪念的特殊时刻"
+    featured: true  # 精选相册
+    cover: "https://xxxxxxx/file/blog/fm/1759453175352_02c6e0099041f57ddc72eee072df4555.jpg"
+    photos:
+      - url: "https://xxxxxxx/file/blog/fm/1761485612839_IMG_20251022_170142.jpg"
+        title: "重要时刻"
+        description: "值得永远铭记的瞬间"
+        date: "2025-10-01"
+      
+      - url: "https://xxxxxx/file/blog/fm/1759452620821_17669583378173312.jpg"
+        title: "美好回忆"
+        description: "温馨的回忆"
+        date: "2025-10-02"
+
+  # 第三个相册组
+  - name: "博客"
+    description: "各种主页大图"
+    featured: false
+    cover: "https://mpimg.cn/view.php/5fc307fd83a20252b4c87a16c84b5878.jpg"
+    photos:
+      - url: "https://mpimg.cn/view.php/b3adfd7377e5d1cbc6f040f194937a0c.jpg"
+        title: "博客主页"
+        description: "我的个人博客主页"
+        date: "2025-10-26"
+      
+      - url: "https://mpimg.cn/view.php/5fc307fd83a20252b4c87a16c84b5878.jpg"
+        title: "咖啡时光"
+        description: "悠闲的下午茶时光"
+        date: "2025-10-26"
+
+  
+

@@ -1,0 +1,54 @@
+# 音乐星球数据源（仅此页面使用）
+# 支持类型：playlist（歌单）、album（专辑）、artist（歌手）、local（本地文件）
+
+sections:
+  - title: "🎧 网易云音乐 · 歌单"
+    badge: violet
+    items:
+      - server: netease
+        type: playlist
+        id: "4977885420"
+      - server: netease
+        type: song
+        id: "27583305"   # 单曲示例：海阔天空（请替换为你的歌曲ID）
+
+  - title: "网易云音乐 · 歌单"
+    badge: violet
+    items:
+      - server: netease
+        type: playlist
+        id: "9195899259"
+
+  - title: "🎧 QQ音乐 · 歌单"
+    badge: cyan
+    items:
+      - server: tencent
+        type: playlist
+        id: "8532242530"
+      - server: tencent
+        type: song
+        id: "0039MnYb0qxYhV"   # 单曲示例：请替换为你的歌曲MID
+
+  - title: "💿 网易云音乐 · 专辑"
+    badge: gold
+    items:
+      - server: netease
+        type: album
+        id: "16937"
+
+  - title: "👤 网易云音乐 · 歌手精选"
+    badge: pink
+    items:
+      - server: netease
+        type: artist
+        id: "2118"
+
+  - title: "📁 自建本地歌单（示例）"
+    badge: blue
+    items:
+      - server: local
+        name: "示例音乐"
+        artist: "Demius"
+        url: "/audio/demo.mp3"
+        cover: "/img/default-cover.jpg"
+

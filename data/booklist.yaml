@@ -1,0 +1,142 @@
+groups:
+  - name: "精选"
+    books:
+      - name: "精选小说1"
+        author: "作者A"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "这是一本精选小说..."
+        rating: 9.5
+        tags: ["玄幻", "仙侠"]
+        url: "https://example.com/book1"
+      - name: "精选小说2"
+        author: "作者B"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "经典之作..."
+        rating: 9.0
+        tags: ["都市", "异能"]
+        url: "https://example.com/book2"
+      - name: "精选小说1"
+        author: "作者A"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "这是一本精选小说..."
+        rating: 9.5
+        tags: ["玄幻", "仙侠"]
+        url: "https://example.com/book1"
+      - name: "精选小说2"
+        author: "作者B"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "经典之作..."
+        rating: 9.0
+        tags: ["都市", "异能"]
+        url: "https://example.com/book2"
+      - name: "精选小说1"
+        author: "作者A"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "这是一本精选小说..."
+        rating: 9.5
+        tags: ["玄幻", "仙侠"]
+        url: "https://example.com/book1"
+      - name: "精选小说2"
+        author: "作者B"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "经典之作..."
+        rating: 9.0
+        tags: ["都市", "异能"]
+        url: "https://example.com/book2"
+      - name: "精选小说1"
+        author: "作者A"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "这是一本精选小说..."
+        rating: 9.5
+        tags: ["玄幻", "仙侠"]
+        url: "https://example.com/book1"
+      - name: "精选小说2"
+        author: "作者B"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "经典之作..."
+        rating: 9.0
+        tags: ["都市", "异能"]
+        url: "https://example.com/book2"
+
+  - name: "推荐"
+    books:
+      - name: "推荐小说1"
+        author: "作者C"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "值得推荐的小说..."
+        rating: 8.8
+        tags: ["科幻", "未来"]
+        url: "https://example.com/book3"
+      - name: "推荐小说2"
+        author: "作者D"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "强烈推荐..."
+        rating: 8.5
+        tags: ["历史", "穿越"]
+        url: "https://example.com/book4"
+
+  - name: "热门"
+    books:
+      - name: "热门小说1"
+        author: "作者E"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "当前热门小说..."
+        rating: 8.9
+        tags: ["都市", "现代"]
+        url: "https://example.com/book5"
+      - name: "热门小说2"
+        author: "作者F"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "爆款推荐..."
+        rating: 8.7
+        tags: ["言情", "甜宠"]
+        url: "https://example.com/book6"
+
+  - name: "新书"
+    books:
+      - name: "新书1"
+        author: "作者G"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "最新上架..."
+        rating: 8.0
+        tags: ["悬疑", "推理"]
+        url: "https://example.com/book7"
+      - name: "新书2"
+        author: "作者H"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "新鲜出炉..."
+        rating: 7.8
+        tags: ["奇幻", "魔法"]
+        url: "https://example.com/book8"
+
+  - name: "已读"
+    books:
+      - name: "已读小说1"
+        author: "作者I"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "已读完的小说..."
+        rating: 9.0
+        tags: ["玄幻", "仙侠"]
+        url: "https://example.com/book9"
+        readDate: "2025-01-01"
+
+  - name: "在读"
+    books:
+      - name: "在读小说1"
+        author: "作者J"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "正在阅读中..."
+        rating: 8.5
+        tags: ["都市", "异能"]
+        url: "https://example.com/book10"
+        progress: "50%"
+
+  - name: "想读"
+    books:
+      - name: "想读小说1"
+        author: "作者K"
+        cover: "/img/bangumi/海绵宝宝.webp"
+        description: "准备阅读..."
+        tags: ["科幻", "未来"]
+        url: "https://example.com/book11"
+

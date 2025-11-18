@@ -1,0 +1,53 @@
+{{ if .Site.Params.aside.showCategories | default true }}
+{{ $categoriesConfig := .Site.Params.aside.categories }}
+{{ $enableBg := $categoriesConfig.enableBackground | default false }}
+{{ $bgImage := $categoriesConfig.backgroundImage }}
+{{ $bgColor := $categoriesConfig.backgroundColor }}
+{{ $bgSize := $categoriesConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $categoriesConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $categoriesConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $categoriesConfig.textColor }}
+{{ $textShadow := $categoriesConfig.textShadow | default false }}
+{{ $overlayColor := $categoriesConfig.overlayColor }}
+{{ $borderRadius := $categoriesConfig.borderRadius }}
+
+<section class="aside-card categories-card{{ if $enableBg }} categories-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="categories-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="categories-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title"><i class="fas fa-folder"></i> 分类</h3>
+    <div class="tag-cloud">
+      {{ range .Site.Taxonomies.categories }}
+      <a class="tag-link" href="{{ .Page.Permalink }}">
+        {{ .Page.Title }}<sup>{{ .Count }}</sup>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

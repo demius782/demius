@@ -1,0 +1,286 @@
+/* 顶部公告栏样式 */
+.top-announcement {
+  position: relative;
+  width: 100%;
+  height: var(--announcement-height, 40px);
+  background: var(--bg-secondary, rgba(255, 255, 255, 0.05));
+  border-bottom: 1px solid var(--fg, rgba(255, 255, 255, 0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* 导航栏固定时，公告栏也固定（仅在配置启用时） */
+body.header-fixed .top-announcement[data-sticky-with-header="true"] {
+  position: fixed;
+  top: 73px; /* 导航栏高度 */
+  left: 0;
+  right: 0;
+  z-index: 1999; /* 在导航栏下方 */
+}
+
+/* 导航栏固定时，调整body的padding-top以包含公告栏高度 */
+/* 注意：只在公告栏存在且启用固定时应用，不修改site-wrap的margin，保持原有布局 */
+/* 但在model2模式下，当大图未滚动时，不添加公告栏的padding-top */
+body.header-fixed:has(.top-announcement[data-sticky-with-header="true"]):not(:has(.home-big-image-mode2:not(.scrolled))):not(.home-big-image-active) {
+  padding-top: calc(73px + var(--announcement-height, 40px)) !important;
+}
+
+/* 自定义文字模式 */
+.top-announcement-content.custom-mode {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.announcement-text {
+  font-size: 0.875rem;
+  color: var(--fg, #333);
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.announcement-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.announcement-link:hover {
+  opacity: 0.8;
+}
+
+.announcement-link .link-text {
+  color: var(--accent, #667eea);
+  font-weight: 500;
+}
+
+/* 说说轮播模式 */
+.top-announcement-content.shuoshuo-mode {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.announcement-carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 公告栏内的轮播容器 - 使用更具体的选择器避免与轮播图组件冲突 */
+.announcement-carousel .announcement-carousel-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.announcement-carousel .announcement-carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 500ms ease; /* 默认值，会被JS动态覆盖 */
+}
+
+.announcement-carousel .announcement-carousel-item {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* 可点击的说说项样式 */
+.announcement-carousel .announcement-carousel-item-clickable {
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.announcement-carousel .announcement-carousel-item-clickable:hover {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+.announcement-carousel .announcement-carousel-item-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.announcement-carousel .announcement-carousel-item-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.announcement-carousel .announcement-carousel-item-text {
+  flex: 0 1 auto;
+  font-size: 0.875rem;
+  color: var(--fg, #333);
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  max-width: 100%;
+}
+
+.announcement-carousel .announcement-carousel-item-time {
+  font-size: 0.75rem;
+  color: var(--fg-secondary, rgba(0, 0, 0, 0.6));
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+.announcement-carousel .announcement-carousel-indicators {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.25rem;
+  z-index: 10;
+}
+
+.announcement-carousel .announcement-carousel-indicator {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--fg-secondary, rgba(0, 0, 0, 0.3));
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.announcement-carousel .announcement-carousel-indicator.active {
+  background: var(--accent, #667eea);
+  width: 12px;
+  border-radius: 2px;
+}
+
+/* Mode2模式下初始状态隐藏公告栏，避免刷新时闪烁 */
+/* 使用 :not(.scrolled) 确保只在全屏大图状态隐藏公告栏 */
+body:has(.home-big-image-mode2:not(.scrolled)) .top-announcement,
+body.home-big-image-active .top-announcement {
+  display: none !important;
+}
+
+/* 大图上划后，公告栏平滑显示 */
+body:has(.home-big-image-mode2.scrolled) .top-announcement {
+  display: flex !important;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: announcementSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 公告栏滑入动画 */
+@keyframes announcementSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 沉浸阅读模式下隐藏公告栏 */
+body.immersive-mode .top-announcement {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .top-announcement {
+  background: var(--bg-secondary, rgba(0, 0, 0, 0.3));
+  border-bottom-color: var(--fg, rgba(255, 255, 255, 0.1));
+}
+
+[data-theme="dark"] .announcement-text {
+  color: var(--fg, #fff);
+}
+
+[data-theme="dark"] .announcement-carousel .announcement-carousel-item-text {
+  color: var(--fg, #fff);
+}
+
+[data-theme="dark"] .announcement-carousel .announcement-carousel-item-time {
+  color: var(--fg-secondary, rgba(255, 255, 255, 0.6));
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .top-announcement-content.custom-mode,
+  .announcement-carousel .announcement-carousel-item {
+    padding: 0 1rem;
+  }
+  
+  .announcement-text,
+  .announcement-carousel .announcement-carousel-item-text {
+    font-size: 0.8125rem;
+  }
+  
+  .announcement-carousel .announcement-carousel-item-content {
+    gap: 0.5rem;
+  }
+  
+  .announcement-carousel .announcement-carousel-item-avatar {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .announcement-carousel .announcement-carousel-item-time {
+    display: none; /* 移动端隐藏时间以节省空间 */
+  }
+  
+  /* 移动端导航栏总是固定，公告栏位置调整（仅在配置启用时） */
+  .top-announcement[data-sticky-with-header="true"] {
+    position: fixed;
+    top: 60px; /* 移动端导航栏高度 */
+    left: 0;
+    right: 0;
+    z-index: 1999; /* 在导航栏下方 */
+  }
+  
+  /* 移动端调整body的padding-top以包含公告栏高度 */
+  /* 只在公告栏存在且启用固定时应用，覆盖移动端的默认 padding-top: 60px */
+  /* 但在model2模式下，当大图未滚动时，不添加公告栏的padding-top */
+  body:has(.top-announcement[data-sticky-with-header="true"]):not(:has(.home-big-image-mode2:not(.scrolled))):not(.home-big-image-active) {
+    padding-top: calc(60px + var(--announcement-height, 40px)) !important;
+  }
+  
+  /* 首页有大图时，保持原有逻辑（不需要padding-top） */
+  body.home:has(.home-big-image):has(.top-announcement[data-sticky-with-header="true"]),
+  body.home:has(.home-hero):has(.top-announcement[data-sticky-with-header="true"]),
+  body.home:has(.home-big-image-mode2:not(.scrolled)):has(.top-announcement[data-sticky-with-header="true"]),
+  body.home.home-big-image-active:has(.top-announcement[data-sticky-with-header="true"]) {
+    padding-top: 0 !important;
+  }
+}
+

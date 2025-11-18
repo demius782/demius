@@ -1,0 +1,39 @@
+{{- if .Site.Params.video.enable -}}
+{{- $id := .Get "id" -}}
+{{- $url := .Get "url" -}}
+
+{{- if or $id $url -}}
+<div class="video-container douyin-video" data-platform="douyin">
+  <div class="video-wrapper">
+    {{- if $id -}}
+    <iframe 
+      src="https://www.douyin.com/video/{{ $id }}" 
+      scrolling="no" 
+      border="0" 
+      frameborder="no" 
+      framespacing="0" 
+      allowfullscreen="true"
+      sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"
+      loading="lazy">
+    </iframe>
+    {{- else if $url -}}
+    <iframe 
+      src="{{ $url }}" 
+      scrolling="no" 
+      border="0" 
+      frameborder="no" 
+      framespacing="0" 
+      allowfullscreen="true"
+      sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"
+      loading="lazy">
+    </iframe>
+    {{- end -}}
+  </div>
+  <div class="video-info">
+    <i class="fas fa-video"></i>
+    <span>抖音视频</span>
+  </div>
+</div>
+{{- end -}}
+{{- end -}}
+

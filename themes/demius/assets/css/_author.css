@@ -1,0 +1,114 @@
+/* 作者信息组件 */
+.aside-card.author-card {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景图片/颜色模式 */
+.aside-card.author-card-with-bg {
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 背景遮罩层 */
+.author-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 内容容器 */
+.author-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.aside-avatar {
+  text-align: center;
+}
+
+.aside-avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid transparent;
+  transition: transform 0.6s ease, border-color 0.3s ease;
+}
+
+/* 背景模式下的头像边框 */
+.author-card-with-bg .aside-avatar img {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.aside-card.author-card .aside-avatar img {
+  transition: transform 0.6s ease;
+}
+
+.aside-card.author-card .aside-avatar:hover img {
+  transform: rotate(360deg);
+}
+
+.aside-name,
+.aside-desc {
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.aside-card.author-card .aside-name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.aside-card.author-card .aside-desc {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
+/* 背景模式下的文字优化 */
+.author-card-with-bg .aside-name,
+.author-card-with-bg .aside-desc {
+  opacity: 1;
+}
+  
+  /* 社交图标 */
+  .aside-social-inline {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    flex-wrap: wrap;
+  }
+  
+  .aside-social-inline a {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .aside-social-inline a:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }

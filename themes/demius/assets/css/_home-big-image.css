@@ -1,0 +1,400 @@
+/* 主页大图样式 - 支持两种模式，兼容现有背景图配置 */
+
+/* 模式一：中间栏大图点击切换效果（使用单独图片） */
+.home-big-image-mode1-container {
+  position: relative;
+  width: 100%;
+}
+
+.home-big-image-mode1 {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  background-image: var(--home-big-image-mode1-bg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  z-index: 1;
+  cursor: pointer;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-big-image-mode1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+  z-index: 1;
+  transition: opacity 0.8s ease;
+}
+
+.home-big-image-mode1:hover::before {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+}
+
+.home-big-image-mode1.active {
+  display: flex;
+}
+
+.home-big-image-mode1:not(.active) {
+  display: none;
+}
+
+.home-big-image-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 2rem;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-big-image-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-big-image-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  opacity: 0.9;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-big-image-scroll-arrow {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  animation: bounce 2s infinite;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.home-big-image-scroll-arrow:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateX(-50%) scale(1.1);
+}
+
+.home-big-image-scroll-arrow i {
+  font-size: 1.5rem;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.home-big-image-scroll-arrow:hover i {
+  transform: translateY(3px);
+}
+
+/* 模式一内容区域 - 确保不影响主题背景图 */
+.home-content-mode1 {
+  position: relative;
+  z-index: 2;
+  background: transparent; /* 使用透明背景，不覆盖主题背景图 */
+  min-height: 100vh;
+}
+
+.home-content-mode1.active {
+  display: block;
+}
+
+.home-content-mode1:not(.active) {
+  display: none;
+}
+
+/* 内容区域 - 卡片汇聚动画 */
+.home-content-wrapper,
+.home-content {
+  position: relative;
+  z-index: 2;
+  background: var(--bg);
+  margin-top: -100px;
+  padding-top: 100px;
+  min-height: 100vh;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all var(--card-animation-duration, 0.8s) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-content-wrapper.visible,
+.home-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-content-hidden {
+  display: none;
+}
+
+/* 卡片汇聚动画 - 支持多种卡片类型 */
+.home-content-mode1 .post-item,
+.home-content-mode1 .post-card,
+.home-content-mode1 .article-card,
+.home-content-mode1 .card,
+.home-content-wrapper .post-item,
+.home-content-wrapper .post-card,
+.home-content-wrapper .article-card,
+.home-content-wrapper .card,
+.home-content .post-item,
+.home-content .post-card,
+.home-content .article-card,
+.home-content .card {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all var(--card-animation-duration, 0.8s) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 卡片汇聚动画效果 */
+.home-content-mode1.active .post-item,
+.home-content-mode1.active .post-card,
+.home-content-mode1.active .article-card,
+.home-content-mode1.active .card,
+.home-content-wrapper.visible .post-item,
+.home-content-wrapper.visible .post-card,
+.home-content-wrapper.visible .article-card,
+.home-content-wrapper.visible .card,
+.home-content.visible .post-item,
+.home-content.visible .post-card,
+.home-content.visible .article-card,
+.home-content.visible .card {
+  opacity: 1;
+  transform: scale(1) translate(0, 0) rotate(0deg);
+}
+
+/* 模式二：Butterfly风格全屏大图 */
+.home-big-image-mode2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: var(--mode2-big-image-bg); /* 使用mode2专用背景图变量 */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: 9999; /* 提高z-index确保完全覆盖所有内容 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: blur(var(--background-blur)) brightness(var(--background-brightness));
+  opacity: 1; /* 大图本身不透明，通过overlay控制透明度 */
+}
+
+.home-big-image-mode2.scrolled {
+  transform: translateY(-100%);
+}
+
+.home-big-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, var(--home-big-image-overlay-opacity));
+  z-index: 1;
+}
+
+.home-big-image-mode2 .home-big-image-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+/* Mode2 下滑箭头 */
+.home-big-image-mode2 .home-big-image-scroll-arrow {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  animation: bounce 2s infinite;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.home-big-image-mode2 .home-big-image-scroll-arrow:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateX(-50%) scale(1.1);
+}
+
+.home-big-image-mode2 .home-big-image-scroll-arrow i {
+  font-size: 1.5rem;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.home-big-image-mode2 .home-big-image-scroll-arrow:hover i {
+  transform: translateY(3px);
+}
+
+/* Mode2 内容区域 */
+.home-content-mode2 {
+  position: relative;
+  z-index: 1;
+  background: transparent; /* 使用透明背景，让主题三栏布局背景图生效 */
+  min-height: 100vh;
+  transform: translateY(100vh);
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  display: none; /* 初始状态隐藏 */
+}
+
+.home-content-mode2.visible {
+  transform: translateY(0);
+  display: block; /* 显示时设置为block */
+}
+
+/* 动画效果 */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-big-image-content {
+  animation: fadeInUp 1s ease-out;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .home-big-image-mode1 {
+    height: 80vh;
+    min-height: 500px;
+  }
+  
+  .home-big-image-title {
+    font-size: 2.5rem;
+  }
+  
+  .home-big-image-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .home-big-image-mode2 {
+    background-attachment: scroll;
+  }
+  
+  .home-content-wrapper {
+    margin-top: -80px;
+    padding-top: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-big-image-mode1 {
+    height: 70vh;
+    min-height: 400px;
+  }
+  
+  .home-big-image-title {
+    font-size: 2rem;
+  }
+  
+  .home-big-image-subtitle {
+    font-size: 1rem;
+  }
+  
+  .home-content-wrapper {
+    margin-top: -70px;
+    padding-top: 70px;
+  }
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .home-big-image-mode1::before {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+}
+
+[data-theme="dark"] .home-big-image-overlay {
+  background: rgba(0, 0, 0, var(--home-big-image-overlay-opacity));
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 模式切换动画 */
+.home-big-image-mode1,
+.home-big-image-mode2 {
+  transition: all 0.5s ease-in-out;
+}
+
+/* Mode2模式下初始状态隐藏侧栏，避免刷新时闪烁 */
+/* 使用 :not(.scrolled) 确保只在全屏大图状态隐藏侧栏 */
+body:has(.home-big-image-mode2:not(.scrolled)) .site-aside-left,
+body:has(.home-big-image-mode2:not(.scrolled)) .site-aside-right {
+  display: none !important;
+}
+
+/* 大图上划后，侧栏平滑显示 */
+body:has(.home-big-image-mode2.scrolled) .site-aside-left,
+body:has(.home-big-image-mode2.scrolled) .site-aside-right {
+  display: block !important;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: asideSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 侧栏滑入动画 */
+@keyframes asideSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

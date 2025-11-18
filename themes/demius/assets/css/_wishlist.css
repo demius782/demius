@@ -1,0 +1,535 @@
+/* ===== 愿望清单页面样式 ===== */
+
+.wishlist-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* 页面头部 */
+.wishlist-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.wishlist-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.wishlist-intro {
+  margin-top: 1.5rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 愿望清单页面内容区域使用与文章详情页一致的样式 */
+.wishlist-intro .post-content {
+  padding: 1rem 1.5rem 1.5rem;
+  line-height: 1.85;
+  font-size: 1.05rem;
+  max-width: 850px;
+  margin: 0 auto;
+  color: color-mix(in srgb, var(--fg) 90%, transparent);
+}
+
+.wishlist-intro .post-content p,
+.wishlist-intro .post-content ul,
+.wishlist-intro .post-content ol,
+.wishlist-intro .post-content dl,
+.wishlist-intro .post-content blockquote,
+.wishlist-intro .post-content pre,
+.wishlist-intro .post-content table {
+  margin: 1.2em 0;
+}
+
+.wishlist-intro .post-content p {
+  text-align: justify;
+}
+
+.wishlist-intro .post-content h1,
+.wishlist-intro .post-content h2,
+.wishlist-intro .post-content h3,
+.wishlist-intro .post-content h4,
+.wishlist-intro .post-content h5,
+.wishlist-intro .post-content h6 {
+  margin: 1.5em 0 0.8em;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.wishlist-intro .post-content h1 { font-size: 1.6rem; }
+.wishlist-intro .post-content h2 { font-size: 1.4rem; }
+.wishlist-intro .post-content h3 { font-size: 1.25rem; }
+
+.wishlist-intro .post-content ul,
+.wishlist-intro .post-content ol {
+  padding-left: 1.8em;
+}
+
+.wishlist-intro .post-content blockquote {
+  padding: 0.8em 1.2em;
+  margin: 1.5em 0;
+  border-left: 4px solid var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
+  border-radius: 4px;
+}
+
+.wishlist-intro .post-content :not(pre) > code {
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  color: var(--accent-primary);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Courier New', monospace;
+}
+
+.wishlist-intro .post-content pre {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 1.2em;
+  overflow-x: auto;
+  line-height: 1.6;
+  margin: 1.5em 0;
+}
+
+.wishlist-intro .post-content pre code {
+  background: transparent;
+  padding: 0;
+  color: var(--text-primary);
+  border-radius: 0;
+}
+
+.wishlist-intro .post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5em auto;
+  display: block;
+}
+
+.wishlist-intro .post-content a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.wishlist-intro .post-content a:hover {
+  border-bottom-color: var(--accent-primary);
+}
+
+.wishlist-intro .post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+}
+
+.wishlist-intro .post-content table th,
+.wishlist-intro .post-content table td {
+  padding: 0.8em;
+  border: 1px solid var(--border-light);
+  text-align: left;
+}
+
+.wishlist-intro .post-content table th {
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  font-weight: 600;
+}
+
+/* 标题图标样式 */
+.wishlist-intro .post-content h2,
+.wishlist-intro .post-content h3,
+.wishlist-intro .post-content h4,
+.wishlist-intro .post-content h5,
+.wishlist-intro .post-content h6 {
+  position: relative;
+  padding-left: 2rem;
+  margin-left: -0.5rem;
+}
+
+.wishlist-intro .post-content h2::before,
+.wishlist-intro .post-content h3::before,
+.wishlist-intro .post-content h4::before,
+.wishlist-intro .post-content h5::before,
+.wishlist-intro .post-content h6::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size: 0.8rem;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.wishlist-intro .post-content h2::before {
+  content: '\f024'; /* fa-flag */
+}
+
+.wishlist-intro .post-content h3::before {
+  content: '\f0a9'; /* fa-hand-point-right */
+}
+
+.wishlist-intro .post-content h4::before {
+  content: '\f058'; /* fa-check-circle */
+}
+
+.wishlist-intro .post-content h5::before {
+  content: '\f0a4'; /* fa-paper-plane */
+}
+
+.wishlist-intro .post-content h6::before {
+  content: '\f111'; /* fa-circle */
+  font-size: 0.6rem;
+}
+
+.wishlist-intro .post-content h2:hover::before,
+.wishlist-intro .post-content h3:hover::before,
+.wishlist-intro .post-content h4:hover::before,
+.wishlist-intro .post-content h5:hover::before,
+.wishlist-intro .post-content h6:hover::before {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+  transition: all 0.3s ease;
+}
+
+/* 分类区域 */
+.wishlist-category {
+  margin-bottom: 3rem;
+}
+
+.category-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.category-icon {
+  font-size: 2rem;
+}
+
+.category-name {
+  flex: 1;
+}
+
+/* 愿望卡片网格 */
+.wishes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* 愿望卡片 */
+.wish-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.wish-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* 暗色模式 */
+[data-theme="dark"] .wish-card {
+  background: var(--card-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .wish-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* 状态徽章 */
+.wish-status-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+}
+
+.status-pending {
+  background: rgba(255, 193, 7, 0.9);
+  color: #333;
+}
+
+.status-in-progress {
+  background: rgba(33, 150, 243, 0.9);
+  color: #fff;
+}
+
+.status-completed {
+  background: rgba(76, 175, 80, 0.9);
+  color: #fff;
+}
+
+/* 优先级标签 */
+.wish-priority {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.priority-high {
+  background: #f44336;
+  color: #fff;
+}
+
+.priority-medium {
+  background: #ff9800;
+  color: #fff;
+}
+
+.priority-low {
+  background: #9e9e9e;
+  color: #fff;
+}
+
+/* 愿望图片 */
+.wish-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  position: relative;
+}
+
+.wish-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.wish-card:hover .wish-image img {
+  transform: scale(1.05);
+}
+
+/* 已完成卡片的图片灰度效果 */
+.wish-card.completed .wish-image img {
+  filter: grayscale(0.3);
+}
+
+/* 愿望内容 */
+.wish-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.wish-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.wish-description {
+  font-size: 0.95rem;
+  color: var(--text-color-light);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.wish-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+/* 进度条 */
+.wish-progress {
+  margin-top: auto;
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--text-color-light);
+  font-weight: 600;
+}
+
+/* 完成日期 */
+.wish-completed-date {
+  font-size: 0.85rem;
+  color: var(--text-color-light);
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+/* 查看详情链接 */
+.wish-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-top: auto;
+  transition: all 0.3s ease;
+}
+
+.wish-link:hover {
+  color: var(--accent-hover);
+  gap: 0.5rem;
+}
+
+/* 空状态 */
+.wishlist-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-color-light);
+}
+
+.wishlist-empty p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.wishlist-empty code {
+  background: var(--bg-secondary);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .wishlist-title {
+    font-size: 2rem;
+  }
+  
+  .wishlist-intro .post-content {
+    padding: 1rem 1rem 1.5rem;
+  }
+
+  .wishlist-intro .post-content h2,
+  .wishlist-intro .post-content h3,
+  .wishlist-intro .post-content h4,
+  .wishlist-intro .post-content h5,
+  .wishlist-intro .post-content h6 {
+    padding-left: 1.8rem;
+    margin-left: 0;
+  }
+  
+  .wishlist-intro .post-content h2::before,
+  .wishlist-intro .post-content h3::before,
+  .wishlist-intro .post-content h4::before,
+  .wishlist-intro .post-content h5::before,
+  .wishlist-intro .post-content h6::before {
+    width: 1.3rem;
+    height: 1.3rem;
+    font-size: 0.7rem;
+  }
+  
+  .wishlist-intro .post-content h6::before {
+    font-size: 0.5rem;
+  }
+  
+  .category-title {
+    font-size: 1.5rem;
+  }
+  
+  .wishes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .wish-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wishlist-page {
+    padding: 1rem 0.5rem;
+  }
+  
+  .wishlist-title {
+    font-size: 1.75rem;
+  }
+  
+  .wish-content {
+    padding: 1rem;
+  }
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .wishlist-intro .post-content pre {
+  background: var(--bg-secondary-dark);
+  border-color: var(--border-dark);
+}
+
+[data-theme="dark"] .wishlist-intro .post-content table th,
+[data-theme="dark"] .wishlist-intro .post-content table td {
+  border-color: var(--border-dark);
+}
+
+/* 动画性能优化 */
+@media (prefers-reduced-motion: reduce) {
+  .wish-card,
+  .wish-image img,
+  .wish-link {
+    transition: none;
+  }
+}
+

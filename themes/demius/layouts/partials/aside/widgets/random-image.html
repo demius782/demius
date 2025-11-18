@@ -1,0 +1,79 @@
+{{ if .Site.Params.aside.showRandomImage | default true }}
+{{ $randomImageConfig := .Site.Params.aside.randomImage }}
+{{ $enableBg := $randomImageConfig.enableBackground | default false }}
+{{ $bgImage := $randomImageConfig.backgroundImage }}
+{{ $bgColor := $randomImageConfig.backgroundColor }}
+{{ $bgSize := $randomImageConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $randomImageConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $randomImageConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $randomImageConfig.textColor }}
+{{ $textShadow := $randomImageConfig.textShadow | default false }}
+{{ $overlayColor := $randomImageConfig.overlayColor }}
+{{ $borderRadius := $randomImageConfig.borderRadius }}
+
+<section class="aside-card random-image-card{{ if $enableBg }} random-image-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="random-image-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="random-image-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title">
+      <i class="fas fa-image"></i> {{ $randomImageConfig.title | default "随机图片" }}
+    </h3>
+    <div class="random-image-content">
+      <div class="random-image-container" id="random-image-container">
+        <div class="random-image-loading">
+          <i class="fas fa-spinner fa-spin"></i>
+          <span>正在加载图片...</span>
+        </div>
+        <img id="random-image" class="random-image" style="display: none;" alt="随机图片" />
+        <div class="random-image-error" id="random-image-error" style="display: none;">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span>图片加载失败</span>
+        </div>
+      </div>
+      {{ if $randomImageConfig.showRefreshButton | default true }}
+      <button class="random-image-refresh" id="random-image-refresh" aria-label="刷新图片" title="刷新图片">
+        <i class="fas fa-sync-alt"></i>
+        <span>换一张</span>
+      </button>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{/* 传递API配置到JavaScript */}}
+<script>
+  {{ $apisArray := $randomImageConfig.apis | default slice }}
+  window.randomImageConfig = {
+    enabled: {{ $randomImageConfig.enabled | default true }},
+    apis: {{- if $apisArray }}{{ $apisArray | jsonify }}{{ else }}[]{{ end -}},
+    refreshInterval: {{ $randomImageConfig.refreshInterval | default 0 }},
+    showRefreshButton: {{ $randomImageConfig.showRefreshButton | default true }}
+  };
+</script>
+{{ end }}
+

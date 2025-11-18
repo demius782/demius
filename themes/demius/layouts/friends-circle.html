@@ -1,0 +1,86 @@
+{{ define "content" }}
+{{ $config := site.Params.friendsCircle }}
+{{ $cardColorMode := $config.cardColorMode | default "transparent" }}
+{{ $tabColorMode := $config.tabColorMode | default "default" }}
+<div class="friends-circle-page" data-card-color-mode="{{ $cardColorMode }}" data-tab-color-mode="{{ $tabColorMode }}">
+  <header class="friends-circle-header">
+    <h1 class="friends-circle-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="friends-circle-desc">{{ . }}</p>{{ end }}
+  </header>
+
+  <div class="friends-circle-container">
+    <!-- 分组切换选项卡 -->
+    <div class="friends-circle-groups" id="friends-circle-groups">
+      <button class="group-tab active" data-group="all">
+        <span>全部</span>
+      </button>
+      <!-- 分组选项卡将通过JavaScript动态生成 -->
+    </div>
+
+    <!-- 文章卡片列表 -->
+    <div class="friends-circle-articles" id="friends-circle-articles">
+      <div class="articles-grid" id="articles-grid">
+        <!-- 文章卡片将通过JavaScript动态生成 -->
+      </div>
+      
+      <!-- 加载状态 -->
+      <div class="loading-state" id="loading-state">
+        <div class="loading-spinner"></div>
+        <p>正在加载友链文章...</p>
+      </div>
+
+      <!-- 空状态 -->
+      <div class="empty-state" id="empty-state" style="display: none;">
+        <p>暂无文章数据</p>
+      </div>
+    </div>
+
+    <!-- 加载更多按钮 -->
+    <div class="load-more-container" id="load-more-container" style="display: none;">
+      <button class="load-more-btn" id="load-more-btn">
+        <span>阅读更多</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- 页面内容 -->
+  {{ with .Content }}
+  <div class="friends-circle-content">
+    <div class="post-content">
+      {{ . }}
+    </div>
+  </div>
+  {{ end }}
+
+  <!-- 评论区 -->
+  {{ partial "comment.html" . }}
+</div>
+
+<!-- 配置数据和友链数据（传递给JavaScript） -->
+{{ $cardColorMode := $config.cardColorMode | default "transparent" }}
+{{ $cardCustomColor := $config.cardCustomColor | default "#f5f5f5" }}
+{{ $tabColorMode := $config.tabColorMode | default "default" }}
+{{ $tabCustomColor := $config.tabCustomColor | default "#667eea" }}
+{{ $linksData := .Site.Data.links }}
+<script type="application/json" id="friends-circle-config">
+{
+  "preGeneratedJsonUrl": {{ if $config.preGeneratedJsonUrl }}{{ $config.preGeneratedJsonUrl | jsonify }}{{ else }}""{{ end }},
+  "initialDisplayCount": {{ $config.initialDisplayCount | default 20 }},
+  "loadMoreCount": {{ $config.loadMoreCount | default 10 }},
+  "defaultArticleDays": {{ $config.defaultArticleDays | default 3 }},
+  "groupArticleDays": {{ $config.groupArticleDays | default (slice) | jsonify }},
+  "rssTimeout": {{ $config.rssTimeout | default 10000 }},
+  "rssCacheTime": {{ $config.rssCacheTime | default 3600000 }},
+  "cardColorMode": {{ $cardColorMode | jsonify }},
+  "cardCustomColor": {{ $cardCustomColor | jsonify }},
+  "tabColorMode": {{ $tabColorMode | jsonify }},
+  "tabCustomColor": {{ $tabCustomColor | jsonify }},
+  "linksGroups": {{ if $linksData }}{{ if $linksData.groups }}{{ $linksData.groups | jsonify }}{{ else }}[]{{ end }}{{ else }}[]{{ end }}
+}
+</script>
+
+{{ end }}
+

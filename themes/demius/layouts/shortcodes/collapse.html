@@ -1,0 +1,52 @@
+{{- /* 
+折叠内容 Shortcode
+用法:
+{{< collapse "标题" "可选:是否默认展开(open)" "可选:图标类型(arrow/plus/chevron)" >}}
+折叠的内容
+{{< /collapse >}}
+
+参数说明:
+- 第一个参数: 折叠框标题（必填）
+- 第二个参数: 是否默认展开，传入 "open" 表示默认展开（可选）
+- 第三个参数: 图标样式，可选 arrow（默认）、plus、chevron（可选）
+*/ -}}
+
+{{- $title := .Get 0 | default "点击展开" -}}
+{{- $isOpen := eq (.Get 1) "open" -}}
+{{- $icon := .Get 2 | default "arrow" -}}
+{{- $id := printf "collapse-%s" (md5 .Inner) -}}
+
+<div class="collapse-container" data-collapse-id="{{ $id }}">
+  <div class="collapse-header {{ if $isOpen }}active{{ end }}" 
+       data-icon="{{ $icon }}"
+       role="button" 
+       tabindex="0"
+       aria-expanded="{{ $isOpen }}"
+       aria-controls="{{ $id }}">
+    <span class="collapse-icon collapse-icon-{{ $icon }}">
+      {{- if eq $icon "plus" -}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line class="collapse-icon-horizontal" x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      {{- else if eq $icon "chevron" -}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      {{- else -}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      {{- end -}}
+    </span>
+    <span class="collapse-title">{{ $title | markdownify }}</span>
+  </div>
+  <div class="collapse-content {{ if $isOpen }}show{{ end }}" 
+       id="{{ $id }}"
+       aria-hidden="{{ not $isOpen }}">
+    <div class="collapse-inner">
+      {{ .Inner | markdownify }}
+    </div>
+  </div>
+</div>
+

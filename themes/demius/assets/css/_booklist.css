@@ -1,0 +1,741 @@
+/* ===================================================================
+   小说书单页面样式
+   =================================================================== */
+
+.booklist-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.booklist-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.booklist-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.booklist-description {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 2rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+}
+
+/* 小说书单页面内容区域使用与文章详情页一致的样式 */
+.booklist-description .post-content {
+  padding: 1rem 1.5rem 1.5rem;
+  line-height: 1.85;
+  font-size: 1.05rem;
+  max-width: 850px;
+  margin: 0 auto;
+  color: color-mix(in srgb, var(--fg) 90%, transparent);
+}
+
+.booklist-description .post-content p,
+.booklist-description .post-content ul,
+.booklist-description .post-content ol,
+.booklist-description .post-content dl,
+.booklist-description .post-content blockquote,
+.booklist-description .post-content pre,
+.booklist-description .post-content table {
+  margin: 1.2em 0;
+}
+
+.booklist-description .post-content p {
+  text-align: justify;
+}
+
+.booklist-description .post-content h1,
+.booklist-description .post-content h2,
+.booklist-description .post-content h3,
+.booklist-description .post-content h4,
+.booklist-description .post-content h5,
+.booklist-description .post-content h6 {
+  margin: 1.5em 0 0.8em;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.booklist-description .post-content h1 { font-size: 1.6rem; }
+.booklist-description .post-content h2 { font-size: 1.4rem; }
+.booklist-description .post-content h3 { font-size: 1.25rem; }
+
+.booklist-description .post-content ul,
+.booklist-description .post-content ol {
+  padding-left: 1.8em;
+}
+
+.booklist-description .post-content blockquote {
+  padding: 0.8em 1.2em;
+  margin: 1.5em 0;
+  border-left: 4px solid var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
+  border-radius: 4px;
+}
+
+.booklist-description .post-content :not(pre) > code {
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  color: var(--accent-primary);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Courier New', monospace;
+}
+
+.booklist-description .post-content pre {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 1.2em;
+  overflow-x: auto;
+  line-height: 1.6;
+  margin: 1.5em 0;
+}
+
+.booklist-description .post-content pre code {
+  background: transparent;
+  padding: 0;
+  color: var(--text-primary);
+  border-radius: 0;
+}
+
+.booklist-description .post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5em auto;
+  display: block;
+}
+
+.booklist-description .post-content a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.booklist-description .post-content a:hover {
+  border-bottom-color: var(--accent-primary);
+}
+
+.booklist-description .post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+}
+
+.booklist-description .post-content table th,
+.booklist-description .post-content table td {
+  padding: 0.8em;
+  border: 1px solid var(--border-light);
+  text-align: left;
+}
+
+.booklist-description .post-content table th {
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  font-weight: 600;
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .booklist-description {
+  border-top-color: var(--border-dark);
+}
+
+[data-theme="dark"] .booklist-description .post-content pre {
+  background: var(--bg-secondary-dark);
+  border-color: var(--border-dark);
+}
+
+[data-theme="dark"] .booklist-description .post-content table th,
+[data-theme="dark"] .booklist-description .post-content table td {
+  border-color: var(--border-dark);
+}
+
+.booklist-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.booklist-group {
+  background: var(--bg-card);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-light);
+}
+
+.group-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--accent-primary);
+  display: inline-block;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+
+.book-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 0.8rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.book-card[onclick] {
+  cursor: pointer;
+}
+
+.book-card[onclick]:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  border-color: var(--accent-primary);
+  background: var(--bg-card);
+}
+
+.book-card[onclick]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.book-card[onclick]:hover::before {
+  transform: scaleX(1);
+}
+
+/* 亮色划过效果 */
+.book-card[onclick]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.book-card[onclick]:hover::after {
+  left: 100%;
+}
+
+.book-cover {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  flex-shrink: 0;
+}
+
+.book-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.book-card[onclick]:hover .book-cover img {
+  transform: scale(1.05);
+}
+
+.book-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.book-name {
+  margin: 0 0 0.3rem 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 未应用随机颜色时的默认颜色 */
+.book-name:not([class*="text-color-"]) {
+  color: var(--text-primary);
+}
+
+.book-author {
+  margin: 0 0 0.3rem 0;
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+}
+
+.book-author:not([class*="text-color-"]) {
+  color: var(--text-secondary);
+}
+
+.book-description {
+  margin: 0 0 0.4rem 0;
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.book-description:not([class*="text-color-"]) {
+  color: var(--text-secondary);
+}
+
+.book-rating:not([class*="text-color-"]) {
+  color: var(--accent-primary);
+}
+
+.book-date:not([class*="text-color-"]),
+.book-progress:not([class*="text-color-"]) {
+  color: var(--text-secondary);
+}
+
+.book-rating {
+  margin: 0.3rem 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.rating-label {
+  color: inherit;
+  font-weight: 400;
+  opacity: 0.8;
+  font-size: 0.7rem;
+}
+
+.rating-value {
+  color: inherit;
+  font-weight: 600;
+}
+
+.book-date,
+.book-progress {
+  margin: 0.2rem 0;
+  font-size: 0.65rem;
+}
+
+.book-tags {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  max-width: 60%;
+  justify-content: flex-end;
+}
+
+.book-tag {
+  color: white;
+  padding: 0.1rem 0.4rem;
+  border-radius: 10px;
+  font-size: 0.6rem;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
+}
+
+/* 标签随机颜色 - 12种渐变色 */
+.book-tag.tag-color-1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.book-tag.tag-color-2 {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.book-tag.tag-color-3 {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.book-tag.tag-color-4 {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.book-tag.tag-color-5 {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.book-tag.tag-color-6 {
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+}
+
+.book-tag.tag-color-7 {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.book-tag.tag-color-8 {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+}
+
+.book-tag.tag-color-9 {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+.book-tag.tag-color-10 {
+  background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+}
+
+.book-tag.tag-color-11 {
+  background: linear-gradient(135deg, #fad961 0%, #f76b1c 100%);
+}
+
+.book-tag.tag-color-12 {
+  background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+/* 文字随机颜色 - 12种颜色 */
+.book-info .text-color-1 {
+  color: #667eea;
+}
+
+.book-info .text-color-2 {
+  color: #f5576c;
+}
+
+.book-info .text-color-3 {
+  color: #00f2fe;
+}
+
+.book-info .text-color-4 {
+  color: #38f9d7;
+}
+
+.book-info .text-color-5 {
+  color: #fee140;
+}
+
+.book-info .text-color-6 {
+  color: #30cfd0;
+}
+
+.book-info .text-color-7 {
+  color: #fed6e3;
+}
+
+.book-info .text-color-8 {
+  color: #fecfef;
+}
+
+.book-info .text-color-9 {
+  color: #fcb69f;
+}
+
+.book-info .text-color-10 {
+  color: #fbc2eb;
+}
+
+.book-info .text-color-11 {
+  color: #f76b1c;
+}
+
+.book-info .text-color-12 {
+  color: #8fd3f4;
+}
+
+/* 书名特殊处理 - 保持一定对比度 */
+.book-name.text-color-1,
+.book-name.text-color-2,
+.book-name.text-color-3,
+.book-name.text-color-4,
+.book-name.text-color-5,
+.book-name.text-color-6,
+.book-name.text-color-7,
+.book-name.text-color-8,
+.book-name.text-color-9,
+.book-name.text-color-10,
+.book-name.text-color-11,
+.book-name.text-color-12 {
+  font-weight: 600;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .booklist-page {
+    padding: 1rem 0.5rem;
+  }
+  
+  .booklist-title {
+    font-size: 2rem;
+  }
+  
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.8rem;
+  }
+  
+  .booklist-group {
+    padding: 1.5rem;
+  }
+  
+  .book-card {
+    padding: 0.7rem;
+  }
+  
+  .book-tags {
+    max-width: 50%;
+    gap: 0.15rem;
+  }
+  
+  .book-tag {
+    font-size: 0.55rem;
+    padding: 0.08rem 0.35rem;
+    max-width: 55px;
+  }
+  
+  .book-name {
+    font-size: 0.8rem;
+  }
+  
+  .book-author {
+    font-size: 0.65rem;
+  }
+  
+  .book-description {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .book-card {
+    flex-direction: column;
+  }
+}
+
+/* 无数据提示样式 */
+.no-books-message {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 2px dashed var(--border-light);
+}
+
+.no-books-message p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ===================================================================
+   小说书单卡片背景色模式
+   =================================================================== */
+
+/* 随机彩色模式 - 8种渐变色 */
+.booklist-page[data-card-color-mode="random"] .book-card.color-1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.booklist-page[data-card-color-mode="random"] .book-card.color-2 {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-color: rgba(240, 147, 251, 0.3);
+}
+
+.booklist-page[data-card-color-mode="random"] .book-card.color-3 {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border-color: rgba(79, 172, 254, 0.3);
+}
+
+.booklist-page[data-card-color-mode="random"] .book-card.color-4 {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  border-color: rgba(67, 233, 123, 0.3);
+}
+
+.booklist-page[data-card-color-mode="random"] .book-card.color-5 {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  border-color: rgba(250, 112, 154, 0.3);
+}
+
+.booklist-page[data-card-color-mode="random"] .book-card.color-6 {
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+  border-color: rgba(48, 207, 208, 0.3);
+}
+
+.booklist-page[data-card-color-mode="random"] .book-card.color-7 {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  border-color: rgba(168, 237, 234, 0.3);
+}
+
+.booklist-page[data-card-color-mode="random"] .book-card.color-8 {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  border-color: rgba(255, 154, 158, 0.3);
+}
+
+/* 随机彩色模式 - 文字颜色适配（覆盖随机颜色） */
+.booklist-page[data-card-color-mode="random"] .book-card .book-name,
+.booklist-page[data-card-color-mode="random"] .book-card .book-author,
+.booklist-page[data-card-color-mode="random"] .book-card .book-description,
+.booklist-page[data-card-color-mode="random"] .book-card .book-rating,
+.booklist-page[data-card-color-mode="random"] .book-card .book-date,
+.booklist-page[data-card-color-mode="random"] .book-card .book-progress {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.booklist-page[data-card-color-mode="random"] .book-card .book-author,
+.booklist-page[data-card-color-mode="random"] .book-card .book-description {
+  opacity: 0.95;
+}
+
+/* 随机彩色模式 - 悬停效果增强 */
+.booklist-page[data-card-color-mode="random"] .book-card[onclick]:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.booklist-page[data-card-color-mode="random"] .book-card[onclick]:hover .book-cover {
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* 自定义颜色模式 - 文字颜色适配（仅当未应用随机颜色时） */
+.booklist-page[data-card-color-mode="custom"] .book-card.custom-color .book-name:not([class*="text-color-"]) {
+  color: var(--text-primary);
+}
+
+.booklist-page[data-card-color-mode="custom"] .book-card.custom-color .book-author:not([class*="text-color-"]),
+.booklist-page[data-card-color-mode="custom"] .book-card.custom-color .book-description:not([class*="text-color-"]) {
+  color: var(--text-secondary);
+}
+
+/* 自定义颜色模式 - 悬停效果 */
+.booklist-page[data-card-color-mode="custom"] .book-card.custom-color[onclick]:hover {
+  filter: brightness(1.05);
+}
+
+/* 透明模式（默认） - 保持原有样式 */
+.booklist-page[data-card-color-mode="transparent"] .book-card {
+  background: var(--bg-primary);
+}
+
+.booklist-page[data-card-color-mode="transparent"] .book-card[onclick]:hover {
+  background: var(--bg-card);
+}
+
+/* ===================================================================
+   暗色模式适配
+   =================================================================== */
+
+[data-theme="dark"] .booklist-group {
+  background: var(--bg-card-dark);
+  border-color: var(--border-dark);
+}
+
+/* 透明模式暗色适配 */
+[data-theme="dark"] .booklist-page[data-card-color-mode="transparent"] .book-card {
+  background: var(--bg-secondary-dark);
+  border-color: var(--border-dark);
+}
+
+[data-theme="dark"] .booklist-page[data-card-color-mode="transparent"] .book-card[onclick]:hover {
+  border-color: var(--accent-primary);
+}
+
+/* 自定义颜色模式暗色适配（仅当未应用随机颜色时） */
+[data-theme="dark"] .booklist-page[data-card-color-mode="custom"] .book-card.custom-color .book-name:not([class*="text-color-"]) {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .booklist-page[data-card-color-mode="custom"] .book-card.custom-color .book-author:not([class*="text-color-"]),
+[data-theme="dark"] .booklist-page[data-card-color-mode="custom"] .book-card.custom-color .book-description:not([class*="text-color-"]) {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .no-books-message {
+  background: var(--bg-card-dark);
+  border-color: var(--border-dark);
+  color: var(--text-secondary-dark);
+}
+
+/* 暗色模式下的随机颜色适配 - 调整亮度以提高可读性 */
+[data-theme="dark"] .book-info .text-color-1 {
+  color: #8a9ff0;
+}
+
+[data-theme="dark"] .book-info .text-color-2 {
+  color: #ff7a8f;
+}
+
+[data-theme="dark"] .book-info .text-color-3 {
+  color: #4dd4ff;
+}
+
+[data-theme="dark"] .book-info .text-color-4 {
+  color: #5affed;
+}
+
+[data-theme="dark"] .book-info .text-color-5 {
+  color: #ffed5a;
+}
+
+[data-theme="dark"] .book-info .text-color-6 {
+  color: #4de8e8;
+}
+
+[data-theme="dark"] .book-info .text-color-7 {
+  color: #ffe6f0;
+}
+
+[data-theme="dark"] .book-info .text-color-8 {
+  color: #ffe6f6;
+}
+
+[data-theme="dark"] .book-info .text-color-9 {
+  color: #ffd4b5;
+}
+
+[data-theme="dark"] .book-info .text-color-10 {
+  color: #ffd4f0;
+}
+
+[data-theme="dark"] .book-info .text-color-11 {
+  color: #ff8a3a;
+}
+
+[data-theme="dark"] .book-info .text-color-12 {
+  color: #a8e6ff;
+}
+

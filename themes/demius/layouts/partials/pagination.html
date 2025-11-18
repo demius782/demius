@@ -1,0 +1,63 @@
+<!-- 分页器 -->
+{{ $pag := $.Paginator }}
+{{ if gt $pag.TotalPages 1 }}
+<nav class="pagination-wrapper">
+  <ul class="pagination">
+    <!-- 上一页 -->
+    <li class="page-item {{ if not $pag.HasPrev }}disabled{{ end }}">
+      {{ if $pag.HasPrev }}
+        <a class="page-link" href="{{ $pag.Prev.URL }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      {{ else }}
+        <span class="page-link">&laquo;</span>
+      {{ end }}
+    </li>
+
+    <!-- 动态滑动窗口 -->
+    {{ $slot := 2 }}  <!-- 当前页左右各留 2 页 -->
+    {{ $start := sub $pag.PageNumber $slot }}
+    {{ $end   := add $pag.PageNumber $slot }}
+    {{ if le $start 1 }}{{ $end = add $end (sub 1 $start) }}{{ end }}
+    {{ if ge $end $pag.TotalPages }}{{ $start = sub $start (sub $end $pag.TotalPages) }}{{ end }}
+    {{ if le $start 1 }}{{ $start = 1 }}{{ end }}
+    {{ if ge $end $pag.TotalPages }}{{ $end = $pag.TotalPages }}{{ end }}
+
+    <!-- 第一页 -->
+    {{ if gt $start 1 }}
+      <li class="page-item"><a class="page-link" href="{{ $pag.First.URL }}">1</a></li>
+      {{ if gt $start 2 }}<li class="page-item disabled"><span class="page-link">…</span></li>{{ end }}
+    {{ end }}
+
+    <!-- 中间可见页 -->
+    {{ range $p := $pag.Pagers }}
+      {{ if and (ge $p.PageNumber $start) (le $p.PageNumber $end) }}
+        <li class="page-item {{ if eq $p $pag }}active{{ end }}">
+          {{ if eq $p $pag }}
+            <span class="current">{{ $p.PageNumber }}</span>
+          {{ else }}
+            <a class="page-link" href="{{ $p.URL }}">{{ $p.PageNumber }}</a>
+          {{ end }}
+        </li>
+      {{ end }}
+    {{ end }}
+
+    <!-- 最后一页 -->
+    {{ if lt $end $pag.TotalPages }}
+      {{ if lt (add $end 1) $pag.TotalPages }}<li class="page-item disabled"><span class="page-link">…</span></li>{{ end }}
+      <li class="page-item"><a class="page-link" href="{{ $pag.Last.URL }}">{{ $pag.TotalPages }}</a></li>
+    {{ end }}
+
+    <!-- 下一页 -->
+    <li class="page-item {{ if not $pag.HasNext }}disabled{{ end }}">
+      {{ if $pag.HasNext }}
+        <a class="page-link" href="{{ $pag.Next.URL }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      {{ else }}
+        <span class="page-link">&raquo;</span>
+      {{ end }}
+    </li>
+  </ul>
+</nav>
+{{ end }}

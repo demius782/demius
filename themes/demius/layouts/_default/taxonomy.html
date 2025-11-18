@@ -1,0 +1,16 @@
+{{ define "content" }}
+<section class="taxonomy-list{{ if .Site.Params.postCardTransparentMode }} home-posts-transparent{{ if eq .Site.Params.postCardTransparentType "full" }} home-posts-transparent-full{{ end }}{{ end }}">
+  <header class="taxonomy-header">
+    <h1>{{ .Title }}</h1>
+    <p class="posts-count">共 {{ len .Pages }} 篇文章</p>
+  </header>
+  <div class="post-grid">
+    {{ $paginator := .Paginate .Pages }}
+    {{ range $paginator.Pages }}
+      {{ partial "post-card.html" . }}
+    {{ end }}
+  </div>
+  {{ partial "pagination.html" . }}
+</section>
+{{ end }}
+

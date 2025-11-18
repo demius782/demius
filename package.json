@@ -1,0 +1,21 @@
+{
+  "name": "demius-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "submit-urls": "python submit_urls_to_search_engine.py",
+    "build": "hugo --cleanDestinationDir",
+    "build:submit": "hugo --cleanDestinationDir && python submit_urls_to_search_engine.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.1"
+  }
+}

@@ -1,0 +1,34 @@
+{{ define "content" }}
+{{ $colorMode := site.Params.taxonomy.colorMode | default "random" }}
+{{ $customColor := site.Params.taxonomy.customColor | default "#454141" }}
+<div class="category-posts-page" data-color-mode="{{ $colorMode }}">
+    <!-- 页面头部 -->
+    <header class="category-posts-header">
+        <nav class="category-breadcrumb">
+            <a href="{{ "/categories/" | relURL }}">{{ site.Params.navCats | default "分类" }}</a> / 
+            <span class="current-category">{{ .Title }}</span>
+        </nav>
+        <h1>{{ .Title }}</h1>
+        <p class="posts-count">共 {{ len .Pages }} 篇文章</p>
+    </header>
+    
+    <!-- 文章标题列表 -->
+    <div class="posts-title-list">
+        {{ range $index, $page := .Pages }}
+        {{ $colorIndex := add (mod $index 8) 1 }}
+        {{ if eq $colorMode "custom" }}
+        <article class="post-title-item custom-color" style="background-color: {{ $customColor }};">
+        {{ else }}
+        <article class="post-title-item color-{{ $colorIndex }}">
+        {{ end }}
+            <a href="{{ .RelPermalink }}" class="post-title-link">
+                <span class="title-text">{{ .Title }}</span>
+                <time class="post-date" datetime="{{ .Date.Format "2006-01-02" }}">
+                    {{ .Date.Format "2006.01.02" }}
+                </time>
+            </a>
+        </article>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

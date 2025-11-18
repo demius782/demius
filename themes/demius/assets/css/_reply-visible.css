@@ -1,0 +1,246 @@
+/* ===== 评论可见内容样式 ===== */
+
+.reply-visible-container {
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 遮罩层 */
+.reply-visible-mask {
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.05) 0%, rgba(0, 102, 204, 0.02) 100%);
+  border: 2px dashed rgba(0, 102, 204, 0.3);
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.reply-visible-mask:hover {
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.08) 0%, rgba(0, 102, 204, 0.04) 100%);
+  border-color: rgba(0, 102, 204, 0.5);
+}
+
+/* 图标 */
+.reply-visible-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  border-radius: 50%;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+  animation: reply-visible-pulse 2s ease-in-out infinite;
+}
+
+@keyframes reply-visible-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 102, 204, 0.3);
+  }
+}
+
+.reply-visible-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke: currentColor;
+}
+
+/* 提示文字 */
+.reply-visible-notice {
+  font-size: 1.1rem;
+  color: var(--fg);
+  margin: 0 0 1.5rem;
+  opacity: 0.8;
+}
+
+/* 查看按钮 */
+.reply-visible-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
+}
+
+.reply-visible-button:hover {
+  background: rgba(0, 102, 204, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+.reply-visible-button:active {
+  transform: translateY(0);
+}
+
+.reply-visible-button svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+/* 隐藏内容 */
+.reply-visible-content {
+  padding: 2rem;
+  background: var(--bg);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  animation: reply-visible-fadein 0.5s ease;
+}
+
+@keyframes reply-visible-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 已显示状态 */
+.reply-visible-container[data-visible="true"] .reply-visible-mask {
+  display: none;
+}
+
+.reply-visible-container[data-visible="true"] .reply-visible-content {
+  display: block !important;
+}
+
+/* 模糊效果（可选） */
+.reply-visible-content.blur {
+  filter: blur(5px);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 暗色模式 */
+@media (prefers-color-scheme: dark) {
+  .reply-visible-mask {
+    background: linear-gradient(135deg, rgba(77, 171, 247, 0.08) 0%, rgba(77, 171, 247, 0.03) 100%);
+    border-color: rgba(77, 171, 247, 0.3);
+  }
+  
+  .reply-visible-mask:hover {
+    background: linear-gradient(135deg, rgba(77, 171, 247, 0.12) 0%, rgba(77, 171, 247, 0.06) 100%);
+    border-color: rgba(77, 171, 247, 0.5);
+  }
+  
+  .reply-visible-icon {
+    box-shadow: 0 4px 12px rgba(77, 171, 247, 0.3);
+  }
+  
+  @keyframes reply-visible-pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 4px 12px rgba(77, 171, 247, 0.3);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(77, 171, 247, 0.4);
+    }
+  }
+  
+  .reply-visible-button {
+    box-shadow: 0 2px 8px rgba(77, 171, 247, 0.3);
+  }
+  
+  .reply-visible-button:hover {
+    box-shadow: 0 4px 12px rgba(77, 171, 247, 0.4);
+  }
+  
+  .reply-visible-content {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .reply-visible-mask {
+    padding: 2rem 1.5rem;
+  }
+  
+  .reply-visible-icon {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .reply-visible-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .reply-visible-notice {
+    font-size: 1rem;
+  }
+  
+  .reply-visible-button {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .reply-visible-content {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .reply-visible-mask {
+    padding: 1.5rem 1rem;
+  }
+  
+  .reply-visible-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+  }
+  
+  .reply-visible-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .reply-visible-notice {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  
+  .reply-visible-button {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+  }
+  
+  .reply-visible-content {
+    padding: 1rem;
+  }
+}
+
+/* 打印时显示内容 */
+@media print {
+  .reply-visible-mask {
+    display: none !important;
+  }
+  
+  .reply-visible-content {
+    display: block !important;
+    filter: none !important;
+  }
+}
+

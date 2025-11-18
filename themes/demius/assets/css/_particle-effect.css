@@ -1,0 +1,37 @@
+/* ===================================================================
+   背景粒子特效样式
+   参考 BeaconNav 主题实现
+   =================================================================== */
+
+/* 粒子画布容器 */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* 确保粒子特效在背景层，不影响内容交互 */
+#particle-canvas {
+  z-index: 0;
+}
+
+/* 移动端优化：减少粒子数量以提升性能 */
+@media (max-width: 768px) {
+  #particle-canvas {
+    /* 移动端可以通过 JavaScript 动态调整粒子数量 */
+  }
+}
+
+/* 性能优化：低性能设备可以降低透明度 */
+@media (prefers-reduced-motion: reduce) {
+  #particle-canvas {
+    opacity: 0.5;
+  }
+}
+

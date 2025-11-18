@@ -1,0 +1,71 @@
+{{ if .Site.Params.aside.showAdvertisement | default true }}
+{{ $adConfig := index .Site.Params.aside "advertisement" }}
+{{ $enableBg := $adConfig.enableBackground | default false }}
+{{ $bgImage := $adConfig.backgroundImage }}
+{{ $bgColor := $adConfig.backgroundColor }}
+{{ $bgSize := $adConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $adConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $adConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $adConfig.textColor }}
+{{ $textShadow := $adConfig.textShadow | default false }}
+{{ $overlayColor := $adConfig.overlayColor }}
+{{ $borderRadius := $adConfig.borderRadius }}
+
+<section class="aside-card advertisement-card{{ if $enableBg }} advertisement-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="advertisement-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="advertisement-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+  <h3 class="aside-title">
+    <i class="fas fa-ad"></i> 广告推荐
+  </h3>
+  <div class="ad-container">
+    {{ with .Site.Params.advertisement }}
+      {{ if .enable }}
+        <a href="{{ .link }}" target="_blank" rel="sponsored noopener" class="ad-link">
+          <img src="{{ .image | relURL }}" alt="{{ .title }}" class="ad-image" 
+               onerror="this.style.display='none'">
+          <div class="ad-content">
+            <div class="ad-title">{{ .title }}</div>
+            <div class="ad-desc">{{ .description }}</div>
+            <div class="ad-tag">广告</div>
+          </div>
+        </a>
+      {{ else }}
+        <div class="ad-placeholder">
+          <i class="fas fa-ad" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+          <p>广告位招租</p>
+          <small>联系: {{ .Site.Params.contact.email }}</small>
+        </div>
+      {{ end }}
+    {{ else }}
+      <div class="aside-empty">广告配置未设置</div>
+    {{ end }}
+  </div>
+  </div>
+</section>
+{{ end }}

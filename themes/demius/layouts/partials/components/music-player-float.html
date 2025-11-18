@@ -1,0 +1,191 @@
+{{/* 悬浮音乐播放器 - 独立配置和数据源：从 data/music-planet.yaml 读取 */}}
+{{ $floatConfig := .Site.Params.floatMusicPlayer }}
+{{ $enableFloat := $floatConfig.enabled | default false }}
+{{ if $enableFloat }}
+  {{/* 从 data/music-planet.yaml 读取数据 */}}
+  {{ $musicPlanetData := index site.Data "music-planet" }}
+  {{ if and $musicPlanetData $musicPlanetData.sections }}
+    {{/* 计算要显示的音乐项数量 */}}
+    {{ $itemsCount := 0 }}
+    {{/* 方式4：直接指定items（优先级最高） */}}
+    {{ if $floatConfig.items }}
+      {{ range $musicPlanetData.sections }}
+        {{ range $item := .items }}
+          {{ range $configItem := $floatConfig.items }}
+            {{ if and (eq $item.server $configItem.server) (eq $item.type $configItem.type) (eq $item.id $configItem.id) }}
+              {{ $itemsCount = add $itemsCount 1 }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ else }}
+      {{/* 方式1-3：通过section选择 */}}
+      {{ $sectionTitle := $floatConfig.sectionTitle }}
+      {{ $sectionTitles := $floatConfig.sectionTitles }}
+      {{ $sectionIndexes := $floatConfig.sectionIndexes }}
+      
+      {{ range $idx, $section := $musicPlanetData.sections }}
+        {{ $shouldInclude := false }}
+        
+        {{/* 方式3：精确匹配标题（优先级最高） */}}
+        {{ if $sectionTitle }}
+          {{ if eq $section.title $sectionTitle }}
+            {{ $shouldInclude = true }}
+          {{ end }}
+        {{/* 方式2：部分匹配标题 */}}
+        {{ else if $sectionTitles }}
+          {{ range $sectionTitles }}
+            {{ if in $section.title . }}
+              {{ $shouldInclude = true }}
+            {{ end }}
+          {{ end }}
+        {{/* 方式1：索引选择 */}}
+        {{ else if $sectionIndexes }}
+          {{ range $sectionIndexes }}
+            {{ if eq $idx . }}
+              {{ $shouldInclude = true }}
+            {{ end }}
+          {{ end }}
+        {{ else }}
+          {{/* 如果都没有设置，默认使用第一个section */}}
+          {{ if eq $idx 0 }}
+            {{ $shouldInclude = true }}
+          {{ end }}
+        {{ end }}
+        
+        {{ if $shouldInclude }}
+          {{ $itemsCount = add $itemsCount (len $section.items) }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    
+    {{ if gt $itemsCount 0 }}
+<div id="music-player-float">
+  {{/* 控制按钮栏 */}}
+  <div class="music-player-float-controls">
+    <button class="music-player-float-btn minimize-btn" aria-label="缩小" title="缩小">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+    </button>
+    <button class="music-player-float-btn close-btn" aria-label="关闭" title="关闭">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  {{/* 拖拽手柄 */}}
+  <div class="music-player-float-drag-handle" title="拖拽移动"></div>
+  {{/* 播放器内容区域 */}}
+  <div class="music-player-float-content">
+  {{/* 方式4：直接指定items（优先级最高） */}}
+  {{ if $floatConfig.items }}
+    {{ range $musicPlanetData.sections }}
+      {{ range $item := .items }}
+        {{ range $configItem := $floatConfig.items }}
+          {{ if and (eq $item.server $configItem.server) (eq $item.type $configItem.type) (eq $item.id $configItem.id) }}
+            {{ if eq $item.server "local" }}
+              <audio controls preload="none" src="{{ $item.url }}">
+                您的浏览器不支持 audio 标签。
+              </audio>
+            {{ else }}
+              <meting-js 
+                server="{{ $item.server }}"
+                type="{{ $item.type }}"
+                id="{{ $item.id }}"
+                {{ if site.Params.music.metingApi }}api="{{ site.Params.music.metingApi }}"{{ end }}
+                {{/* 优先使用配置中的播放器选项，否则使用item中的选项 */}}
+                {{ if $floatConfig.autoplay }}autoplay="{{ $floatConfig.autoplay }}"{{ else if $item.autoplay }}autoplay="{{ $item.autoplay }}"{{ end }}
+                {{ if $item.theme }}theme="{{ $item.theme }}"{{ end }}
+                {{ if $floatConfig.loop }}loop="{{ $floatConfig.loop }}"{{ else if $item.loop }}loop="{{ $item.loop }}"{{ end }}
+                {{ if $floatConfig.order }}order="{{ $floatConfig.order }}"{{ else if $item.order }}order="{{ $item.order }}"{{ end }}
+                {{ if $floatConfig.volume }}volume="{{ $floatConfig.volume }}"{{ else if $item.volume }}volume="{{ $item.volume }}"{{ end }}
+                {{ if $floatConfig.listFolded }}list-folded="{{ $floatConfig.listFolded }}"{{ else if $item.listFolded }}list-folded="{{ $item.listFolded }}"{{ end }}
+                {{ if $floatConfig.listMaxHeight }}list-max-height="{{ $floatConfig.listMaxHeight }}"{{ else if $item.listMaxHeight }}list-max-height="{{ $item.listMaxHeight }}"{{ end }}
+                {{ if $floatConfig.mini }}mini="{{ $floatConfig.mini }}"{{ else if $item.mini }}mini="{{ $item.mini }}"{{ end }}
+                {{ if $floatConfig.fixed }}fixed="{{ $floatConfig.fixed }}"{{ else if $item.fixed }}fixed="{{ $item.fixed }}"{{ end }}
+              ></meting-js>
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ else }}
+    {{/* 方式1-3：通过section选择 */}}
+    {{ $sectionTitle := $floatConfig.sectionTitle }}
+    {{ $sectionTitles := $floatConfig.sectionTitles }}
+    {{ $sectionIndexes := $floatConfig.sectionIndexes }}
+    
+    {{ range $idx, $section := $musicPlanetData.sections }}
+      {{ $shouldInclude := false }}
+      
+      {{/* 方式3：精确匹配标题（优先级最高） */}}
+      {{ if $sectionTitle }}
+        {{ if eq $section.title $sectionTitle }}
+          {{ $shouldInclude = true }}
+        {{ end }}
+      {{/* 方式2：部分匹配标题 */}}
+      {{ else if $sectionTitles }}
+        {{ range $sectionTitles }}
+          {{ if in $section.title . }}
+            {{ $shouldInclude = true }}
+          {{ end }}
+        {{ end }}
+      {{/* 方式1：索引选择 */}}
+      {{ else if $sectionIndexes }}
+        {{ range $sectionIndexes }}
+          {{ if eq $idx . }}
+            {{ $shouldInclude = true }}
+          {{ end }}
+        {{ end }}
+      {{ else }}
+        {{/* 如果都没有设置，默认使用第一个section */}}
+        {{ if eq $idx 0 }}
+          {{ $shouldInclude = true }}
+        {{ end }}
+      {{ end }}
+      
+      {{ if $shouldInclude }}
+        {{ range $item := $section.items }}
+          {{ if eq $item.server "local" }}
+            <audio controls preload="none" src="{{ $item.url }}">
+              您的浏览器不支持 audio 标签。
+            </audio>
+          {{ else }}
+            <meting-js 
+              server="{{ $item.server }}"
+              type="{{ $item.type }}"
+              id="{{ $item.id }}"
+              {{ if site.Params.music.metingApi }}api="{{ site.Params.music.metingApi }}"{{ end }}
+              {{/* 优先使用配置中的播放器选项，否则使用item中的选项 */}}
+              {{ if $floatConfig.autoplay }}autoplay="{{ $floatConfig.autoplay }}"{{ else if $item.autoplay }}autoplay="{{ $item.autoplay }}"{{ end }}
+              {{ if $item.theme }}theme="{{ $item.theme }}"{{ end }}
+              {{ if $floatConfig.loop }}loop="{{ $floatConfig.loop }}"{{ else if $item.loop }}loop="{{ $item.loop }}"{{ end }}
+              {{ if $floatConfig.order }}order="{{ $floatConfig.order }}"{{ else if $item.order }}order="{{ $item.order }}"{{ end }}
+              {{ if $floatConfig.volume }}volume="{{ $floatConfig.volume }}"{{ else if $item.volume }}volume="{{ $item.volume }}"{{ end }}
+              {{ if $floatConfig.listFolded }}list-folded="{{ $floatConfig.listFolded }}"{{ else if $item.listFolded }}list-folded="{{ $item.listFolded }}"{{ end }}
+              {{ if $floatConfig.listMaxHeight }}list-max-height="{{ $floatConfig.listMaxHeight }}"{{ else if $item.listMaxHeight }}list-max-height="{{ $item.listMaxHeight }}"{{ end }}
+              {{ if $floatConfig.mini }}mini="{{ $floatConfig.mini }}"{{ else if $item.mini }}mini="{{ $item.mini }}"{{ end }}
+              {{ if $floatConfig.fixed }}fixed="{{ $floatConfig.fixed }}"{{ else if $item.fixed }}fixed="{{ $item.fixed }}"{{ end }}
+            ></meting-js>
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  </div>
+</div>
+
+{{/* 传递配置到JavaScript */}}
+<script>
+  window.musicFloatPlayerConfig = {
+    enabled: {{ $enableFloat }},
+    itemsCount: {{ $itemsCount }},
+    dataSource: 'music-planet'
+  };
+</script>
+    {{ end }}
+  {{ end }}
+{{ end }}
+

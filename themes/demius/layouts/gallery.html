@@ -1,0 +1,154 @@
+{{ define "content" }}
+<div class="gallery-page">
+  <header class="gallery-header">
+    <h1 class="gallery-title">{{ .Title }}</h1>
+    <p class="gallery-description">记录生活中的美好瞬间</p>
+  </header>
+
+  {{ if .Site.Data.gallery }}
+  <!-- 相册封面列表视图 -->
+  <div class="gallery-albums-view" id="gallery-albums-view">
+    {{ $galleryData := .Site.Data.gallery }}
+    
+    {{/* 分类相册：精选和普通 */}}
+    {{ $featuredGroups := slice }}
+    {{ $normalGroups := slice }}
+    
+    {{ range $index, $group := $galleryData.groups }}
+      {{ if .featured }}
+        {{ $featuredGroups = $featuredGroups | append (dict "group" . "index" $index) }}
+      {{ else }}
+        {{ $normalGroups = $normalGroups | append (dict "group" . "index" $index) }}
+      {{ end }}
+    {{ end }}
+    
+    <!-- 精选相册区域 -->
+    {{ if gt (len $featuredGroups) 0 }}
+    <div class="gallery-albums-section">
+      <h2 class="gallery-section-title">
+        <svg class="section-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+        </svg>
+        精选相册
+      </h2>
+      <div class="gallery-albums-grid">
+        {{ range $featuredGroups }}
+        {{ $group := .group }}
+        {{ $index := .index }}
+        <div class="gallery-album-card" data-album-index="{{ $index }}">
+          <div class="gallery-album-cover">
+            <img src="{{ $group.cover }}" alt="{{ $group.name }}" loading="lazy" onerror="this.src='/img/404.jpg'">
+            <div class="gallery-album-overlay">
+              <div class="gallery-album-info">
+                <h3 class="gallery-album-title">{{ $group.name }}</h3>
+                <p class="gallery-album-desc">{{ $group.description }}</p>
+                <div class="gallery-album-meta">
+                  <span class="photo-count">{{ len $group.photos }} 张照片</span>
+                  <span class="featured-badge">精选</span>
+                </div>
+              </div>
+              <button class="gallery-album-btn">查看相册</button>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+    
+    <!-- 普通相册区域 -->
+    {{ if gt (len $normalGroups) 0 }}
+    <div class="gallery-albums-section">
+      <h2 class="gallery-section-title">
+        <svg class="section-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+        </svg>
+        我的相册
+      </h2>
+      <div class="gallery-albums-grid">
+        {{ range $normalGroups }}
+        {{ $group := .group }}
+        {{ $index := .index }}
+        <div class="gallery-album-card" data-album-index="{{ $index }}">
+          <div class="gallery-album-cover">
+            <img src="{{ $group.cover }}" alt="{{ $group.name }}" loading="lazy" onerror="this.src='/img/404.jpg'">
+            <div class="gallery-album-overlay">
+              <div class="gallery-album-info">
+                <h3 class="gallery-album-title">{{ $group.name }}</h3>
+                <p class="gallery-album-desc">{{ $group.description }}</p>
+                <div class="gallery-album-meta">
+                  <span class="photo-count">{{ len $group.photos }} 张照片</span>
+                </div>
+              </div>
+              <button class="gallery-album-btn">查看相册</button>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <!-- 相册详情视图（所有相册的照片数据） -->
+  <div class="gallery-detail-view" id="gallery-detail-view" style="display: none;">
+    <div class="gallery-detail-header">
+      <button class="gallery-back-btn" id="gallery-back-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+        返回相册列表
+      </button>
+      <div class="gallery-detail-info">
+        <h2 class="gallery-detail-title" id="gallery-detail-title"></h2>
+        <p class="gallery-detail-desc" id="gallery-detail-desc"></p>
+        <span class="gallery-detail-count" id="gallery-detail-count"></span>
+      </div>
+    </div>
+    
+    <!-- 所有相册的照片网格（通过JS控制显示） -->
+    {{ range $groupIndex, $group := $galleryData.groups }}
+    <div class="gallery-photos-grid" data-album-index="{{ $groupIndex }}" style="display: none;">
+      {{ range $photoIndex, $photo := $group.photos }}
+      <div class="gallery-photo-item" data-photo-index="{{ $photoIndex }}">
+        <div class="gallery-photo-inner">
+          <img src="{{ $photo.url }}" alt="{{ $photo.title }}" loading="lazy" onerror="this.src='/img/404.jpg'">
+          <div class="gallery-photo-overlay">
+            <div class="gallery-photo-info">
+              <h3 class="gallery-photo-title">{{ $photo.title }}</h3>
+              <p class="gallery-photo-desc">{{ $photo.description }}</p>
+              <span class="gallery-photo-date">{{ $photo.date }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+  {{ else }}
+  <div class="no-gallery-message">
+    <p>暂无相册数据，请在 data/gallery.yaml 文件中添加相册信息。</p>
+  </div>
+  {{ end }}
+</div>
+
+<!-- 图片查看器模态框 -->
+<div id="gallery-lightbox" class="gallery-lightbox">
+  <span class="gallery-lightbox-close">&times;</span>
+  <img class="gallery-lightbox-content" id="lightbox-img">
+  <div class="gallery-lightbox-info">
+    <h3 id="lightbox-title"></h3>
+    <p id="lightbox-description"></p>
+    <span id="lightbox-date"></span>
+  </div>
+  <a class="gallery-lightbox-prev">&#10094;</a>
+  <a class="gallery-lightbox-next">&#10095;</a>
+</div>
+
+<!-- 相册数据（供JS使用） -->
+<script id="gallery-data" type="application/json">
+{{- .Site.Data.gallery | jsonify | safeJS -}}
+</script>
+{{ end }}
+

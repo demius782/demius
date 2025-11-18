@@ -1,0 +1,72 @@
+{{ if .Site.Params.aside.showHitokoto | default true }}
+{{ $hitokotoConfig := .Site.Params.aside.hitokoto }}
+{{ $enableBg := $hitokotoConfig.enableBackground | default false }}
+{{ $bgImage := $hitokotoConfig.backgroundImage }}
+{{ $bgColor := $hitokotoConfig.backgroundColor }}
+{{ $bgSize := $hitokotoConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $hitokotoConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $hitokotoConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $hitokotoConfig.textColor }}
+{{ $textShadow := $hitokotoConfig.textShadow | default false }}
+{{ $overlayColor := $hitokotoConfig.overlayColor }}
+{{ $borderRadius := $hitokotoConfig.borderRadius }}
+
+<section class="aside-card hitokoto-card{{ if $enableBg }} hitokoto-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="hitokoto-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="hitokoto-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title">
+      <i class="fas fa-quote-left"></i> {{ $hitokotoConfig.title | default "一言" }}
+    </h3>
+    <div class="hitokoto-content">
+      <div class="hitokoto-sentence" id="hitokoto-sentence">
+        <span class="hitokoto-loading">正在加载一言...</span>
+      </div>
+      {{ if $hitokotoConfig.showFrom | default true }}
+      <div class="hitokoto-from" id="hitokoto-from" style="display: none;"></div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{/* 传递API配置到JavaScript */}}
+<script>
+  window.hitokotoConfig = {
+    enabled: {{ $hitokotoConfig.enabled | default true }},
+    apiType: '{{ $hitokotoConfig.apiType | default "nsmao" }}',
+    {{ if $hitokotoConfig.nsmaoApiKey }}
+    nsmao: {
+      apiKey: '{{ $hitokotoConfig.nsmaoApiKey }}',
+      apiUrl: '{{ $hitokotoConfig.nsmaoApiUrl | default "https://api.nsmao.net/api/history/query" }}'
+    },
+    {{ end }}
+    showFrom: {{ $hitokotoConfig.showFrom | default true }}
+  };
+</script>
+{{ end }}
+

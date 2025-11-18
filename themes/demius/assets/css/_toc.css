@@ -1,0 +1,164 @@
+/* 目录组件样式 */
+.toc-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景图片/颜色模式 */
+.toc-card-with-bg {
+  position: relative;
+  min-height: 250px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* 背景遮罩层 */
+.toc-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 内容容器 */
+.toc-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.toc-content {
+  max-height: 60vh;
+  overflow-y: auto;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.toc-empty {
+  color: color-mix(in srgb, var(--fg) 60%, transparent);
+  font-style: italic;
+  text-align: center;
+  padding: 1rem;
+}
+
+.toc-content ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0.8em;
+}
+
+.toc-content li {
+  margin: 0.2rem 0;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.toc-content a {
+  color: color-mix(in srgb, var(--fg) 80%, transparent);
+  text-decoration: none;
+}
+
+.toc-content a:hover {
+  color: var(--accent);
+}
+
+/* 当前阅读高亮 */
+.toc-content li.active {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  border-left: 2px solid var(--accent);
+  padding-left: 0.6rem;
+  margin-left: -2px;
+}
+
+.toc-content li.active a {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* 滚动条美化 */
+.toc-content::-webkit-scrollbar {
+  width: 3px;
+}
+
+.toc-content::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ===================================================================
+   目录组件背景模式下的样式优化
+   =================================================================== */
+
+/* 背景模式下的目录链接优化 */
+.toc-card-with-bg .toc-content a {
+  color: inherit;
+  opacity: 0.9;
+}
+
+.toc-card-with-bg .toc-content a:hover {
+  opacity: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 背景模式下的列表项优化 */
+.toc-card-with-bg .toc-content li {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .toc-card-with-bg .toc-content li {
+  background: rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.toc-card-with-bg .toc-content li:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+[data-theme="dark"] .toc-card-with-bg .toc-content li:hover {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* 背景模式下的当前阅读高亮优化 */
+.toc-card-with-bg .toc-content li.active {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 3px solid rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="dark"] .toc-card-with-bg .toc-content li.active {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 3px solid rgba(255, 255, 255, 0.6);
+}
+
+.toc-card-with-bg .toc-content li.active a {
+  font-weight: 600;
+  opacity: 1;
+}
+
+/* 背景模式下的空状态样式 */
+.toc-card-with-bg .toc-empty {
+  opacity: 0.85;
+}
+
+/* 背景模式下的侧栏标题样式 */
+.toc-card-with-bg .aside-title {
+  opacity: 1;
+}
+
+/* 背景模式下的滚动条优化 */
+.toc-card-with-bg .toc-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] .toc-card-with-bg .toc-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+}

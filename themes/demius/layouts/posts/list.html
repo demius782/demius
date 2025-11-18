@@ -1,0 +1,37 @@
+{{ define "content" }}
+<section class="archive-timeline">
+  <header class="archive-header">
+    <h1>全部文章</h1>
+    <p class="archive-sub">共 {{ len .Pages }} 篇文章</p>
+  </header>
+
+  {{/* 分组：按年份 -> 月份 */}}
+  {{ $pages := .Pages.ByDate.Reverse }}
+  {{ range $yearGroup := ($pages.GroupByDate "2006") }}
+    <div class="archive-year">
+      <h2 class="archive-year-title">{{ $yearGroup.Key }} <span class="count">{{ len $yearGroup.Pages }}</span></h2>
+      {{ range $monthGroup := ($yearGroup.Pages.GroupByDate "01") }}
+        <div class="archive-month">
+          {{ $monthKey := $monthGroup.Key }}
+          {{ $monthNumStr := replaceRE "^0" "" $monthKey }}
+          {{ $monthIdx := sub (int $monthNumStr) 1 }}
+          <h3 class="archive-month-title">{{ (index (slice "一" "二" "三" "四" "五" "六" "七" "八" "九" "十" "十一" "十二") $monthIdx) }}月 <span class="count">{{ len $monthGroup.Pages }}</span></h3>
+          <ul class="archive-posts">
+            {{ range $monthGroup.Pages }}
+              {{ $hasCover := .Params.cover }}
+              <li class="archive-post-item{{ if not $hasCover }} no-thumb{{ end }}">
+                <time class="date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01-02" }}</time>
+                {{ with .Params.cover }}
+                  <span class="thumb"><img src="{{ . | relURL }}" alt="thumb" loading="lazy" onerror="this.closest('li').classList.add('no-thumb'); this.parentElement.remove();" /></span>
+                {{ end }}
+                <a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </li>
+            {{ end }}
+          </ul>
+        </div>
+      {{ end }}
+    </div>
+  {{ end }}
+</section>
+{{ end }}
+

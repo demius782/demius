@@ -1,0 +1,16 @@
+{{ define "content" }}
+<main class="default-list">
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="content">{{ . }}</div>{{ end }}
+    
+    <div class="articles">
+        {{ range .Pages }}
+        <article class="post-item">
+            <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006年1月2日" }}</time>
+            <p>{{ .Summary | plainify | htmlUnescape | truncate 120 }}...</p>
+        </article>
+        {{ end }}
+    </div>
+</main>
+{{ end }}

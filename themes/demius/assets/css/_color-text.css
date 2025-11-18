@@ -1,0 +1,64 @@
+/* ===== 彩色文字样式 ===== */
+
+.color-text {
+  display: inline;
+  transition: opacity 0.2s ease;
+}
+
+/* 确保在各种背景下都可读 */
+.color-text:not([style*="color"]) {
+  color: inherit;
+}
+
+/* 支持在彩色文字中使用加粗、斜体等 */
+.color-text strong,
+.color-text b {
+  font-weight: bold;
+}
+
+.color-text em,
+.color-text i {
+  font-style: italic;
+}
+
+.color-text code {
+  padding: 0.2em 0.4em;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+/* 暗色模式下代码背景 */
+@media (prefers-color-scheme: dark) {
+  .color-text code {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* 链接样式 */
+.color-text a {
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+}
+
+.color-text a:hover {
+  opacity: 0.8;
+}
+
+/* 确保不会破坏行高 */
+.color-text {
+  line-height: inherit;
+}
+
+/* 支持块级使用（虽然不推荐） */
+.color-text p {
+  margin: 0;
+  display: inline;
+}
+
+/* 嵌套彩色文字 */
+.color-text .color-text {
+  display: inline;
+}
+

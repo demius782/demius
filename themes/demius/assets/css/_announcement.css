@@ -1,0 +1,126 @@
+/* 公告栏样式 */
+.announcement-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景图片/颜色模式 */
+.announcement-card-with-bg {
+  position: relative;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 背景遮罩层 */
+.announcement-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 内容容器 */
+.announcement-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.announcement-content {
+  padding: 0.5rem 0;
+}
+
+.announcement-item {
+  padding: 1rem;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+  border-left: 3px solid var(--accent);
+}
+
+/* 背景模式下的公告项样式优化 */
+.announcement-card-with-bg .announcement-item {
+  background: rgba(255, 255, 255, 0.15);
+  border-left-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] .announcement-card-with-bg .announcement-item {
+  background: rgba(0, 0, 0, 0.2);
+  border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+.announcement-important {
+  background: color-mix(in srgb, #ff4757 10%, transparent);
+  border-left-color: #ff4757;
+}
+
+.announcement-card-with-bg .announcement-important {
+  background: rgba(255, 71, 87, 0.2);
+  border-left-color: #ff4757;
+}
+
+.announcement-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.announcement-desc {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  color: color-mix(in srgb, var(--fg) 80%, transparent);
+}
+
+/* 背景模式下的文字优化 */
+.announcement-card-with-bg .announcement-title,
+.announcement-card-with-bg .announcement-desc {
+  opacity: 1;
+}
+
+.announcement-link {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--accent);
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+/* 背景模式下的链接样式 */
+.announcement-card-with-bg .announcement-link {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.announcement-link:hover {
+  text-decoration: underline;
+}
+
+.announcement-date {
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--fg) 60%, transparent);
+}
+
+.announcement-default {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  color: color-mix(in srgb, var(--fg) 60%, transparent);
+}
+
+/* 背景模式下的标题样式 */
+.announcement-card-with-bg .aside-title {
+  opacity: 1;
+}
+  
+  .aside-empty {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    color: color-mix(in srgb, var(--fg) 60%, transparent);
+    font-style: italic;
+  }

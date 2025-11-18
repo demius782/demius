@@ -1,0 +1,170 @@
+/* ===================================================================
+   悬浮音乐播放器样式（桌面独立小组件）
+   位置：页面左下角
+   特性：悬浮在所有页面之上，不受页面切换影响，完全无限制展示
+   支持拖拽、缩小、关闭功能
+   =================================================================== */
+
+#music-player-float {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 9998;
+  user-select: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  cursor: default;
+}
+
+/* 控制按钮栏 */
+.music-player-float-controls {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  z-index: 10002;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#music-player-float:hover .music-player-float-controls {
+  opacity: 1;
+}
+
+.music-player-float-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.music-player-float-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+.music-player-float-btn:active {
+  transform: scale(0.95);
+}
+
+.music-player-float-btn svg {
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+/* 拖拽手柄 */
+.music-player-float-drag-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  cursor: move;
+  z-index: 10001;
+  background: transparent;
+}
+
+/* 播放器内容区域 */
+.music-player-float-content {
+  position: relative;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 缩小状态 */
+#music-player-float.minimized {
+  transform: scale(0.8);
+  opacity: 0.7;
+  pointer-events: none; /* 缩小后整体不可交互，鼠标完全透过 */
+}
+
+/* 缩小状态下，控制按钮仍然可以交互 */
+#music-player-float.minimized .music-player-float-controls {
+  opacity: 1;
+  pointer-events: auto; /* 控制按钮可以交互 */
+}
+
+/* 缩小状态下，拖拽手柄可以交互（允许拖拽位置） */
+#music-player-float.minimized .music-player-float-drag-handle {
+  pointer-events: auto; /* 拖拽手柄可以交互 */
+}
+
+/* 缩小状态下，内容区域完全不可交互 */
+#music-player-float.minimized .music-player-float-content {
+  opacity: 0.5;
+  pointer-events: none; /* 内容区域不可交互 */
+}
+
+/* 缩小状态下悬停效果 */
+#music-player-float.minimized:hover {
+  transform: scale(0.85);
+  opacity: 0.9;
+}
+
+/* 缩小状态下悬停时，控制按钮保持可见 */
+#music-player-float.minimized:hover .music-player-float-controls {
+  opacity: 1;
+}
+
+/* 关闭状态 */
+#music-player-float.closed {
+  display: none !important;
+}
+
+/* 拖拽中状态 */
+#music-player-float.dragging {
+  cursor: move;
+  transition: none;
+  z-index: 10003;
+}
+
+#music-player-float.dragging .music-player-float-drag-handle {
+  cursor: grabbing;
+}
+
+/* 播放器圆角样式 */
+#music-player-float .aplayer {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* 本地音频播放器圆角 */
+#music-player-float audio {
+  border-radius: 12px;
+}
+
+/* 确保不会被首页大图遮挡 */
+.home #music-player-float {
+  z-index: 10001; /* 首页模式下高于首页大图（9999）和浮动按钮组（10000） */
+}
+
+.home #music-player-float.dragging {
+  z-index: 10004;
+}
+
+/* 响应式设计 */
+/* 窄屏（768px以下）不显示悬浮播放器 */
+@media (max-width: 768px) {
+  #music-player-float {
+    display: none !important;
+  }
+  
+  #music-player-float .aplayer {
+    border-radius: 8px;
+  }
+  
+  #music-player-float audio {
+    border-radius: 8px;
+  }
+}
+

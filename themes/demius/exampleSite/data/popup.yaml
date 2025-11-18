@@ -1,0 +1,81 @@
+# 弹窗公告数据配置
+# 支持多个弹窗，按顺序显示
+
+# 弹窗1示例
+- id: "popup-1"                    # 弹窗唯一标识
+  enable: false                      # 是否启用此弹窗
+  title: "欢迎访问"                  # 弹窗标题
+  content: |                        # 弹窗内容（支持HTML）
+    <p>欢迎来到我的博客！</p>
+    <p>这里是我的技术分享和日常记录。</p>
+  mode: "modal"                     # 弹出模式：modal（模态框）、toast（提示框）、banner（横幅）
+  position: "center"                # 位置：center（居中）、top（顶部）、bottom（底部）、top-left、top-right、bottom-left、bottom-right
+  width: "500px"                    # 弹窗宽度（modal模式有效）
+  height: "auto"                    # 弹窗高度（modal模式有效，auto为自适应）
+  showCloseButton: true             # 是否显示关闭按钮
+  showOverlay: true                  # 是否显示遮罩层（modal模式有效）
+  closeOnOverlayClick: true         # 点击遮罩层是否关闭（modal模式有效）
+  closeOnEscape: true               # 按ESC键是否关闭
+  autoClose: false                  # 是否自动关闭（false为不自动关闭，数字为毫秒数）
+  delay: 0                          # 延迟显示时间（毫秒）
+  cookieName: "popup_1_closed"      # Cookie名称（用于记录关闭状态）
+  cookieExpire: 0                   # Cookie过期天数（0为会话级，关闭浏览器后失效）
+  showOnce: true                    # 是否只显示一次（基于Cookie）
+  customCSS: ""                     # 自定义CSS样式
+  customJS: ""                      # 自定义JavaScript代码
+  showOnPages:                      # 显示页面类型（all=所有页面，home=首页，posts=文章页）
+    - "all"
+
+# 弹窗2示例（Toast提示框）
+- id: "popup-2"
+  enable: true                     # 默认禁用，需要时启用
+  title: "通知"
+  content: |
+    <p>Demius主题版本 已更新</p>
+  mode: "toast"
+  position: "top-right"
+  width: "300px"
+  height: "auto"
+  showCloseButton: true
+  showOverlay: false
+  closeOnOverlayClick: false
+  closeOnEscape: true
+  autoClose: 5000                   # 5秒后自动关闭
+  delay: 1000                       # 1秒后显示
+  cookieName: "popup_2_closed"                    # 如果showOnce为true，建议设置cookieName
+  cookieExpire: 0
+  showOnce: true                   # 如果cookieName为空，showOnce应设为false
+  customCSS: ""
+  customJS: ""
+  showOnPages:
+    - "home"
+
+# 弹窗3示例（Banner横幅）
+- id: "popup-3"
+  enable: false
+  title: "重要公告"
+  content: |
+    <p>网站维护通知：将于今晚22:00-24:00进行系统维护</p>
+  mode: "banner"
+  position: "top"
+  width: "100%"
+  height: "auto"
+  showCloseButton: true
+  showOverlay: false
+  closeOnOverlayClick: false
+  closeOnEscape: true
+  autoClose: false
+  delay: 0
+  cookieName: "banner_3_closed"
+  cookieExpire: 1                   # 1天后重新显示
+  showOnce: false
+  customCSS: |
+    .popup-banner {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+  customJS: |
+    console.log('Banner弹窗已加载');
+  showOnPages:
+    - "all"
+

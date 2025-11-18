@@ -1,0 +1,26 @@
+/* 仅在音乐星球页面使用的样式（通过选择器前缀限定作用域） */
+.music-planet-page { max-width: 980px; margin: 0 auto; padding: 1rem }
+.music-planet-page .planet-header { text-align: center; margin: .5rem 0 1rem }
+.music-planet-page .planet-header h1 { margin: 0; font-size: clamp(1.6rem, 2.2vw, 2.2rem) }
+.music-planet-page .planet-header .desc { opacity: .8 }
+
+.music-planet-page .planet-grid { display: grid; gap: 1rem }
+@media (min-width: 680px) { .music-planet-page .planet-grid { grid-template-columns: 1fr 1fr } }
+
+.music-planet-page .planet-card { position: relative; border:1px solid color-mix(in srgb, var(--fg) 12%, transparent); border-radius:16px; padding:1rem 1rem 1.2rem; background: color-mix(in srgb, var(--bg) 96%, var(--accent) 4%); overflow: hidden }
+.music-planet-page .planet-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.08) }
+.music-planet-page .planet-card h3 { display:flex; align-items:center; gap:.5rem; margin:.25rem 0 .75rem; font-size:1.05rem }
+
+/* 星球徽章（纯装饰） */
+.music-planet-page .planet-badge { position:absolute; right:-36px; top:-36px; width:140px; height:140px; border-radius:50%; filter: blur(0.25px); opacity:.22 }
+.music-planet-page .planet-badge::after { content:""; position:absolute; inset:-14px; border-radius:50%; border:2px dashed color-mix(in srgb, var(--fg) 25%, transparent); opacity:.5 }
+.music-planet-page .planet-badge[data-color="violet"]{ background: radial-gradient(closest-side, #8e2de2, #4a00e0) }
+.music-planet-page .planet-badge[data-color="cyan"]{ background: radial-gradient(closest-side, #00d2ff, #3a7bd5) }
+.music-planet-page .planet-badge[data-color="gold"]{ background: radial-gradient(closest-side, #f7971e, #ffd200) }
+.music-planet-page .planet-badge[data-color="pink"]{ background: radial-gradient(closest-side, #f5576c, #f093fb) }
+.music-planet-page .planet-badge[data-color="blue"]{ background: radial-gradient(closest-side, #36d1dc, #5b86e5) }
+
+/* 播放器容器适配（Meting/APlayer 自动初始化） */
+.music-planet-page .planet-card .aplayer,
+.music-planet-page .planet-card meting-js { width:100% }
+.music-planet-page .planet-card .aplayer { border-radius:12px; overflow:hidden; border:1px solid color-mix(in srgb, var(--fg) 10%, transparent) }

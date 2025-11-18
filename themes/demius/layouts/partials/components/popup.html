@@ -1,0 +1,108 @@
+{{/* 弹窗公告组件 */}}
+{{ $popupConfig := .Site.Params.popup }}
+{{ if and $popupConfig $popupConfig.enable }}
+  {{/* 从 data/popup.yaml 读取弹窗配置 */}}
+  {{ $popupData := index site.Data "popup" }}
+  {{ if $popupData }}
+    {{ range $popupData }}
+      {{ if .enable }}
+        {{/* 检查是否应该显示在当前页面 */}}
+        {{ $shouldShow := false }}
+        {{ if .showOnPages }}
+          {{ if in .showOnPages "all" }}
+            {{ $shouldShow = true }}
+          {{ else }}
+            {{/* 检查首页 */}}
+            {{ if and (eq $.Kind "home") (in .showOnPages "home") }}
+              {{ $shouldShow = true }}
+            {{ end }}
+            {{/* 检查文章页 */}}
+            {{ if and (eq $.Kind "page") (eq $.Type "posts") (in .showOnPages "posts") }}
+              {{ $shouldShow = true }}
+            {{ end }}
+            {{/* 检查其他页面类型 */}}
+            {{ if and (eq $.Kind "page") (ne $.Type "posts") (in .showOnPages "pages") }}
+              {{ $shouldShow = true }}
+            {{ end }}
+          {{ end }}
+        {{ else }}
+          {{ $shouldShow = true }}
+        {{ end }}
+        
+        {{ if $shouldShow }}
+          {{ $popupId := .id | default "popup-default" }}
+          {{ $mode := .mode | default "modal" }}
+          {{ $position := .position | default "center" }}
+          {{ $width := .width | default "500px" }}
+          {{ $height := .height | default "auto" }}
+          {{ $zIndex := $popupConfig.zIndex | default 10000 }}
+          
+          <div class="popup-container popup-{{ $mode }} popup-{{ $position }}" 
+               id="{{ $popupId }}"
+               data-popup-id="{{ $popupId }}"
+               data-mode="{{ $mode }}"
+               data-position="{{ $position }}"
+               data-width="{{ $width }}"
+               data-height="{{ $height }}"
+               data-show-close="{{ .showCloseButton | default true }}"
+               data-show-overlay="{{ .showOverlay | default true }}"
+               data-close-on-overlay="{{ .closeOnOverlayClick | default true }}"
+               data-close-on-escape="{{ .closeOnEscape | default true }}"
+               data-auto-close="{{ .autoClose | default false }}"
+               data-delay="{{ .delay | default 0 }}"
+               data-cookie-name="{{ .cookieName | default "" }}"
+               data-cookie-expire="{{ .cookieExpire | default 0 }}"
+               data-show-once="{{ .showOnce | default false }}"
+               style="z-index: {{ $zIndex }}; display: none;">
+            
+            {{/* 遮罩层 - 只在modal模式下显示，且showOverlay为true时显示 */}}
+            {{ $showOverlayValue := .showOverlay | default true }}
+            {{ if and (eq $mode "modal") $showOverlayValue }}
+              <div class="popup-overlay"></div>
+            {{ end }}
+            
+            {{/* 弹窗内容 */}}
+            <div class="popup-content" style="width: {{ $width }}; height: {{ $height }};">
+              {{/* 关闭按钮 */}}
+              {{ $showCloseButtonValue := .showCloseButton | default true }}
+              {{ if $showCloseButtonValue }}
+                <button class="popup-close" aria-label="关闭">
+                  <i class="fas fa-times"></i>
+                </button>
+              {{ end }}
+              
+              {{/* 标题 */}}
+              {{ if .title }}
+                <div class="popup-header">
+                  <h3 class="popup-title">{{ .title }}</h3>
+                </div>
+              {{ end }}
+              
+              {{/* 内容 */}}
+              <div class="popup-body">
+                {{ .content | safeHTML }}
+              </div>
+            </div>
+            
+            {{/* 自定义CSS */}}
+            {{ if .customCSS }}
+              <style>
+                {{ .customCSS | safeCSS }}
+              </style>
+            {{ end }}
+          </div>
+          
+          {{/* 自定义JavaScript */}}
+          {{ if .customJS }}
+            <script>
+              (function() {
+                {{ .customJS | safeJS }}
+              })();
+            </script>
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+

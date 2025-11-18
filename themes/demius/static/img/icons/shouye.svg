@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg t="1760697559443" class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="81" height="81">
+
+  <!-- 外框：与追番.svg完全一致 -->
+  <path d="M928 896H96c-52.992 0-96-43.008-96-96V224c0-52.992 43.008-96 96-96h832c52.992 0 96 43.008 96 96v576c0 52.992-43.008 96-96 96zM96 192c-17.664 0-32 14.336-32 32v576c0 17.664 14.336 32 32 32h832c17.664 0 32-14.336 32-32V224c0-17.664-14.336-32-32-32H96z"
+    fill="#929292" p-id="9000"/>
+
+  <!-- 房屋线框：整体缩小12%并下移32px，完全在内部 -->
+  <g fill="none" stroke="#929292" stroke-width="64" stroke-linecap="square" stroke-linejoin="miter"
+     transform="translate(512,544) scale(0.88) translate(-512,-512)">
+    <!-- 屋顶 -->
+    <path d="M320 384 L512 224 L704 384"/>
+    <!-- 墙体轮廓 -->
+    <path d="M352 384 v288h320V384"/>
+    <!-- 门 -->
+    <path d="M448 384 v192h128V384"/>
+  </g>
+</svg>

@@ -1,0 +1,44 @@
+<nav class="site-nav-main">
+  {{ $currentPage := . }}
+
+  {{/* 递归渲染子菜单（支持 2-3 级） */}}
+  {{- define "nav-children" -}}
+    {{- $parent := .parent -}}
+    {{- $items := .items -}}
+    <div class="nav-dropdown-content">
+      {{ range $items }}
+        {{ if .HasChildren }}
+          <div class="nav-item-subdropdown">
+            <a href="{{ .URL }}" class="nav-dropdown-link has-children {{ if $parent.IsMenuCurrent "main" . }}nav-dropdown-active{{ end }}">
+              {{ with .Params.icon }}<img class="nav-icon" src="{{ . | relURL }}" alt="" aria-hidden="true">{{ end }}
+              {{ .Name }}<i class="fas fa-chevron-right nav-subdropdown-icon"></i>
+            </a>
+            {{ template "nav-children" (dict "parent" $parent "items" .Children) }}
+          </div>
+        {{ else }}
+          <a href="{{ .URL }}" class="nav-dropdown-link {{ if $parent.IsMenuCurrent "main" . }}nav-dropdown-active{{ end }}">
+            {{ with .Params.icon }}<img class="nav-icon" src="{{ . | relURL }}" alt="" aria-hidden="true">{{ end }}
+            {{ .Name }}
+          </a>
+        {{ end }}
+      {{ end }}
+    </div>
+  {{- end -}}
+
+  {{ range .Site.Menus.main }}
+    {{ if .HasChildren }}
+      <div class="nav-item-dropdown">
+        <a href="{{ .URL }}" class="nav-link-main {{ if $currentPage.HasMenuCurrent "main" . }}nav-active{{ end }}">
+          {{ with .Params.icon }}<img class="nav-icon" src="{{ . | relURL }}" alt="" aria-hidden="true">{{ end }}
+          <span class="nav-text">{{ .Name }}</span><i class="fas fa-chevron-down nav-dropdown-icon"></i>
+        </a>
+        {{ template "nav-children" (dict "parent" $currentPage "items" .Children) }}
+      </div>
+    {{ else }}
+        <a href="{{ .URL }}" class="nav-link-main {{ if $currentPage.IsMenuCurrent "main" . }}nav-active{{ end }}">
+          {{ with .Params.icon }}<img class="nav-icon" src="{{ . | relURL }}" alt="" aria-hidden="true">{{ end }}
+          <span class="nav-text">{{ .Name }}</span>
+        </a>
+    {{ end }}
+  {{ end }}
+</nav>

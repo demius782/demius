@@ -1,0 +1,1203 @@
+/* ===== 手机端优化样式（Butterfly风格） ===== */
+
+/* 手机端（<= 768px） */
+@media (max-width: 768px) {
+  
+  /* ===== 重要：首先覆盖_responsive.css中的fixed定位（仅首页） ===== */
+  
+  /* 强制覆盖所有可能的fixed定位（仅首页） */
+  body.home .site-aside-right {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: visible !important;
+    z-index: auto !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+  }
+  
+  /* ===== 1. 布局结构重构 ===== */
+  
+  /* 站点整体布局：使用Flexbox垂直堆叠 */
+  .site-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+  }
+  
+  /* 主内容区域（中间栏） */
+  .site-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    order: 1;
+    flex: none;
+  }
+  
+  /* 非文章详情页的左侧栏放到主内容下方（在同一个滚动容器中） */
+  body:not(.single-post) .site-aside-left {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 1rem 1rem !important;
+    order: 2;
+    position: static !important;
+    flex: none;
+    margin-bottom: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  
+  /* 首页的右侧栏放到左侧栏下方（在同一个滚动容器中） */
+  body.home .site-aside-right {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 1rem 2rem !important;
+    order: 3;
+    position: static !important;
+    flex: none;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    height: auto !important;
+    margin-bottom: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    z-index: auto !important;
+  }
+  
+  
+  /* 侧栏卡片样式优化 - 保持左右一致 */
+  .site-aside-left .aside-card,
+  .site-aside-right .aside-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* ===== 2. 导航栏优化（Butterfly风格：透明一行显示） ===== */
+  
+  /* 头部布局调整 */
+  .site-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9999 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0.75rem 1rem !important;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 60px !important;
+    min-height: 60px !important;
+  }
+  
+  /* 滚动后显示背景 */
+  .site-header.header-scrolled {
+    background: var(--bg) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* 向下滚动时隐藏导航栏 */
+  .site-header.header-hidden {
+    transform: translateY(-100%);
+  }
+  
+  /* 向上滚动时显示导航栏 */
+  .site-header.header-visible {
+    transform: translateY(0);
+  }
+  
+  /* 首页顶部时总是显示 */
+  body.at-top .site-header {
+    transform: translateY(0);
+  }
+  
+  /* 为固定头部留出空间，但首页大图模式例外 */
+  body {
+    padding-top: 60px;
+  }
+  
+  /* 首页有大图时不需要padding-top，让大图占据全屏 */
+  body.home:has(.home-big-image),
+  body.home:has(.home-hero) {
+    padding-top: 0;
+  }
+  
+  /* Logo样式 */
+  .site-header .logo {
+    flex: 1;
+    font-size: 1.1rem;
+    color: #fff !important;
+    background: transparent !important;
+    transition: color 0.3s ease;
+    display: block !important;
+    z-index: 10000;
+  }
+  
+  .site-header .logo a {
+    color: #fff !important;
+    background: transparent !important;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* 滚动后Logo颜色 */
+  .site-header.header-scrolled .logo,
+  .site-header.header-scrolled .logo a {
+    color: var(--text-color) !important;
+  }
+  
+  /* 非首页顶部的Logo颜色 */
+  body:not(.at-top):not(.home) .site-header .logo,
+  body:not(.at-top):not(.home) .site-header .logo a {
+    color: var(--text-color) !important;
+  }
+  
+  /* 隐藏导航菜单（默认不显示） */
+  .site-nav-main {
+    display: flex !important;
+    position: fixed !important;
+    top: 0 !important;
+    right: -100% !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: auto !important;
+    min-width: 200px !important;
+    max-width: 85vw !important;
+    height: 100vh !important;
+    flex-direction: column !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15) !important;
+    padding: 80px 0 20px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    z-index: 9998 !important;
+    transition: right 0.3s ease !important;
+    gap: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    max-height: none !important;
+  }
+  
+  /* 暗色模式下的菜单背景 */
+  [data-theme="dark"] .site-nav-main {
+    background: rgba(30, 30, 30, 0.98) !important;
+  }
+  
+  /* 隐藏主题切换和搜索按钮 */
+  .theme-switch,
+  .search-toggle {
+    display: none !important;
+  }
+  
+  /* 隐藏原有的菜单切换按钮 */
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+  
+  /* 右上角菜单按钮（Butterfly风格） */
+  .mobile-nav-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    z-index: 10000;
+    flex-shrink: 0;
+  }
+  
+  .mobile-nav-button span {
+    display: block !important;
+    width: 24px;
+    height: 2px;
+    background: #fff;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+  }
+  
+  /* 滚动后按钮颜色 */
+  .site-header.header-scrolled .mobile-nav-button span {
+    background: var(--text-color) !important;
+  }
+  
+  /* 确保在非首页顶部时按钮也可见 */
+  body:not(.at-top) .mobile-nav-button span {
+    background: var(--text-color) !important;
+  }
+  
+  /* 菜单打开时的动画 */
+  .mobile-nav-button.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  
+  .mobile-nav-button.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-nav-button.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+  
+  /* 菜单打开状态 - 只有添加了mobile-nav-open类才显示 */
+  .site-nav-main.mobile-nav-open {
+    right: 0 !important;
+  }
+  
+  /* 确保没有mobile-nav-open类时菜单隐藏 */
+  .site-nav-main:not(.mobile-nav-open) {
+    right: -100% !important;
+  }
+  
+  /* 菜单项样式 */
+  .site-nav-main .nav-link-main,
+  .site-nav-main .nav-item-dropdown {
+    width: 100%;
+    display: block !important;
+  }
+  
+  /* 确保下拉菜单项容器不额外添加padding，保持与直接菜单项一致 */
+  .site-nav-main .nav-item-dropdown {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* 确保下拉菜单项内的链接有统一的padding */
+  .site-nav-main .nav-item-dropdown > .nav-link-main {
+    padding: 1rem 1.5rem !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  
+  .site-nav-main .nav-link-main {
+    padding: 1rem 1.5rem !important;
+    border-bottom: 1px solid var(--border-color-light, rgba(0, 0, 0, 0.1));
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--text-color);
+    text-decoration: none;
+    gap: 0.5rem;
+    white-space: nowrap;
+    background: transparent !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 亮色模式下移动端导航栏菜单字体为黑色 */
+  :not([data-theme="dark"]) .site-nav-main .nav-link-main:not(:hover) {
+    color: #000 !important;
+  }
+
+  :not([data-theme="dark"]) .site-nav-main .nav-dropdown-link:not(:hover):not(.nav-dropdown-active) {
+    color: #000 !important;
+  }
+
+  /* 暗色模式下移动端导航栏菜单字体为白色 */
+  [data-theme="dark"] .site-nav-main .nav-link-main:not(:hover) {
+    color: #fff !important;
+  }
+
+  [data-theme="dark"] .site-nav-main .nav-dropdown-link:not(:hover):not(.nav-dropdown-active) {
+    color: #fff !important;
+  }
+  
+  /* 菜单项图标 - 确保所有图标左对齐，统一的左侧间距 */
+  .site-nav-main .nav-link-main .nav-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* 菜单项文字 */
+  .site-nav-main .nav-link-main .nav-text {
+    flex: 0 0 auto;
+  }
+  
+  /* 下拉图标 */
+  .site-nav-main .nav-link-main .nav-dropdown-icon {
+    margin-left: auto;
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+  }
+  
+  /* 菜单项悬停效果 */
+  .site-nav-main .nav-link-main:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  /* 暗色模式下的悬停效果 */
+  [data-theme="dark"] .site-nav-main .nav-link-main:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+  
+  /* 二级菜单默认收起 */
+  .site-nav-main .nav-dropdown-content {
+    position: static;
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    overflow: hidden;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+  
+  /* 点击展开时显示 */
+  .site-nav-main .nav-item-dropdown.mobile-open .nav-dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    max-height: 500px;
+    padding: 0.5rem 0;
+  }
+  
+  /* 二级菜单项样式 */
+  .site-nav-main .nav-dropdown-link {
+    padding: 0.75rem 1.5rem 0.75rem 2.5rem !important;
+    display: flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color);
+    text-decoration: none;
+    background: transparent !important;
+    white-space: nowrap;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* 二级菜单项图标 - 确保所有图标左对齐，统一的左侧间距 */
+  .site-nav-main .nav-dropdown-link .nav-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* 二级菜单项悬停 */
+  .site-nav-main .nav-dropdown-link:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  /* 暗色模式下的二级菜单悬停 */
+  [data-theme="dark"] .site-nav-main .nav-dropdown-link:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+  
+  /* 三级菜单项更多缩进 - 确保图标左对齐 */
+  .site-nav-main .nav-item-subdropdown .nav-dropdown-link {
+    padding-left: 3.5rem !important;
+    padding-right: 1.5rem !important;
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* 三级菜单项图标 - 确保图标左对齐，与二级菜单图标位置保持一致 */
+  .site-nav-main .nav-item-subdropdown .nav-dropdown-link .nav-icon {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* 展开图标旋转 */
+  .site-nav-main .nav-item-dropdown.mobile-open .nav-dropdown-icon {
+    transform: rotate(180deg);
+  }
+  
+  /* 三级菜单箭头图标 */
+  .site-nav-main .nav-subdropdown-icon {
+    font-size: 0.65rem;
+    margin-left: auto;
+  }
+  
+  /* 导航遮罩层 */
+  .mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9997;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* ===== 3. 首页大图优化 ===== */
+  
+  /* 首页大图全屏显示 */
+  .home-hero {
+    height: 100vh !important;
+    min-height: 100vh !important;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* 大图标题优化 */
+  .home-hero .hero-title {
+    font-size: 2rem;
+  }
+  
+  .home-hero .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  /* 向下滚动提示 */
+  .scroll-down-hint {
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 2rem;
+    animation: bounce 2s infinite;
+    z-index: 10;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    40% {
+      transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+      transform: translateX(-50%) translateY(-5px);
+    }
+  }
+  
+  /* 首页时，导航栏初始透明，滚动后出现背景 */
+  body.at-top.home .site-header {
+    background: transparent;
+    box-shadow: none;
+  }
+  
+  /* 首页顶部时按钮和Logo为白色 */
+  body.at-top.home .site-header .logo,
+  body.at-top.home .site-header .logo a {
+    color: #fff !important;
+  }
+  
+  body.at-top.home .mobile-nav-button span {
+    background: #fff !important;
+  }
+  
+  /* ===== 4. 文章卡片优化（强制覆盖瀑布流布局） ===== */
+  
+  /* 文章列表容器 */
+  .home-posts {
+    margin: 0 !important;
+    padding: 1rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* 完全覆盖瀑布流布局 - 使用更强的选择器 */
+  .home-posts[data-columns="3"] .masonry-grid,
+  .home-posts[data-columns="3"] .post-grid,
+  .home-posts[data-columns="4"] .masonry-grid,
+  .home-posts[data-columns="4"] .post-grid,
+  .home-posts[data-columns="5"] .masonry-grid,
+  .home-posts[data-columns="5"] .post-grid,
+  .home-posts[data-columns="6"] .masonry-grid,
+  .home-posts[data-columns="6"] .post-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-wrap: nowrap !important;
+  }
+  
+  /* 强制覆盖瀑布流的列结构 */
+  .home-posts[data-columns="3"] .masonry-column,
+  .home-posts[data-columns="4"] .masonry-column,
+  .home-posts[data-columns="5"] .masonry-column,
+  .home-posts[data-columns="6"] .masonry-column {
+    display: contents !important;
+    width: 100% !important;
+    flex: none !important;
+    min-width: 100% !important;
+  }
+  
+  /* 使用超高优先级覆盖瀑布流列宽 */
+  .home-posts[data-columns="3"] .masonry-column:nth-child(1),
+  .home-posts[data-columns="3"] .masonry-column:nth-child(2),
+  .home-posts[data-columns="3"] .masonry-column:nth-child(3),
+  .home-posts[data-columns="4"] .masonry-column:nth-child(1),
+  .home-posts[data-columns="4"] .masonry-column:nth-child(2),
+  .home-posts[data-columns="4"] .masonry-column:nth-child(3),
+  .home-posts[data-columns="5"] .masonry-column:nth-child(1),
+  .home-posts[data-columns="5"] .masonry-column:nth-child(2),
+  .home-posts[data-columns="5"] .masonry-column:nth-child(3),
+  .home-posts[data-columns="6"] .masonry-column:nth-child(1),
+  .home-posts[data-columns="6"] .masonry-column:nth-child(2),
+  .home-posts[data-columns="6"] .masonry-column:nth-child(3) {
+    display: contents !important;
+    width: 100% !important;
+    flex: none !important;
+  }
+  
+  /* masonry-item 包装器 */
+  .home-posts[data-columns] .masonry-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* 文章卡片 */
+  .home-posts[data-columns] .post-card,
+  .home-posts[data-columns] .masonry-item .post-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+  
+  /* 文章封面 */
+  .home-posts[data-columns] .post-cover,
+  .home-posts[data-columns] .masonry-item .post-cover {
+    width: 100% !important;
+    height: 200px !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    flex-shrink: 0 !important;
+  }
+  
+  /* 文章信息 */
+  .home-posts[data-columns] .post-info,
+  .home-posts[data-columns] .masonry-item .post-info {
+    width: 100% !important;
+    padding: 1.25rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  .home-posts[data-columns] .post-title,
+  .home-posts[data-columns] .masonry-item .post-title {
+    font-size: 1.3rem !important;
+    line-height: 1.4 !important; /* 与PC端一致 */
+    margin: 0 0 0.75rem 0 !important; /* 与PC端完全一致：margin: 0 0 .75rem 0 */
+    padding: 0 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  
+  /* 确保标题链接不产生额外空白 */
+  .home-posts[data-columns] .post-title a,
+  .home-posts[data-columns] .masonry-item .post-title a {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: inherit !important;
+  }
+  
+  .home-posts[data-columns] .post-summary,
+  .home-posts[data-columns] .masonry-item .post-summary {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    font-size: 0.9rem !important;
+    margin-bottom: 0.75rem !important;
+    text-overflow: ellipsis !important;
+  }
+  
+  .home-posts[data-columns] .post-meta,
+  .home-posts[data-columns] .masonry-item .post-meta {
+    font-size: 0.85rem !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  
+  /* ===== 5. 文章详情页优化 ===== */
+  
+  /* 文章详情页：左侧栏完全隐藏 */
+  body.single-post .site-aside-left {
+    display: none !important;
+  }
+  
+  /* ===== 文章详情页长链接自动换行 ===== */
+  /* 文章内容中的链接自动换行 */
+  article.post .post-content a {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+  }
+  
+  /* 代码块中的链接自动换行 */
+  article.post .post-content pre a,
+  article.post .post-content code a,
+  article.post .post-content .code-content pre a,
+  article.post .post-content .code-content code a {
+    word-break: break-all !important;
+    overflow-wrap: anywhere !important;
+    white-space: pre-wrap !important;
+  }
+  
+  /* 代码块本身的内容自动换行（处理纯文本URL） */
+  article.post .post-content pre,
+  article.post .post-content code,
+  article.post .post-content .code-content pre,
+  article.post .post-content .code-content code {
+    word-break: break-all !important;
+    overflow-wrap: anywhere !important;
+    white-space: pre-wrap !important;
+    overflow-x: visible !important;
+  }
+  
+  /* 版权区的链接自动换行 */
+  .post-copyright a {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+  }
+  
+  /* 文章页等非首页：右侧栏改为固定侧滑抽屉 */
+  body:not(.home) .site-aside-right {
+    position: fixed !important;
+    top: 0 !important;
+    right: -100% !important;
+    bottom: 0 !important;
+    left: auto !important;
+    width: 80% !important;
+    max-width: 300px !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    background: var(--bg) !important;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15) !important;
+    padding: 80px 1rem 1rem !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    z-index: 10001 !important;
+    transition: right 0.3s ease !important;
+    display: block !important;
+    visibility: visible !important;
+    order: 3;
+    transform: translateY(0) !important;
+    border: none !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+  }
+  
+  /* 右侧栏打开状态 */
+  body:not(.home) .site-aside-right.mobile-toc-open {
+    right: 0 !important;
+    z-index: 10001 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* 仅目录模式：独立的目录弹窗容器（与右侧栏相同的样式和弹出方式） */
+  .mobile-toc-only-container {
+    position: fixed !important;
+    top: 0 !important;
+    right: -100% !important;
+    bottom: 0 !important;
+    left: auto !important;
+    width: 80% !important;
+    max-width: 300px !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    background: var(--bg) !important;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15) !important;
+    padding: 80px 1rem 1rem !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    z-index: 10001 !important;
+    transition: right 0.3s ease !important;
+    display: block !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    border: none !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+  }
+  
+  .mobile-toc-only-container.mobile-toc-only-open {
+    right: 0 !important;
+    z-index: 10001 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* 目录卡片样式保持原有样式 */
+  .mobile-toc-only-container .toc-card {
+    margin: 0;
+    box-shadow: none;
+    border: none;
+  }
+  
+  /* 关闭按钮样式与右侧栏保持一致 */
+  .mobile-toc-only-container .mobile-toc-only-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-toc-only-container .mobile-toc-only-close:hover {
+    color: var(--accent);
+    transform: scale(1.1);
+  }
+  
+  .mobile-toc-only-container .mobile-toc-only-close i {
+    pointer-events: none;
+  }
+  
+  /* 确保右侧栏及其内容可点击 */
+  body:not(.home) .site-aside-right,
+  body:not(.home) .site-aside-right *,
+  body:not(.home) .site-aside-right a,
+  body:not(.home) .site-aside-right button,
+  body:not(.home) .site-aside-right .aside-card,
+  body:not(.home) .site-aside-right .aside-card *,
+  body:not(.home) .site-aside-right .toc-content,
+  body:not(.home) .site-aside-right .toc-content *,
+  body:not(.home) .site-aside-right .aside-title {
+    pointer-events: auto !important;
+  }
+  
+  
+  /* 首页：右侧栏组件修复 - 保持和左侧栏一致 */
+  body:not(.single-post) .site-aside-right .aside-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    z-index: auto !important;
+  }
+  
+  /* 修复标签云组件 */
+  body:not(.single-post) .site-aside-right .tag-cloud {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+  
+  body:not(.single-post) .site-aside-right .tag-cloud .tag-link {
+    word-break: break-word !important;
+  }
+  
+  /* 首页：隐藏右侧栏中的目录组件（目录只在文章详情页有意义） */
+  body.home .site-aside-right .aside-card:has(.toc-content),
+  body.home .site-aside-right [class*="toc"] {
+    display: none !important;
+  }
+  
+  /* 侧栏悬浮按钮 - 整合到浮动按钮组 */
+  /* 目录按钮样式与其他悬浮按钮保持一致，稍微缩小但中心对齐 */
+  .mobile-toc-button {
+    position: absolute !important;
+    /* 中心对齐：其他按钮是 2.5rem（中心 1.25rem），目录按钮是 2.3rem（中心 1.15rem），需要向右移动 0.1rem 来对齐中心 */
+    right: 0.1rem !important;
+    /* 稍微缩小一点 */
+    width: 2.3rem !important;
+    height: 2.3rem !important;
+    border-radius: 50% !important;
+    background: var(--bg) !important;
+    color: var(--text-color) !important;
+    border: none !important;
+    /* 与其他悬浮按钮相同的阴影效果 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 
+                0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    cursor: pointer !important;
+    z-index: 1005 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    /* 字体大小按比例缩小 */
+    font-size: 0.92rem !important;
+    /* 与其他悬浮按钮相同的过渡效果 */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+    /* 毛玻璃效果（与其他悬浮按钮一致） */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  /* 左侧按钮布局：目录按钮也需要左对齐（与左侧悬浮按钮容器一致），中心对齐 */
+  .floating-buttons--left .mobile-toc-button {
+    left: 0.1rem !important;
+    right: auto !important;
+  }
+  
+  /* 默认位置：未滚动且设置按钮未展开时，目录按钮在设置按钮上方 */
+  body:not(.scrolled) .mobile-toc-button {
+    bottom: calc(2.5rem + 0.5rem) !important;
+  }
+  
+  /* 滚动后且设置按钮未展开：目录按钮在设置按钮上方（设置按钮已上移到 calc(2 * (2.5rem + 0.5rem))） */
+  body.scrolled:not(.floating-buttons.fab-open) .mobile-toc-button {
+    bottom: calc(3 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  /* 设置按钮展开时：目录按钮移动到弹幕按钮上方 */
+  /* 侧栏按钮隐藏后，弹幕按钮从位置4移到位置3（未滚动时），从位置6移到位置5（滚动时） */
+  /* 未滚动且展开：弹幕按钮在 calc(3 * (2.5rem + 0.5rem))，目录按钮在其上方 */
+  body:not(.scrolled) .floating-buttons.fab-open .mobile-toc-button {
+    bottom: calc(4 * (2.5rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+  }
+  
+  /* 滚动后且展开：弹幕按钮在 calc(5 * (2.5rem + 0.5rem))，目录按钮在其上方 */
+  body.scrolled .floating-buttons.fab-open .mobile-toc-button {
+    bottom: calc(6 * (2.5rem + 0.5rem)) !important;  /* 从位置7移到位置6 */
+  }
+  
+  /* 首页特殊处理：遵循相同的逻辑 */
+  body.home:not(.scrolled) .mobile-toc-button {
+    bottom: calc(2.5rem + 0.5rem) !important;
+  }
+  
+  body.home.scrolled:not(.floating-buttons.fab-open) .mobile-toc-button {
+    bottom: calc(3 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  /* 首页未滚动且展开：目录按钮在弹幕按钮上方（弹幕按钮在位置3） */
+  body.home:not(.scrolled) .floating-buttons.fab-open .mobile-toc-button {
+    bottom: calc(4 * (2.5rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+  }
+  
+  /* 首页滚动后且展开：目录按钮在弹幕按钮上方（弹幕按钮在位置5） */
+  body.home.scrolled .floating-buttons.fab-open .mobile-toc-button {
+    bottom: calc(6 * (2.5rem + 0.5rem)) !important;  /* 从位置7移到位置6 */
+  }
+  
+  /* 超小屏幕（< 480px）：目录按钮位置逻辑与普通手机端一致，使用 2.25rem 作为按钮尺寸 */
+  @media (max-width: 479px) {
+    /* 未滚动且设置按钮未展开：目录按钮在设置按钮上方 */
+    body:not(.scrolled) .mobile-toc-button {
+      bottom: calc(2.25rem + 0.5rem) !important;
+    }
+    
+    /* 滚动后且设置按钮未展开：目录按钮在设置按钮上方 */
+    body.scrolled:not(.floating-buttons.fab-open) .mobile-toc-button {
+      bottom: calc(3 * (2.25rem + 0.5rem)) !important;
+    }
+    
+    /* 设置按钮展开时：目录按钮移动到弹幕按钮上方 */
+    /* 侧栏按钮隐藏后，弹幕按钮从位置4移到位置3（未滚动时），从位置6移到位置5（滚动时） */
+    /* 未滚动且展开：弹幕按钮在 calc(3 * (2.25rem + 0.5rem))，目录按钮在其上方 */
+    body:not(.scrolled) .floating-buttons.fab-open .mobile-toc-button {
+      bottom: calc(4 * (2.25rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+    }
+    
+    /* 滚动后且展开：弹幕按钮在 calc(5 * (2.25rem + 0.5rem))，目录按钮在其上方 */
+    body.scrolled .floating-buttons.fab-open .mobile-toc-button {
+      bottom: calc(6 * (2.25rem + 0.5rem)) !important;  /* 从位置7移到位置6 */
+    }
+    
+    /* 首页特殊处理：遵循相同的逻辑 */
+    body.home:not(.scrolled) .mobile-toc-button {
+      bottom: calc(2.25rem + 0.5rem) !important;
+    }
+    
+    body.home.scrolled:not(.floating-buttons.fab-open) .mobile-toc-button {
+      bottom: calc(3 * (2.25rem + 0.5rem)) !important;
+    }
+    
+    /* 首页未滚动且展开：目录按钮在弹幕按钮上方（弹幕按钮在位置3） */
+    body.home:not(.scrolled) .floating-buttons.fab-open .mobile-toc-button {
+      bottom: calc(4 * (2.25rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+    }
+    
+    /* 首页滚动后且展开：目录按钮在弹幕按钮上方（弹幕按钮在位置5） */
+    body.home.scrolled .floating-buttons.fab-open .mobile-toc-button {
+      bottom: calc(6 * (2.25rem + 0.5rem)) !important;  /* 从位置7移到位置6 */
+    }
+  }
+  
+  /* 目录按钮 hover 效果与其他悬浮按钮保持一致 */
+  .mobile-toc-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2),
+                0 3px 6px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  /* 目录按钮 active 效果与其他悬浮按钮保持一致 */
+  .mobile-toc-button:active {
+    transform: translateY(0) scale(0.95);
+  }
+  
+  /* 目录按钮图标样式与其他悬浮按钮保持一致 */
+  .mobile-toc-button i,
+  .mobile-toc-button svg {
+    pointer-events: none;
+    transition: transform 0.3s ease;
+  }
+  
+  .mobile-toc-button:hover i,
+  .mobile-toc-button:hover svg {
+    transform: scale(1.1);
+  }
+  
+  /* SVG 图标特殊优化 - 按比例缩小 */
+  .mobile-toc-button svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    stroke-width: 2.5;
+  }
+  
+  /* 目录遮罩层 - 只覆盖侧栏左侧区域，不覆盖侧栏本身 */
+  .mobile-toc-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 100% !important;
+    bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    z-index: 10000 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s ease, visibility 0.3s ease, right 0s ease 0.3s !important;
+    pointer-events: none !important;
+    display: block !important;
+  }
+  
+  .mobile-toc-overlay.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    right: 80% !important;
+    transition: opacity 0.3s ease, visibility 0.3s ease, right 0s ease !important;
+  }
+  
+  /* 关闭按钮 */
+  .mobile-toc-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000 !important;
+    pointer-events: auto !important;
+  }
+  
+  /* 文章详情页主内容区域全宽 */
+  body.single-post .site-main {
+    max-width: 100% !important;
+    padding: 1rem !important;
+  }
+  
+  .post-content {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  .post-header {
+    padding: 1.5rem 1rem;
+  }
+  
+  .post-header .post-title {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+  
+  /* ===== 6. 底部栏 ===== */
+  
+  .site-footer {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1.5rem 1rem !important;
+    text-align: center;
+    box-sizing: border-box !important;
+    order: 4;
+    flex: none;
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    margin-top: 0 !important;
+    display: block !important;
+  }
+  
+  /* ===== 7. 暗色模式适配 ===== */
+  
+  [data-theme="dark"] .site-header {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  
+  [data-theme="dark"] .site-nav-main {
+    background: var(--bg);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  [data-theme="dark"] .mobile-nav-overlay {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  
+  [data-theme="dark"] .mobile-nav-button span {
+    background: var(--text-color);
+  }
+}
+
+/* 小手机端（<= 480px） */
+@media (max-width: 480px) {
+  
+  /* 确保目录弹出容器在小屏幕下也能正确显示 */
+  .mobile-toc-only-container,
+  body:not(.home) .site-aside-right {
+    width: 85% !important;
+    max-width: 280px !important;
+  }
+  
+  .mobile-toc-overlay.active {
+    right: 85% !important;
+  }
+  
+  /* 导航菜单宽度增加 */
+  .site-nav-main {
+    width: 85%;
+  }
+  
+  /* 主内容区域内边距减小 */
+  .site-main {
+    padding: 0.75rem !important;
+  }
+  
+  /* 侧栏内边距减小 */
+  .site-aside-left,
+  .site-aside-right {
+    padding: 0 0.75rem 0.75rem !important;
+  }
+  
+  /* 文章列表内边距 */
+  .home-posts {
+    padding: 0.75rem !important;
+  }
+  
+  /* 文章卡片间距 */
+  .post-grid {
+    gap: 1rem;
+  }
+  
+  /* 文章封面高度 */
+  .post-cover {
+    height: 180px !important;
+  }
+  
+  /* 文章信息内边距 */
+  .post-info {
+    padding: 1rem;
+  }
+  
+  /* 文章标题 */
+  .post-title {
+    font-size: 1.2rem;
+  }
+  
+  /* 文章详情页 */
+  .post-content {
+    padding: 0.75rem;
+  }
+  
+  .post-header {
+    padding: 1rem 0.75rem;
+  }
+  
+  .post-header .post-title {
+    font-size: 1.3rem;
+  }
+  
+  /* 大图标题 */
+  .home-hero .hero-title {
+    font-size: 1.75rem;
+  }
+  
+  .home-hero .hero-subtitle {
+    font-size: 0.9rem;
+  }
+}
+

@@ -1,0 +1,416 @@
+/* ===================================
+   文章加密功能样式
+   =================================== */
+
+/* 部分内容加密 */
+.encrypted-content {
+  margin: 2rem 0;
+}
+
+.encryption-box {
+  background: var(--liushen-card-bg);
+  border: 2px solid var(--liushen-theme-color);
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.encryption-box:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.encryption-icon {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1.5rem;
+  color: var(--liushen-theme-color);
+  animation: shake 2s ease-in-out infinite;
+}
+
+.encryption-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+.encryption-hint {
+  font-size: 1.1rem;
+  color: var(--liushen-fontcolor);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.encryption-input-group {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+  margin: 0 auto 1rem;
+}
+
+.encryption-password {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--liushen-gray-3);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--liushen-white);
+  color: var(--liushen-fontcolor);
+  transition: all 0.3s ease;
+}
+
+.encryption-password:focus {
+  outline: none;
+  border-color: var(--liushen-theme-color);
+  box-shadow: 0 0 0 3px rgba(var(--liushen-theme-color-rgb), 0.1);
+}
+
+.encryption-submit {
+  padding: 0.75rem 1.5rem;
+  background: var(--liushen-theme-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.encryption-submit:hover {
+  background: var(--liushen-theme-color-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--liushen-theme-color-rgb), 0.3);
+}
+
+.encryption-submit:active {
+  transform: translateY(0);
+}
+
+.encryption-error {
+  color: #f56c6c;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  animation: shake-error 0.5s ease-in-out;
+}
+
+@keyframes shake-error {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.encrypted-data {
+  padding: 1.5rem;
+  background: var(--liushen-card-bg);
+  border: 1px solid var(--liushen-gray-3);
+  border-radius: 8px;
+  margin-top: 1rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 全文加密覆盖层 */
+.full-encryption-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--liushen-background);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+.full-encryption-container {
+  max-width: 500px;
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeIn 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* 优化动画性能，减少抖动 - 只使用 opacity，避免 transform 导致的抖动 */
+  will-change: opacity;
+  backface-visibility: hidden;
+  /* 使用 GPU 加速，避免重排重绘 */
+  transform: translateZ(0);
+  /* 防止动画开始前布局变化导致的抖动 - 使用固定最小高度确保布局稳定 */
+  min-height: 400px;
+  /* 确保动画流畅，禁用子像素渲染 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 背景图遮罩层，确保文字可读性 */
+.full-encryption-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 0;
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.full-encryption-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.full-encryption-container .encryption-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+.full-encryption-container .encryption-icon svg {
+  color: #ffffff;
+}
+
+.full-encryption-container h2 {
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.full-encryption-container .encryption-hint {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  color: #ffffff;
+}
+
+/* 全文加密弹窗中的输入框和按钮样式 */
+.full-encryption-container .encryption-password {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--liushen-fontcolor);
+}
+
+.full-encryption-container .encryption-password:focus {
+  background: #ffffff;
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.full-encryption-container .encryption-submit {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.full-encryption-container .encryption-submit:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.full-encryption-container .encryption-error {
+  color: #ffcccc;
+  position: relative;
+  z-index: 1;
+}
+
+/* 文章卡片加密标识样式已移至 _post-card.css */
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .encryption-box {
+    padding: 2rem 1.5rem;
+  }
+
+  .encryption-input-group {
+    flex-direction: column;
+  }
+
+  .encryption-submit {
+    width: 100%;
+  }
+
+  .full-encryption-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .post-card .post-meta-top {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+/* 部分加密弹窗有自定义背景时的输入框样式 */
+.encryption-box[style*="background"] .encryption-password {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  color: #333333 !important;
+}
+
+.encryption-box[style*="background"] .encryption-password:focus {
+  background: #ffffff !important;
+  border-color: rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
+}
+
+.encryption-box[style*="background"] .encryption-password::placeholder {
+  color: #666666 !important;
+  opacity: 0.8;
+}
+
+/* 部分加密弹窗有自定义背景时的按钮样式 */
+.encryption-box[style*="background"] .encryption-submit {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  border: 2px solid rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(10px);
+}
+
+.encryption-box[style*="background"] .encryption-submit:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .encryption-password {
+  background: var(--liushen-card-bg);
+  border-color: var(--liushen-gray-4);
+}
+
+/* 暗色模式下部分加密弹窗有自定义背景时的输入框样式 */
+[data-theme="dark"] .encryption-box[style*="background"] .encryption-password {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  color: #333333 !important;
+}
+
+[data-theme="dark"] .encryption-box[style*="background"] .encryption-password:focus {
+  background: #ffffff !important;
+  border-color: rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme="dark"] .encryption-box[style*="background"] .encryption-submit {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  border: 2px solid rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .encryption-box[style*="background"] .encryption-submit:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-theme="dark"] .encryption-box,
+[data-theme="dark"] .encrypted-data {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .full-encryption-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .full-encryption-container::before {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 确保暗色模式下也保持白色文字和图标 */
+[data-theme="dark"] .full-encryption-container .encryption-icon {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .full-encryption-container .encryption-icon svg {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .full-encryption-container h2 {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .full-encryption-container .encryption-hint {
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+/* 暗色模式下全文加密弹窗中的输入框和按钮样式 */
+[data-theme="dark"] .full-encryption-container .encryption-password {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--liushen-fontcolor);
+}
+
+[data-theme="dark"] .full-encryption-container .encryption-password:focus {
+  background: #ffffff;
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .full-encryption-container .encryption-submit {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .full-encryption-container .encryption-submit:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .full-encryption-container .encryption-error {
+  color: #ffcccc;
+}
+

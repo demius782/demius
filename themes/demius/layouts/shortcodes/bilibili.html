@@ -1,0 +1,37 @@
+{{- if .Site.Params.video.enable -}}
+{{- $bvid := .Get "bvid" -}}
+{{- $aid := .Get "aid" -}}
+{{- $cid := .Get "cid" -}}
+{{- $page := .Get "page" | default "1" -}}
+{{- $autoplay := .Get "autoplay" | default "false" -}}
+{{- $danmaku := .Get "danmaku" | default "true" -}}
+
+{{- $videoId := "" -}}
+{{- if $bvid -}}
+  {{- $videoId = $bvid -}}
+{{- else if $aid -}}
+  {{- $videoId = printf "aid=%s" $aid -}}
+{{- end -}}
+
+{{- if $videoId -}}
+<div class="video-container bilibili-video" data-platform="bilibili">
+  <div class="video-wrapper">
+    <iframe 
+      src="//player.bilibili.com/player.html?{{ if $bvid }}bvid={{ $bvid }}{{ else }}aid={{ $aid }}{{ end }}{{ if $cid }}&cid={{ $cid }}{{ end }}&page={{ $page }}&high_quality=1&danmaku={{ if eq $danmaku "true" }}1{{ else }}0{{ end }}&autoplay={{ if eq $autoplay "true" }}1{{ else }}0{{ end }}" 
+      scrolling="no" 
+      border="0" 
+      frameborder="no" 
+      framespacing="0" 
+      allowfullscreen="true"
+      sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"
+      loading="lazy">
+    </iframe>
+  </div>
+  <div class="video-info">
+    <i class="fab fa-bilibili"></i>
+    <span>哔哩哔哩视频</span>
+  </div>
+</div>
+{{- end -}}
+{{- end -}}
+

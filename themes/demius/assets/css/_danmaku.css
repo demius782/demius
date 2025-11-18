@@ -1,0 +1,234 @@
+/* ===== 评论弹幕功能样式 ===== */
+
+/* 弹幕容器 - 透明全屏覆盖 */
+.danmaku-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+
+.danmaku-container.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 弹幕画布 */
+#danmaku-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* 单条弹幕 */
+.danmaku-item {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  margin: 0.3rem 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  pointer-events: auto;
+  white-space: nowrap;
+  z-index: 1000;
+  min-height: 50px;
+}
+
+/* 暗色模式下的弹幕背景 */
+[data-theme="dark"] .danmaku-item {
+  background: rgba(40, 44, 52, 0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 弹幕悬停效果 */
+.danmaku-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
+[data-theme="dark"] .danmaku-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* 弹幕暂停状态 */
+.danmaku-item.paused {
+  animation-play-state: paused !important;
+}
+
+/* 弹幕头像 */
+.danmaku-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+/* 弹幕内容区 */
+.danmaku-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+/* 弹幕作者信息 */
+.danmaku-author {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.danmaku-author-name {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.danmaku-time {
+  font-size: 0.75rem;
+  color: var(--text-color-light);
+  opacity: 0.7;
+}
+
+/* 弹幕文字 */
+.danmaku-text {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  line-height: 1.4;
+  max-width: 500px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 弹幕页面标识 */
+.danmaku-page {
+  font-size: 0.7rem;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  margin-left: auto;
+}
+
+/* 弹幕按钮激活状态 */
+#danmaku-mode.active {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  color: #fff;
+}
+
+/* 彩色弹幕样式 */
+.danmaku-item.danmaku-colorful {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.9)
+  );
+  border: 2px solid var(--danmaku-color);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 
+              inset 0 0 0 1px var(--danmaku-color),
+              0 0 20px var(--danmaku-color, transparent);
+}
+
+/* 暗色模式下的彩色弹幕 */
+[data-theme="dark"] .danmaku-item.danmaku-colorful {
+  background: linear-gradient(135deg, 
+    rgba(40, 44, 52, 0.95),
+    rgba(40, 44, 52, 0.9)
+  );
+  border: 2px solid var(--danmaku-color);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3), 
+              inset 0 0 0 1px var(--danmaku-color),
+              0 0 20px var(--danmaku-color, transparent);
+}
+
+/* 彩色弹幕悬停效果 */
+.danmaku-item.danmaku-colorful:hover {
+  transform: scale(1.05);
+  border-color: var(--danmaku-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), 
+              inset 0 0 0 2px var(--danmaku-color),
+              0 0 30px var(--danmaku-color, transparent);
+}
+
+[data-theme="dark"] .danmaku-item.danmaku-colorful:hover {
+  transform: scale(1.05);
+  border-color: var(--danmaku-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 
+              inset 0 0 0 2px var(--danmaku-color),
+              0 0 30px var(--danmaku-color, transparent);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .danmaku-item {
+    padding: 0.4rem 0.8rem;
+    gap: 0.4rem;
+  }
+  
+  .danmaku-avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .danmaku-author-name {
+    font-size: 0.8rem;
+  }
+  
+  .danmaku-time {
+    font-size: 0.7rem;
+  }
+  
+  .danmaku-text {
+    font-size: 0.85rem;
+    max-width: 300px;
+  }
+  
+  .danmaku-page {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .danmaku-item {
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .danmaku-avatar {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  
+  .danmaku-text {
+    font-size: 0.8rem;
+    max-width: 200px;
+  }
+}
+
+/* 动画性能优化 */
+@media (prefers-reduced-motion: reduce) {
+  .danmaku-container,
+  .danmaku-item {
+    transition: none;
+  }
+  
+  .danmaku-item.paused {
+    animation: none !important;
+  }
+}
+
+

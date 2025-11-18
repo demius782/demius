@@ -1,0 +1,25 @@
+{{ if and site.Params.comment.enable (eq site.Params.comment.system "artalk") }}
+<!-- 隐藏容器：只用来生成全局实例 -->
+<div id="artalk-global" style="display:none"></div>
+<script>
+(function(){
+  if (window.atkInstance) return;          // 已存在直接返回
+  const server = '{{ site.Params.comment.artalk.server }}'.trim();
+  const siteName = '{{ site.Params.comment.artalk.site }}';
+
+  function waitRes(){
+    if (typeof Artalk === 'undefined') { setTimeout(waitRes,100); return; }
+
+    // 创建全局实例
+    window.atkInstance = Artalk.init({
+      el: '#artalk-global',
+      server: server,
+      site: siteName
+      /* 其余参数用默认即可 */
+    });
+  }
+  waitRes();
+})();
+
+</script>
+{{ end }}

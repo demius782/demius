@@ -1,0 +1,71 @@
+{{ if .Site.Params.aside.showSocialMedia | default true }}
+{{ $socialConfig := index .Site.Params.aside "social-Media" }}
+{{ $enableBg := $socialConfig.enableBackground | default false }}
+{{ $bgImage := $socialConfig.backgroundImage }}
+{{ $bgColor := $socialConfig.backgroundColor }}
+{{ $bgSize := $socialConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $socialConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $socialConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $socialConfig.textColor }}
+{{ $textShadow := $socialConfig.textShadow | default false }}
+{{ $overlayColor := $socialConfig.overlayColor }}
+{{ $borderRadius := $socialConfig.borderRadius }}
+
+<section class="aside-card social-media-card{{ if $enableBg }} social-media-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="social-media-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="social-media-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title">
+      <i class="fas fa-share-alt"></i> 关注我们
+    </h3>
+    
+    <!-- 社交链接 -->
+    <div class="social-media-links">
+      {{ range .Site.Params.social.links }}
+        <a href="{{ .url }}" target="_blank" rel="noopener" class="social-link" 
+           title="{{ .name }}" {{ with .color }}style="background: {{ . }};"{{ end }}>
+          <i class="{{ .icon }}"></i>
+          <span class="social-name">{{ .name }}</span>
+        </a>
+      {{ end }}
+    </div>
+    
+    <!-- 自定义内容区域 -->
+    {{ with .Site.Params.social.custom }}
+      {{ if .enable }}
+        <div class="social-custom">
+          {{ if .title }}<h4 class="custom-title">{{ .title }}</h4>{{ end }}
+          <div class="custom-content">
+            {{ .content | safeHTML }}
+          </div>
+        </div>
+      {{ end }}
+    {{ end }}
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,22 @@
+.site-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem; border-bottom: 1px solid var(--fg);
+    position: relative; z-index: 2000; /* 确保下拉层级在内容之上 */
+  }
+  
+  /* 导航栏固定在顶部 - 保持原有样式，只改变定位 */
+  .site-header.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg); /* 固定时需要背景色，避免透明 */
+  }
+  
+  /* 固定导航栏时，为body添加padding，避免内容跳动 */
+  body.header-fixed {
+    padding-top: 73px; /* 导航栏高度 */
+  }
+  
+  .site-header .logo { font-size: 1.25rem; font-weight: 700; }
+  .site-nav a { margin-left: 1rem; }

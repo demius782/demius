@@ -1,0 +1,27 @@
+<div id="search-modal" class="search-modal" aria-hidden="true">
+  <div class="search-overlay"></div>
+  <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
+    <button class="search-close" aria-label="关闭"><i class="fas fa-times"></i></button>
+    <h2 id="search-title">站内搜索</h2>
+    <form action="{{ "search" | relURL }}" method="get" class="search-form">
+      <input type="text" name="q" placeholder="输入关键词..." class="search-input" id="search-input" autocomplete="off" />
+      <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+    </form>
+    <div id="search-result-count" class="search-count"></div>
+    <ul id="search-results" class="search-results"></ul>
+  </div>
+  <style>
+    .nav-search-trigger{ background:none;border:none;color:var(--fg);font-size:1rem;cursor:pointer;margin-left:1rem }
+    .search-modal{ position:fixed;inset:0;display:none;z-index:4000 }
+    .search-modal.open{ display:block }
+    .search-overlay{ position:absolute;inset:0;background:rgba(0,0,0,.4) }
+    .search-dialog{ position:relative;max-width:800px;margin:10vh auto;background:var(--bg);border:1px solid color-mix(in srgb, var(--fg) 15%, transparent);border-radius:12px;padding:1rem 1.25rem }
+    .search-close{ position:absolute;right:.75rem;top:.75rem;background:none;border:none;color:var(--fg);cursor:pointer }
+    .search-results{ list-style:none;padding:0;margin:1rem 0;display:grid;gap:.6rem }
+    .search-item{ padding:.6rem .5rem;border-bottom:1px dashed color-mix(in srgb, var(--fg) 12%, transparent);border-radius:6px;transition:transform .2s, box-shadow .2s, background .2s }
+    .search-item:hover{ transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08);background:color-mix(in srgb, var(--accent) 4%, transparent) }
+    .search-title{ color:var(--fg);text-decoration:none;font-weight:600 }
+    .search-desc{ margin:.25rem 0 0;opacity:.8 }
+  </style>
+</div>
+
