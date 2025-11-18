@@ -22,7 +22,7 @@ Demius 是我为个人与内容创作者设计的 Hugo 主题，目标是在 **�
 - 📦 **数据页面**：音乐星球、追番星球、装备清单、愿望清单等全部通过 `data/*.yaml` 驱动。
 - 🪄 **短代码**：按钮、时间线、选项卡、加密区块……让 Markdown 也能拥有复杂布局。
 
-{{< button href="/about/" color="primary" size="large" icon="fas fa-play" text="查看关于页面演示" target="_blank" rel="noopener" >}}
+{{< button href="/about/" color="primary" size="large" icon="fas fa-play" target="_blank" rel="noopener" >}}查看关于页面演示{{< /button >}}
 
 {{< button href="https://blog.demius.tech" color="success" icon="fas fa-bolt" >}}访问在线 Demo{{< /button >}}
 

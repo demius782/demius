@@ -8,6 +8,13 @@ languageCode = 'zh-CN'                     # 网站语言代码
 title = 'Demius Theme'                         # 网站标题
 theme = 'demius'                           # 使用的主题名称
 
+[module]
+  [module.hugoVersion]
+    min = "0.146.0"
+    extended = true
+  [[module.imports]]
+    path = "github.com/demius782/demius"
+
 # 忽略特定的日志警告
 ignoreLogs = ['warning-goldmark-raw-html']
 

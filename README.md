@@ -10,6 +10,35 @@
 
 ---
 
+## English Overview
+
+Demius is a feature-rich, PJAX-enabled Hugo theme designed for creators who need to mix **blog posts, micro-updates, media galleries, and data-driven dashboards** on the same site. It comes with a full example site, English comments in config/docs, and ready-to-use data files for every built-in page.
+
+- Demo: https://blog.demius.tech  
+- Screenshots: `images/screenshot.png` + `images/tn.png`  
+- Example site: `exampleSite/` (complete content, data and config)
+
+### Highlights
+- Multi-column masonry home with transparent/glassmorphism modes
+- Immersive reading mode, floating toolbar, PJAX navigation
+- Data pages for gear, gallery, wishlist, music planet, bangumi planet, supporters, etc.
+- Rich shortcodes: buttons, timeline, tabs, collapsible sections, encryption, video/music embeds
+- Built-in widgets: visitor info, random quotes, Artalk comments, announcement bar, popup system
+- 80+ toggle-style options to customize layouts, skins, typography, background, and more
+
+### Quick Start (English)
+1. `git submodule add https://github.com/demius782/demius themes/demius`
+2. Or add to `hugo.toml` as a module:
+   ```toml
+   [[module.imports]]
+     path = "github.com/demius782/demius"
+   ```
+3. Copy the configs/data you need from `exampleSite/` and run `hugo server -D`.
+
+> Need help? The `docs/` directory (Chinese) plus inline comments in `exampleSite/hugo.toml` explain every switch. Issues and PRs in English or Chinese are both welcome.
+
+---
+
 ## ✨ 主要特性
 
 - **三栏/双栏/单栏主页切换**，支持文章卡片透明/毛玻璃模式
