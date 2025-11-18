@@ -1,0 +1,194 @@
+/* ===== 顶部导航 ===== */
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--fg) 15%, transparent);
+  }
+  .site-header .logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  .mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--fg);
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  .site-nav-main {
+    display: flex;
+    align-items: center;            /* 垂直居中，单行排列 */
+    gap: 1.25rem;                   /* 间距略收紧更像 Butterfly */
+    white-space: nowrap;            /* 强制单行 */
+    overflow: visible;              /* 允许下拉在容器外显示 */
+  }
+  .nav-link-main {
+    color: var(--fg);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  }
+  .nav-link-main:hover,
+  .nav-link-main.nav-active {
+    color: var(--accent);
+  }
+  .nav-link-main.nav-active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+  }
+  /* 下拉 */
+  .nav-item-dropdown {
+    position: relative;
+    display: inline-flex;           /* 与单行排列一致 */
+    align-items: center;
+  }
+  .nav-dropdown-icon {
+    margin-left: 0.3rem;
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+  }
+  .nav-item-dropdown:hover .nav-dropdown-icon {
+    transform: rotate(180deg);
+  }
+  .nav-dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--bg);
+    border: 1px solid color-mix(in srgb, var(--fg) 20%, transparent);
+    border-radius: 6px;
+    padding: 0.4rem 0;
+    width: max-content;
+    min-width: 120px;
+    max-width: 200px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 3000; /* 提升层级，避免被其他容器遮挡 */
+    white-space: nowrap;            /* 防止菜单文字换行 */
+  }
+  .nav-item-dropdown:hover .nav-dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+.nav-item-dropdown.open > .nav-dropdown-content {  /* 点击展开支持 */
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+  .nav-dropdown-link {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.6rem;
+    color: var(--fg);
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+.nav-dropdown-link .nav-icon { 
+  width: 14px; 
+  height: 14px; 
+  margin-right: 0.4rem;
+  flex-shrink: 0;
+}
+.nav-link-main .nav-icon { width: 16px; height: 16px; display: inline-block; }
+  .nav-dropdown-link:hover {
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+  .nav-dropdown-link.nav-dropdown-active {
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+/* 亮色模式下导航栏菜单字体为黑色 */
+:not([data-theme="dark"]) .nav-link-main:not(:hover):not(.nav-active) {
+  color: #000 !important;
+}
+
+:not([data-theme="dark"]) .nav-dropdown-link:not(:hover):not(.nav-dropdown-active) {
+  color: #000 !important;
+}
+
+/* 暗色模式下导航栏菜单字体为白色 */
+[data-theme="dark"] .nav-link-main:not(:hover):not(.nav-active) {
+  color: #fff !important;
+}
+
+[data-theme="dark"] .nav-dropdown-link:not(:hover):not(.nav-dropdown-active) {
+  color: #fff !important;
+}
+.nav-item-subdropdown {
+  position: relative;
+}
+.nav-item-subdropdown > .nav-dropdown-content {
+  top: 0;
+  left: 100%;
+  margin-left: 4px;
+}
+.nav-item-subdropdown.open > .nav-dropdown-content {  /* 子级点击展开 */
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.nav-subdropdown-icon { margin-left: .35rem; font-size: .7rem; }
+.nav-dropdown-link.has-children { display: flex; align-items: center; justify-content: space-between; }
+
+  /* 移动端 */
+  @media (max-width: 768px) {
+    .mobile-menu-toggle {
+      display: block;
+    }
+    .site-nav-main {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      border-top: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+      flex-direction: column;
+      gap: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      max-height: 0;
+      overflow: hidden;
+    }
+    .site-nav-main.mobile-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    .nav-link-main {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+    }
+    .nav-dropdown-content {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      box-shadow: none;
+      border: none;
+      border-radius: 0;
+      background: color-mix(in srgb, var(--fg) 5%, transparent);
+    }
+  }

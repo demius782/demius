@@ -1,0 +1,79 @@
+<!-- 当前文件为旧方式的侧栏，仅做备份参考，新的侧栏采用独立组件的方式，在/partials/aside/widgets中增加修改即可 -->
+
+
+<!-- 作者信息 -->
+<!-- {{ if (default true .Site.Params.aside.showAuthor) }}
+<section class="aside-card author-card">
+  <div class="aside-avatar">
+    <img src="{{ .Site.Params.images.avatar | relURL }}" alt="avatar" onerror="this.src='{{ .Site.Params.images.fallbackImage | relURL }}'">
+  </div> -->
+
+  <!-- 社交图标：水平排列在头像下方 -->
+  <!-- <div class="aside-social-inline">
+    {{ range .Site.Params.social.links }}
+    <a href="{{ .url }}" target="_blank" title="{{ .name }}" rel="noopener" {{ with .color }}style="background: {{ . }};"{{ end }}>
+      <i class="{{ .icon }}"></i>
+    </a>
+    {{ end }}
+  </div>
+
+  <div class="aside-name">{{ .Site.Params.author }}</div>
+  <div class="aside-desc">{{ .Site.Params.description }}</div>
+</section>
+{{ end }} -->
+
+<!-- 目录组件 - 内联版本
+{{ if .Site.Params.aside.showToc | default true }}
+<section class="aside-card">
+  <h3 class="aside-title"><i class="fas fa-list"></i> 目录</h3>
+  <div class="toc-content">
+    {{ if and (eq .Kind "page") (gt (len .TableOfContents) 32) }}
+      {{ .TableOfContents | safeHTML }}
+    {{ else }}
+      <div class="toc-empty">
+        {{ if ne .Kind "page" }}
+          目录仅在文章页面显示
+        {{ else }}
+          此文章暂无目录内容
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }} -->
+
+<!-- 最新文章 -->
+<!-- <section class="aside-card">
+  <h3 class="aside-title"><i class="far fa-clock"></i> 最新文章</h3>
+  <div class="aside-recent">
+    {{ range first .Site.Params.aside.recentCount (where .Site.RegularPages "Type" "posts") }}
+      <a class="recent-item" href="{{ .RelPermalink }}">
+        {{ $thumb := .Params.cover }}
+        {{ if $thumb }}
+          <div class="recent-thumb">
+            <img src="{{ $thumb | relURL }}" alt="{{ .Title }}">
+          </div>
+        {{ end }}
+        <div class="recent-meta">
+          <div class="recent-title">{{ .Title }}</div>
+          <div class="recent-date">{{ .Date.Format "2006年01月02日" }}</div>
+        </div>
+      </a>
+    {{ end }}
+  </div>
+</section> -->
+
+<!-- 最新评论 -->
+<!-- {{ partial "aside/recent-comments.html" . }} -->
+
+<!-- 标签云 -->
+<!-- {{ if .Site.Params.aside.showTags | default true }}
+<section class="aside-card">
+  <h3 class="aside-title"><i class="fas fa-tags"></i> 标签</h3>
+  <div class="tag-cloud">
+    {{ range .Site.Taxonomies.tags }}
+    <a class="tag-link" href="{{ .Page.Permalink }}">{{ .Page.Title }}<sup>{{ .Count }}</sup></a>
+    {{ end }}
+  </div>
+</section>
+{{ end }} -->

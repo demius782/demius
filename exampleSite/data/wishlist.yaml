@@ -1,0 +1,97 @@
+# 愿望清单数据
+# 支持多个分类，每个分类包含多个愿望项目
+# status: pending(待实现) | completed(已完成) | in-progress(进行中)
+
+categories:
+  - name: "数码产品"
+    icon: "💻"
+    wishes:
+      - name: "MacBook Pro 16寸"
+        description: "用于开发和创作的高性能笔记本"
+        image: "https://via.placeholder.com/300x200?text=MacBook+Pro"
+        price: "¥19,999"
+        priority: "high"
+        status: "pending"
+        link: "https://www.apple.com.cn/macbook-pro/"
+        
+      - name: "iPad Pro 12.9"
+        description: "便携的绘图和笔记工具"
+        image: "https://via.placeholder.com/300x200?text=iPad+Pro"
+        price: "¥9,999"
+        priority: "medium"
+        status: "in-progress"
+        link: "https://www.apple.com.cn/ipad-pro/"
+        progress: 65
+        
+      - name: "AirPods Pro 2"
+        description: "降噪耳机，用于专注工作"
+        image: "https://via.placeholder.com/300x200?text=AirPods+Pro"
+        price: "¥1,899"
+        priority: "low"
+        status: "completed"
+        link: "https://www.apple.com.cn/airpods-pro/"
+        completedDate: "2024-10-15"
+
+  - name: "旅行目的地"
+    icon: "✈️"
+    wishes:
+      - name: "珠穆朗玛峰"
+        description: "体验地球之巅"
+        image: "https://via.placeholder.com/300x200?text=Kyoto"
+        price: "¥8,00000"
+        priority: "high"
+        status: "pending"
+        
+      - name: "新西兰南岛"
+        description: "探索壮丽的自然风光"
+        image: "https://via.placeholder.com/300x200?text=New+Zealand"
+        price: "¥15,000"
+        priority: "medium"
+        status: "pending"
+
+  - name: "技能提升"
+    icon: "📚"
+    wishes:
+      - name: "学习Go语言"
+        description: "掌握后端开发新技能"
+        image: "https://via.placeholder.com/300x200?text=Golang"
+        priority: "high"
+        status: "in-progress"
+        progress: 45
+        
+      - name: "UI/UX设计课程"
+        description: "提升产品设计能力"
+        image: "https://via.placeholder.com/300x200?text=UI+UX"
+        priority: "medium"
+        status: "pending"
+        
+      - name: "考取驾照"
+        description: "获得驾驶资格"
+        image: "https://via.placeholder.com/300x200?text=Driver+License"
+        priority: "low"
+        status: "completed"
+        completedDate: "2023-08-20"
+
+  - name: "生活愿望"
+    icon: "🌟"
+    wishes:
+      - name: "养一只猫"
+        description: "领养一只可爱的小猫陪伴"
+        image: "https://via.placeholder.com/300x200?text=Cat"
+        priority: "high"
+        status: "pending"
+        
+      - name: "学会做饭"
+        description: "掌握10道拿手菜"
+        image: "https://via.placeholder.com/300x200?text=Cooking"
+        priority: "medium"
+        status: "in-progress"
+        progress: 30
+        
+      - name: "读完100本书"
+        description: "扩展知识面和视野"
+        image: "https://via.placeholder.com/300x200?text=100+Books"
+        priority: "medium"
+        status: "in-progress"
+        progress: 72
+

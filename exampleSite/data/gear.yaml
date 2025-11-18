@@ -1,0 +1,62 @@
+# ===================================================================
+#   装备页面数据配置
+#   说明：此文件用于配置装备页面展示的装备信息
+# ===================================================================
+
+groups:
+  # 数码装备分组
+  - name: "数码装备"
+    description: "日常使用的数码产品"
+    items:
+      - name: "雷神(ThundeRobot）911MT 15.6英寸窄边框游戏笔记本电脑"
+        image: "https://xxxxx/i/2025/09/12/68c4243c859b8.webp"
+        description: "十年老伙计，改版，屏幕显示效果好、色彩准确、对比度强、性能强劲、续航优秀。可以用来开发和设计。"
+        price: "¥13999"
+        links:
+          - platform: "京东"
+            url: "https://m.tb.cn/h.SY9NISh?tk=mBJV4s62QCK"
+            icon: "🛒"
+          - platform: "淘宝"
+            url: "https://m.tb.cn/h.SY9NISh?tk=mBJV4s62QCK"
+            icon: "🛍️"
+          - platform: "天猫"
+            url: "https://m.tb.cn/h.SY9NISh?tk=mBJV4s62QCK"
+            icon: "🐱"
+      
+      - name: "vivo x100pro"
+        image: "https://xxxxxx/i/2025/09/12/68c4258d0b006.webp"
+        description: "事事玩得转，买前生产力，买后爱奇艺。"
+        price: "¥5999"
+        links:
+          - platform: "Apple 官网"
+            url: "https://m.tb.cn/h.SY9NISh?tk=mBJV4s62QCK"
+            icon: "🍎"
+          - platform: "京东"
+            url: "https://m.tb.cn/h.SY9NISh?tk=mBJV4s62QCK"
+            icon: "🛒"
+  
+  # 外设装备分组
+  - name: "外设装备"
+    description: "提升工作效率的外设产品"
+    items:
+      - name: "罗技 MX Master 3S"
+        image: "https://xxxxxx/file/blog/fm/1759453176631_2bad66878661d773516c42a8dc690bfc.jpg"
+        description: "人体工学设计，8K DPI 传感器，静音按键"
+        price: "¥799"
+        links:
+          - platform: "京东"
+            url: "https://item.jd.com/example3"
+            icon: "🛒"
+          - platform: "天猫"
+            url: "https://detail.tmall.com/example3"
+            icon: "🐱"
+      
+      - name: "HHKB Professional Hybrid Type-S"
+        image: "https://xxxxxx/file/blog/fm/1759453173327_15063728775400768.jpg"
+        description: "静电容键盘，蓝牙+有线双模，静音版"
+        price: "¥2499"
+        links:
+          - platform: "京东"
+            url: "https://item.jd.com/example4"
+            icon: "🛒"
+

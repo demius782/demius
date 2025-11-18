@@ -1,0 +1,52 @@
+/* 侧栏卡片全局样式 */
+.aside-card {
+  background: var(--bg);
+  border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;
+}
+.aside-title { font-size: 1.1rem; margin-bottom: .75rem; display: flex; align-items: center; gap: .5rem; }
+.aside-avatar { text-align: center; }
+.aside-avatar img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
+.aside-name,
+.aside-desc { text-align: center; font-size: .9rem; }
+.aside-list { list-style: none; padding-left: 0; }
+.aside-list li { margin-bottom: .5rem; }
+.aside-list small { opacity: .7; }
+.tag-cloud { display: flex; flex-wrap: wrap; gap: .5rem; }
+.tag-link {
+  background: var(--accent); color: #fff; padding: .25rem .5rem;
+  border-radius: 4px; font-size: .8rem;
+}
+
+/* ===== 侧栏"最新文章"迷你单栏 ===== */
+
+
+/* 放到 _aside.css 或 _aside-comments.css 均可 */
+
+
+/* ===== 左侧边栏标签云 - 随机色 + 悬停互动 ===== */
+
+
+
+/* ===== 作者卡片内部 - 头像旋转 + 同一水平线小图标 ===== */
+
+
+/* 目录小部件内容样式 */
+.toc-widget .toc-content {
+  max-height: 60vh;
+  overflow-y: auto;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  padding-right: 4px;
+}
+.toc-widget .toc-content ul {
+  margin: 0;
+  padding-left: 1.2em;
+  list-style: none;
+}
+.toc-widget .toc-content a {
+  color: var(--fg);
+  text-decoration: none;
+}
+.toc-widget .toc-content a:hover {
+  color: var(--accent);
+}

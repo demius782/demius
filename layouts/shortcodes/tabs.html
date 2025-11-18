@@ -1,0 +1,21 @@
+{{- /* 选项卡容器 shortcode */ -}}
+{{- $id := .Get "id" | default (printf "tabs-%d" (now.Unix)) -}}
+{{- $defaultTab := .Get "default" | default "1" -}}
+
+<div class="tabs-container" id="{{ $id }}">
+  <div class="tabs-nav">
+    {{- range $index, $tab := split (.Get "tabs") "," -}}
+      {{- $tabIndex := add $index 1 | string -}}
+      {{- $tabName := trim $tab " " -}}
+      <button class="tab-button{{ if eq $tabIndex $defaultTab }} active{{ end }}" 
+              data-tab="{{ $tabIndex }}"
+              data-container="{{ $id }}">
+        {{ $tabName }}
+      </button>
+    {{- end -}}
+  </div>
+  <div class="tabs-content">
+    {{ .Inner }}
+  </div>
+</div>
+

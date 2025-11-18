@@ -1,0 +1,154 @@
+/* ===== 轮播图透明背景模式样式 ===== */
+
+/* 透明模式下，轮播图容器使用透明毛玻璃效果 */
+.carousel-transparent {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 暗色模式下的透明效果 */
+[data-theme="dark"] .carousel-transparent {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 透明模式下的轮播链接悬停效果 */
+.carousel-transparent .carousel-link:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] .carousel-transparent .carousel-link:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* 透明模式下的轮播图片容器 */
+.carousel-transparent .carousel-image {
+  position: relative;
+  z-index: 1;
+}
+
+/* 透明模式下的轮播内容区域 */
+.carousel-transparent .carousel-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* 透明模式下的覆盖层内容（纯图片时） */
+.carousel-transparent .carousel-content-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+}
+
+/* 透明模式下的导航按钮 */
+.carousel-transparent .carousel-nav {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .carousel-transparent .carousel-nav {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel-transparent .carousel-nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .carousel-transparent .carousel-nav:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* 透明模式下的指示器 */
+.carousel-transparent .carousel-indicator {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .carousel-transparent .carousel-indicator {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.carousel-transparent .carousel-indicator.active {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="dark"] .carousel-transparent .carousel-indicator.active {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== 全透明模式样式（完全透明，无背景、无模糊、无边框） ===== */
+
+/* 全透明模式下，移除所有背景、模糊效果和边框 */
+.carousel-transparent-full {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 全透明模式下的轮播链接悬停效果（保持轻微背景以确保可读性） */
+.carousel-transparent-full .carousel-link:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] .carousel-transparent-full .carousel-link:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* 全透明模式下的覆盖层内容（保持原有样式以确保可读性） */
+.carousel-transparent-full .carousel-content-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+}
+
+/* 全透明模式下的导航按钮（保持轻微背景以确保可见性） */
+.carousel-transparent-full .carousel-nav {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .carousel-transparent-full .carousel-nav {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel-transparent-full .carousel-nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .carousel-transparent-full .carousel-nav:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* 全透明模式下的指示器（保持轻微背景以确保可见性） */
+.carousel-transparent-full .carousel-indicator {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .carousel-transparent-full .carousel-indicator {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.carousel-transparent-full .carousel-indicator.active {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="dark"] .carousel-transparent-full .carousel-indicator.active {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+

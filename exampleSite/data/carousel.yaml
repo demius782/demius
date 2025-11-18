@@ -1,0 +1,14 @@
+# 轮播图轮播项配置
+items:
+  - type: "image"
+    image: "/img/bj.jpg"
+    title: "Demius 主题演示"
+    description: "访问最新 DEMO 站点"
+    link: "https://blog.demius.tech"
+
+  - type: "image"
+    image: "/img/bj.jpg"
+    title: "主题配置文档"
+    description: "查阅完整使用说明"
+    link: "https://blog.demius.tech"
+

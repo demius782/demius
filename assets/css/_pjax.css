@@ -1,0 +1,27 @@
+/* ===== PJAX 页面切换效果（瞬间切换，无动画闪烁） ===== */
+
+/* PJAX 加载指示器（顶部进度条） */
+#simple-pjax-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #4fc3f7, #29b6f6, #03a9f4);
+  z-index: 9999;
+  transform: translateX(-100%);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+}
+
+/* 加载中状态 - 禁用交互 */
+body.pjax-loading .site-main {
+  pointer-events: none;
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] #simple-pjax-loader {
+  background: linear-gradient(90deg, #29b6f6, #03a9f4, #0288d1);
+  box-shadow: 0 0 10px rgba(41, 182, 246, 0.5);
+}
+

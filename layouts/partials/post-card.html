@@ -1,0 +1,67 @@
+<article class="post-card{{ if .Params.pinned }} post-card-pinned{{ end }}">
+  {{ $defaultCover := site.Params.images.defaultCover | default "/img/default-cover.jpg" }}
+  {{ $cover := .Params.cover | default $defaultCover }}
+  
+  {{ if .Params.pinned }}
+  <div class="post-pinned-badge">
+    <i class="fas fa-thumbtack"></i>
+    <span>置顶</span>
+  </div>
+  {{ end }}
+  
+  {{/* 全文加密检测：如果设置了password参数 */}}
+  {{ if .Params.password }}
+  <div class="post-encryption-badge post-encryption-full">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+    <span>全文加密</span>
+  </div>
+  {{ else }}
+    {{/* 部分加密检测：检查文章内容中是否包含encrypt短代码 */}}
+    {{ $rawContent := .RawContent }}
+    {{ $hasPartialEncrypt := false }}
+    {{ if findRE `\{\{<\s*encrypt\s+` $rawContent }}
+      {{ $hasPartialEncrypt = true }}
+    {{ end }}
+    {{ if $hasPartialEncrypt }}
+  <div class="post-encryption-badge post-encryption-partial">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 5 0v4"></path>
+    </svg>
+    <span>部分加密</span>
+  </div>
+    {{ end }}
+  {{ end }}
+  
+  <div class="post-cover">
+    <img src="{{ $cover | relURL }}" alt="{{ .Title }}" loading="lazy" onerror="this.src='{{ $defaultCover }}'">
+  </div>
+  <div class="post-info">
+    <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <div class="post-meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+      {{ with .Params.categories }}
+        <span class="meta-cats">
+          {{ range . }}<a href="{{ "categories/" | relURL }}{{ . | urlize }}/" class="cat">{{ . }}</a>{{ end }}
+        </span>
+      {{ end }}
+      <span class="meta-read">{{ .ReadingTime }} 分钟</span>
+    </div>
+    <p class="post-summary">
+      {{- $len := site.Params.summaryLength | default 120 -}}
+      {{- if .Description -}}
+        {{ .Description }}
+      {{- else -}}
+        {{ .Summary | plainify | htmlUnescape | truncate $len }}
+      {{- end -}}
+    </p>
+    {{ with .Params.tags }}
+    <div class="post-tags">
+      {{ range first 5 . }}<a class="tag" href="{{ "tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
+    </div>
+    {{ end }}
+  </div>
+</article>

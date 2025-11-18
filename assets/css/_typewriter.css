@@ -1,0 +1,25 @@
+/* 打字机效果样式 */
+
+/* 光标动画 */
+.typewriter-cursor::after {
+  content: '|';
+  margin-left: 0.1em;
+  animation: blink 1s infinite;
+}
+
+/* 光标闪烁动画 */
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+/* 确保副标题元素有最小高度，避免闪烁 */
+.home-big-image-subtitle {
+  min-height: 1.5em;
+  display: inline-block;
+}
+

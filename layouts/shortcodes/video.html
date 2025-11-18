@@ -1,0 +1,31 @@
+{{- if .Site.Params.video.enable -}}
+{{- $src := .Get "src" -}}
+{{- $poster := .Get "poster" -}}
+{{- $autoplay := .Get "autoplay" | default "false" -}}
+{{- $loop := .Get "loop" | default "false" -}}
+{{- $muted := .Get "muted" | default "false" -}}
+{{- $controls := .Get "controls" | default "true" -}}
+
+{{- if $src -}}
+<div class="video-container html5-video" data-platform="html5">
+  <div class="video-wrapper">
+    <video 
+      {{ if $poster }}poster="{{ $poster }}"{{ end }}
+      {{ if eq $controls "true" }}controls{{ end }}
+      {{ if eq $autoplay "true" }}autoplay{{ end }}
+      {{ if eq $loop "true" }}loop{{ end }}
+      {{ if eq $muted "true" }}muted{{ end }}
+      preload="metadata"
+      playsinline>
+      <source src="{{ $src }}" type="video/mp4">
+      您的浏览器不支持 HTML5 视频播放。
+    </video>
+  </div>
+  <div class="video-info">
+    <i class="fas fa-film"></i>
+    <span>本地视频</span>
+  </div>
+</div>
+{{- end -}}
+{{- end -}}
+

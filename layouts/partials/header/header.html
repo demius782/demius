@@ -1,0 +1,18 @@
+<header class="site-header">
+    <div class="logo">
+      <a href="/" aria-label="首页">{{ .Site.Title }}</a>
+    </div>
+  
+    <!-- 移动端汉堡 -->
+    <button class="mobile-menu-toggle" aria-label="切换菜单">
+      <i class="fas fa-bars"></i>
+    </button>
+  
+    <!-- 导航菜单（独立 partial） -->
+    <nav class="site-nav">
+      {{ partial "header/navigation.html" . }}
+    </nav>
+  <button class="nav-search-trigger" aria-label="搜索">
+    <i class="fas fa-search"></i>
+  </button>
+  </header>

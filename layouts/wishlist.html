@@ -1,0 +1,100 @@
+{{ define "content" }}
+<div class="wishlist-page">
+  <div class="wishlist-header">
+    <h1 class="wishlist-title">{{ .Title }}</h1>
+    {{ with .Content }}
+      <div class="wishlist-intro">
+        <div class="post-content">{{ . }}</div>
+      </div>
+    {{ end }}
+  </div>
+
+  {{ $wishlistData := .Site.Data.wishlist }}
+  
+  {{ if $wishlistData }}
+    {{ range $wishlistData.categories }}
+      <div class="wishlist-category">
+        <h2 class="category-title">
+          <span class="category-icon">{{ .icon }}</span>
+          <span class="category-name">{{ .name }}</span>
+        </h2>
+        
+        <div class="wishes-grid">
+          {{ range .wishes }}
+            <div class="wish-card {{ .status }}">
+              {{ if .status }}
+                <div class="wish-status-badge status-{{ .status }}">
+                  {{ if eq .status "completed" }}
+                    ✓ 已完成
+                  {{ else if eq .status "in-progress" }}
+                    ⏳ 进行中
+                  {{ else }}
+                    ⭐ 待实现
+                  {{ end }}
+                </div>
+              {{ end }}
+              
+              {{ if .priority }}
+                <div class="wish-priority priority-{{ .priority }}">
+                  {{ if eq .priority "high" }}
+                    高优先级
+                  {{ else if eq .priority "medium" }}
+                    中优先级
+                  {{ else }}
+                    低优先级
+                  {{ end }}
+                </div>
+              {{ end }}
+              
+              {{ if .image }}
+                <div class="wish-image">
+                  <img src="{{ .image }}" alt="{{ .name }}" loading="lazy" onerror="this.src='/img/404.jpg'">
+                </div>
+              {{ end }}
+              
+              <div class="wish-content">
+                <h3 class="wish-name">{{ .name }}</h3>
+                
+                {{ if .description }}
+                  <p class="wish-description">{{ .description }}</p>
+                {{ end }}
+                
+                {{ if .price }}
+                  <div class="wish-price">{{ .price }}</div>
+                {{ end }}
+                
+                {{ if and (eq .status "in-progress") .progress }}
+                  <div class="wish-progress">
+                    <div class="progress-bar">
+                      <div class="progress-fill" style="width: {{ .progress }}%"></div>
+                    </div>
+                    <div class="progress-text">{{ .progress }}%</div>
+                  </div>
+                {{ end }}
+                
+                {{ if and (eq .status "completed") .completedDate }}
+                  <div class="wish-completed-date">
+                    完成于: {{ .completedDate }}
+                  </div>
+                {{ end }}
+                
+                {{ if .link }}
+                  <a href="{{ .link }}" class="wish-link" target="_blank" rel="noopener">
+                    查看详情 →
+                  </a>
+                {{ end }}
+              </div>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
+  {{ else }}
+    <div class="wishlist-empty">
+      <p>暂无愿望清单数据</p>
+      <p>请在 <code>data/wishlist.yaml</code> 中添加数据</p>
+    </div>
+  {{ end }}
+</div>
+{{ end }}
+

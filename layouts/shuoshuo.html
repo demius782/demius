@@ -1,0 +1,131 @@
+{{ define "content" }}
+<div class="shuoshuo-page">
+  <div id="talk"></div>
+  <div class="limit">- 只展示最近30条说说 -</div>
+</div>
+
+<!-- 评论区 -->
+{{ partial "comment.html" . }}
+
+<!-- 引入APlayer和MetingJS - 支持备用CDN（如果baseof.html中未加载） -->
+<script>
+  // 检查APlayer和Meting是否已加载（可能在baseof.html中已加载）
+  (function() {
+    const aplayerLoaded = typeof APlayer !== 'undefined' || document.querySelector('script[src*="aplayer"]');
+    const metingLoaded = typeof Meting !== 'undefined' || document.querySelector('script[src*="meting"]');
+    
+    // 如果都已加载，直接返回
+    if (aplayerLoaded && metingLoaded) {
+      return;
+    }
+    
+    const aplayerCSS = [
+      'https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.css',
+      'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css'
+    ];
+    
+    const aplayerJS = [
+      'https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js',
+      'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js'
+    ];
+    
+    const metingCDNs = [
+      'https://unpkg.com/meting@2/dist/Meting.min.js',
+      'https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js'
+    ];
+    
+    let cssIndex = 0;
+    let jsIndex = 0;
+    let metingIndex = 0;
+    
+    // 加载APlayer CSS
+    function loadAPlayerCSS() {
+      if (cssIndex >= aplayerCSS.length) {
+        console.error('[音乐播放器] APlayer CSS所有CDN加载失败');
+        if (!aplayerLoaded) {
+          loadAPlayerJS(); // 即使CSS失败也尝试加载JS
+        } else if (!metingLoaded) {
+          loadMetingJS();
+        }
+        return;
+      }
+      
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = aplayerCSS[cssIndex];
+      link.media = 'all';
+      link.onerror = function() {
+        cssIndex++;
+        loadAPlayerCSS();
+      };
+      link.onload = function() {
+        if (!aplayerLoaded) {
+          loadAPlayerJS();
+        } else if (!metingLoaded) {
+          loadMetingJS();
+        }
+      };
+      document.head.appendChild(link);
+    }
+    
+    // 加载APlayer JS
+    function loadAPlayerJS() {
+      if (jsIndex >= aplayerJS.length) {
+        console.error('[音乐播放器] APlayer JS所有CDN加载失败');
+        if (!metingLoaded) {
+          loadMetingJS();
+        }
+        return;
+      }
+      
+      const script = document.createElement('script');
+      script.src = aplayerJS[jsIndex];
+      script.onerror = function() {
+        jsIndex++;
+        loadAPlayerJS();
+      };
+      script.onload = function() {
+        if (!metingLoaded) {
+          loadMetingJS();
+        }
+      };
+      document.head.appendChild(script);
+    }
+    
+    // 加载MetingJS
+    function loadMetingJS() {
+      if (metingIndex >= metingCDNs.length) {
+        console.error('[音乐播放器] MetingJS所有CDN加载失败');
+        return;
+      }
+      
+      const script = document.createElement('script');
+      script.src = metingCDNs[metingIndex];
+      script.onerror = function() {
+        metingIndex++;
+        loadMetingJS();
+      };
+      script.onload = function() {
+        window.dispatchEvent(new CustomEvent('metingjs:loaded'));
+      };
+      document.head.appendChild(script);
+    }
+    
+    // 开始加载
+    if (!aplayerLoaded) {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadAPlayerCSS);
+      } else {
+        loadAPlayerCSS();
+      }
+    } else if (!metingLoaded) {
+      // APlayer已加载，直接加载MetingJS
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadMetingJS);
+      } else {
+        loadMetingJS();
+      }
+    }
+  })();
+</script>
+{{ end }}

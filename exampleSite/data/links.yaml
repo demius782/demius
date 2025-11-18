@@ -1,0 +1,9 @@
+groups:
+  - name: "一些博客"
+    links:
+      - name: "字·兮·书"
+        url: "https://blog.demius.tech"
+        avatar: "/img/avatar.png"
+        description: "时间就是生命，Life is money，Money is life"
+        tags: ["技术"]
+        rss: "https://blog.demius.tech/index.xml"

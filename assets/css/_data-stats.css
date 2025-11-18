@@ -1,0 +1,110 @@
+/* 侧栏数据统计组件样式 */
+.data-stats-card {
+  margin-bottom: 1rem;
+}
+
+.data-stats-card-with-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.data-stats-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.data-stats-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.data-stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.data-stats-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.data-stats-item:last-child {
+  border-bottom: none;
+}
+
+.data-stats-label {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+  flex: 1;
+  min-width: 0;
+}
+
+.data-stats-value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-color);
+  line-height: 1.2;
+  text-align: right;
+  flex-shrink: 0;
+  margin-right: -1rem;
+  padding-right: 1rem;
+}
+
+.data-stats-value.loading-skeleton {
+  display: inline-block;
+  background: linear-gradient(90deg, 
+    var(--bg-card) 25%, 
+    var(--border-color) 50%, 
+    var(--bg-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+  min-width: 40px;
+  height: 1.125rem;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .data-stats-item {
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+  }
+
+  .data-stats-value {
+    font-size: 1rem;
+    margin-right: -1rem;
+    padding-right: 1rem;
+  }
+
+  .data-stats-label {
+    font-size: 0.8rem;
+  }
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .data-stats-item {
+  border-bottom-color: var(--border-color);
+}
+

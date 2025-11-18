@@ -1,0 +1,36 @@
+{{ $config := .Site.Params.topAnnouncement }}
+{{ $mode := $config.mode | default "custom" }}
+{{ $height := $config.height | default 40 }}
+{{ $stickyWithHeader := $config.stickyWithHeader | default true }}
+
+<div id="top-announcement" class="top-announcement" data-mode="{{ $mode }}" data-sticky-with-header="{{ $stickyWithHeader }}" style="--announcement-height: {{ $height }}px;">
+  {{ if eq $mode "custom" }}
+    {{/* 自定义文字模式 */}}
+    <div class="top-announcement-content custom-mode">
+      <div class="announcement-text">
+        {{ $customConfig := $config.custom }}
+        {{ if $customConfig.link }}
+          <a href="{{ $customConfig.link }}" class="announcement-link">
+            {{ $customConfig.text | safeHTML }}
+            {{ if $customConfig.linkText }}
+              <span class="link-text">{{ $customConfig.linkText }}</span>
+            {{ end }}
+          </a>
+        {{ else }}
+          {{ $customConfig.text | safeHTML }}
+        {{ end }}
+      </div>
+    </div>
+  {{ else if eq $mode "shuoshuo" }}
+    {{/* 说说轮播模式 */}}
+    <div class="top-announcement-content shuoshuo-mode">
+      <div class="announcement-carousel" id="announcement-carousel">
+        <div class="announcement-carousel-container">
+          <div class="announcement-carousel-track" id="announcement-carousel-track"></div>
+        </div>
+        <div class="announcement-carousel-indicators" id="announcement-carousel-indicators"></div>
+      </div>
+    </div>
+  {{ end }}
+</div>
+

@@ -1,0 +1,88 @@
+{{ define "content" }}
+{{ $colorMode := site.Params.booklist.cardColorMode | default "transparent" }}
+{{ $customColor := site.Params.booklist.cardCustomColor | default "#f5f5f5" }}
+<div class="booklist-page" data-card-color-mode="{{ $colorMode }}">
+  <header class="booklist-header">
+    <h1 class="booklist-title">{{ .Title }}</h1>
+  </header>
+
+  <div class="booklist-container">
+    <!-- 书单分组区域 -->
+    <div class="booklist-groups">
+      {{ if .Site.Data.booklist }}
+        {{ $booklistData := .Site.Data.booklist }}
+        {{ range $booklistData.groups }}
+        <div class="booklist-group">
+          <h2 class="group-title">{{ .name }}</h2>
+          <div class="books-grid">
+            {{ range $index, $book := .books }}
+              {{ $colorIndex := add (mod $index 8) 1 }}
+              {{ if eq $colorMode "custom" }}
+              <div class="book-card custom-color" style="background-color: {{ $customColor }};" {{ if $book.url }}onclick="window.open('{{ $book.url }}', '_blank')"{{ end }}>
+              {{ else if eq $colorMode "random" }}
+              <div class="book-card color-{{ $colorIndex }}" {{ if $book.url }}onclick="window.open('{{ $book.url }}', '_blank')"{{ end }}>
+              {{ else }}
+              <div class="book-card" {{ if $book.url }}onclick="window.open('{{ $book.url }}', '_blank')"{{ end }}>
+              {{ end }}
+                {{ if $book.cover }}
+                <div class="book-cover">
+                  <img src="{{ $book.cover }}" alt="{{ $book.name }}" onerror="this.src='/img/404.jpg'">
+                </div>
+                {{ end }}
+                <div class="book-info">
+                  {{ $textColorIndex := add (mod $index 12) 1 }}
+                  <h3 class="book-name text-color-{{ $textColorIndex }}">{{ $book.name }}</h3>
+                  {{ if $book.author }}
+                  <p class="book-author text-color-{{ $textColorIndex }}">作者：{{ $book.author }}</p>
+                  {{ end }}
+                  {{ if $book.description }}
+                  <p class="book-description text-color-{{ $textColorIndex }}">{{ $book.description }}</p>
+                  {{ end }}
+                  {{ if $book.rating }}
+                  <div class="book-rating text-color-{{ $textColorIndex }}">
+                    <span class="rating-label">评分：</span>
+                    <span class="rating-value">{{ $book.rating }}</span>
+                  </div>
+                  {{ end }}
+                  {{ if $book.readDate }}
+                  <div class="book-date text-color-{{ $textColorIndex }}">阅读日期：{{ $book.readDate }}</div>
+                  {{ end }}
+                  {{ if $book.progress }}
+                  <div class="book-progress text-color-{{ $textColorIndex }}">阅读进度：{{ $book.progress }}</div>
+                  {{ end }}
+                </div>
+                {{ if $book.tags }}
+                <div class="book-tags">
+                  {{ range $tagIndex, $tag := first 3 $book.tags }}
+                  {{ $tagColorIndex := add (mod (add $tagIndex $index) 12) 1 }}
+                  <span class="book-tag tag-color-{{ $tagColorIndex }}">{{ . }}</span>
+                  {{ end }}
+                </div>
+                {{ end }}
+              </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      {{ else }}
+        <div class="no-books-message">
+          <p>暂无书单数据，请在 data/booklist.yaml 文件中添加小说信息。</p>
+        </div>
+      {{ end }}
+    </div>
+
+    <!-- 书单说明内容（移动到书单列表下方） -->
+    {{ with .Content }}
+    <div class="booklist-description">
+      <div class="post-content">
+        {{ . }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <!-- 评论区 -->
+  {{ partial "comment.html" . }}
+</div>
+{{ end }}
+

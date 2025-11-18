@@ -1,0 +1,116 @@
+{{ $seriesConfig := .Site.Params.aside.seriesPosts }}
+{{ if and $seriesConfig $seriesConfig.enable }}
+  {{ $allSeries := $seriesConfig.series }}
+  {{ if $allSeries }}
+  {{ $enableBg := $seriesConfig.enableBackground | default false }}
+  {{ $bgImage := $seriesConfig.backgroundImage }}
+  {{ $bgColor := $seriesConfig.backgroundColor }}
+  {{ $bgSize := $seriesConfig.backgroundSize | default "cover" }}
+  {{ $bgPosition := $seriesConfig.backgroundPosition | default "center" }}
+  {{ $bgRepeat := $seriesConfig.backgroundRepeat | default "no-repeat" }}
+  {{ $textColor := $seriesConfig.textColor }}
+  {{ $textShadow := $seriesConfig.textShadow | default false }}
+  {{ $overlayColor := $seriesConfig.overlayColor }}
+  {{ $borderRadius := $seriesConfig.borderRadius }}
+  
+  <section class="aside-card series-posts-widget{{ if $enableBg }} series-posts-widget-with-bg{{ end }}" 
+           data-carousel="{{ $seriesConfig.enableCarousel | default false }}"
+           data-interval="{{ $seriesConfig.carouselInterval | default 8000 }}"
+           {{ if $enableBg }}
+           {{ $styleStr := "" }}
+           {{ if $bgImage }}
+             {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+           {{ else if $bgColor }}
+             {{ $styleStr = printf "background: %s;" $bgColor }}
+           {{ end }}
+           {{ if or $bgImage $bgColor }}
+             {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+           {{ end }}
+           {{ if $borderRadius }}
+             {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+           {{ end }}
+           style="{{ $styleStr | safeCSS }}"
+           {{ end }}
+  >
+    {{ if and $enableBg $overlayColor }}
+    <div class="series-posts-widget-overlay" style="background: {{ $overlayColor }};"></div>
+    {{ end }}
+    
+    <div class="series-posts-widget-content"
+      {{ if and $enableBg $textColor }}
+      style="
+        color: {{ $textColor }};
+        {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+      "
+      {{ end }}
+    >
+      <h3 class="aside-title">
+        <i class="fas fa-layer-group"></i> 系列文章
+      </h3>
+    
+    <div class="series-carousel-container">
+      <!-- 轮播指示器 -->
+      {{ if and (gt (len $allSeries) 1) $seriesConfig.enableCarousel }}
+      <div class="series-indicators">
+        {{ range $index, $series := $allSeries }}
+        <button class="series-indicator{{ if eq $index 0 }} active{{ end }}" 
+                data-index="{{ $index }}"
+                aria-label="切换到系列 {{ add $index 1 }}"></button>
+        {{ end }}
+      </div>
+      {{ end }}
+      
+      <!-- 系列列表容器 -->
+      <div class="series-list-wrapper">
+        {{ range $seriesIndex, $series := $allSeries }}
+        <div class="series-item{{ if eq $seriesIndex 0 }} active{{ end }}" data-series-index="{{ $seriesIndex }}">
+          <div class="series-header">
+            <h4 class="series-name">{{ $series.name }}</h4>
+            {{ with $series.description }}
+            <p class="series-description">{{ . }}</p>
+            {{ end }}
+          </div>
+          
+          <div class="series-posts-list">
+            {{ $slugs := $series.slugs }}
+            {{ range $index, $slug := $slugs }}
+              {{ $posts := where $.Site.RegularPages ".Params.slug" $slug }}
+              {{ $post := index $posts 0 }}
+              {{ if $post }}
+              {{ $defaultCover := $.Site.Params.images.defaultCover | default "/img/default-cover.jpg" }}
+              {{ $fallbackImage := $.Site.Params.images.fallbackImage | default "/img/404.jpg" }}
+              {{ $cover := $post.Params.cover | default $defaultCover }}
+              <a class="series-post-item" href="{{ $post.RelPermalink }}">
+                <div class="series-post-number">{{ add $index 1 }}</div>
+                <div class="series-post-thumb">
+                  <img src="{{ $cover | relURL }}" 
+                       alt="{{ $post.Title }}" 
+                       loading="lazy"
+                       onerror="this.onerror=null; this.src='{{ $fallbackImage | relURL }}'">
+                </div>
+                <div class="series-post-meta">
+                  <div class="series-post-title">{{ $post.Title }}</div>
+                  <div class="series-post-date">{{ $post.Date.Format "2006-01-02" }}</div>
+                </div>
+              </a>
+              {{ end }}
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      
+      <!-- 轮播控制按钮 - 左右侧箭头 -->
+      {{ if and (gt (len $allSeries) 1) $seriesConfig.enableCarousel }}
+      <button class="series-control series-prev" aria-label="上一个系列">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="series-control series-next" aria-label="下一个系列">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      {{ end }}
+    </div>
+    </div>
+  </section>
+  {{ end }}
+{{ end }}

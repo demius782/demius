@@ -1,0 +1,33 @@
+<!--双列网格 + 分页-->
+<section class="home-posts{{ if .Site.Params.postCardTransparentMode }} home-posts-transparent{{ if eq .Site.Params.postCardTransparentType "full" }} home-posts-transparent-full{{ end }}{{ end }}" data-columns="2">
+  <div class="post-grid">
+    {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+    {{ $paginator := .Paginate $pages }}
+    
+    {{ if eq $paginator.PageNumber 1 }}
+      {{/* 第一页：先显示所有置顶文章 */}}
+      {{ $pinnedPages := where $pages "Params.pinned" true }}
+      {{ range $pinnedPages }}
+        {{ partial "post-card.html" . }}
+      {{ end }}
+      
+      {{/* 然后显示普通文章（扣除置顶文章数量） */}}
+      {{ $normalPages := where $pages "Params.pinned" "!=" true }}
+      {{ $pinnedCount := len $pinnedPages }}
+      {{ $remainingSlots := sub $paginator.PagerSize $pinnedCount }}
+      {{ range first $remainingSlots $normalPages }}
+        {{ partial "post-card.html" . }}
+      {{ end }}
+    {{ else }}
+      {{/* 其他页：跳过置顶文章，显示普通文章 */}}
+      {{ $normalPages := where $pages "Params.pinned" "!=" true }}
+      {{ $pinnedCount := len (where $pages "Params.pinned" true) }}
+      {{ $skip := add (mul (sub $paginator.PageNumber 2) $paginator.PagerSize) (sub $paginator.PagerSize $pinnedCount) }}
+      {{ $take := $paginator.PagerSize }}
+      {{ range after $skip (first (add $skip $take) $normalPages) }}
+        {{ partial "post-card.html" . }}
+      {{ end }}
+    {{ end }}
+  </div>
+  {{ partial "pagination.html" . }}
+</section>

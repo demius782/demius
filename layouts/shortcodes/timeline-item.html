@@ -1,0 +1,77 @@
+{{- /* 
+时间线项目 Shortcode
+用法:
+{{< timeline-item "日期" "标题" "类型" "图标" >}}
+内容
+{{< /timeline-item >}}
+
+参数说明:
+- 第一个参数: 日期/时间（必填）
+- 第二个参数: 标题（必填）
+- 第三个参数: 类型，可选 default/success/warning/danger/info（可选，默认default）
+- 第四个参数: 图标类型，可选 default/check/star/warning/info/plus（可选，默认default）
+*/ -}}
+
+{{- $date := .Get 0 | default "" -}}
+{{- $title := .Get 1 | default "时间线项目" -}}
+{{- $type := .Get 2 | default "default" -}}
+{{- $icon := .Get 3 | default "default" -}}
+
+<div class="timeline-item timeline-item-{{ $type }}" data-icon="{{ $icon }}">
+  <div class="timeline-marker">
+    <div class="timeline-icon timeline-icon-{{ $icon }}">
+      {{- if eq $icon "check" -}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      {{- else if eq $icon "star" -}}
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      {{- else if eq $icon "warning" -}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+      {{- else if eq $icon "info" -}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+      {{- else if eq $icon "plus" -}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      {{- else -}}
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="12" r="4"/>
+        </svg>
+      {{- end -}}
+    </div>
+  </div>
+  
+  <div class="timeline-content">
+    <div class="timeline-header">
+      {{- if $date -}}
+      <div class="timeline-date">
+        <svg class="timeline-date-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span>{{ $date }}</span>
+      </div>
+      {{- end -}}
+      <h3 class="timeline-title">{{ $title | markdownify }}</h3>
+    </div>
+    
+    <div class="timeline-body">
+      {{ .Inner | markdownify }}
+    </div>
+  </div>
+</div>
+

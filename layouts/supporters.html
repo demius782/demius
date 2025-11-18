@@ -1,0 +1,105 @@
+{{ define "content" }}
+<div class="supporters-page">
+  <header class="supporters-header">
+    <h1 class="supporters-title">{{ .Title }}</h1>
+    {{ with .Content }}
+      <div class="supporters-intro">
+        <div class="post-content">{{ . }}</div>
+      </div>
+    {{ end }}
+  </header>
+
+  {{ $supportersData := .Site.Data.supporters }}
+  
+  {{ if $supportersData }}
+    <!-- 统计信息 -->
+    {{ if $supportersData.statistics }}
+      <div class="supporters-statistics">
+        <div class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-info">
+            <div class="stat-value">¥{{ $supportersData.statistics.totalAmount }}</div>
+            <div class="stat-label">总打赏金额</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-info">
+            <div class="stat-value">{{ $supportersData.statistics.totalCount }}</div>
+            <div class="stat-label">支持人数</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-info">
+            <div class="stat-value">{{ $supportersData.statistics.updateDate }}</div>
+            <div class="stat-label">最后更新</div>
+          </div>
+        </div>
+      </div>
+    {{ end }}
+
+    <!-- 支持者分组 -->
+    <div class="supporters-container">
+      {{ range $supportersData.groups }}
+        <div class="supporters-group">
+          <h2 class="group-title">{{ .name }}</h2>
+          {{ if .description }}
+            <p class="group-description">{{ .description }}</p>
+          {{ end }}
+          
+          <div class="supporters-grid">
+            {{ range .supporters }}
+              <div class="supporter-card level-{{ .level }}">
+                {{ if .level }}
+                  <div class="supporter-level level-{{ .level }}">
+                    {{ if eq .level "gold" }}
+                      🏆 金牌
+                    {{ else if eq .level "silver" }}
+                      🥈 银牌
+                    {{ else if eq .level "bronze" }}
+                      🥉 铜牌
+                    {{ else }}
+                      ⭐ 支持者
+                    {{ end }}
+                  </div>
+                {{ end }}
+                
+                <div class="supporter-avatar">
+                  <img src="{{ .avatar }}" alt="{{ .name }}" onerror="this.src='/img/404.jpg'">
+                </div>
+                
+                <div class="supporter-info">
+                  <h3 class="supporter-name">{{ .name }}</h3>
+                  
+                  <div class="supporter-amount">
+                    <span class="amount-icon">💝</span>
+                    <span class="amount-value">¥{{ .amount }}</span>
+                  </div>
+                  
+                  {{ if .date }}
+                    <div class="supporter-date">{{ .date }}</div>
+                  {{ end }}
+                  
+                  {{ if .message }}
+                    <div class="supporter-message">
+                      <span class="message-icon">💬</span>
+                      <span class="message-text">{{ .message }}</span>
+                    </div>
+                  {{ end }}
+                </div>
+              </div>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  {{ else }}
+    <div class="supporters-empty">
+      <p>暂无支持者数据</p>
+      <p>请在 <code>data/supporters.yaml</code> 中添加数据</p>
+    </div>
+  {{ end }}
+</div>
+{{ end }}
+

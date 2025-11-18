@@ -1,0 +1,58 @@
+{{- /*
+精准的中文字数统计
+原理：
+1. 移除所有HTML标签
+2. 移除代码块内容（不统计代码）
+3. 分别统计中文字符和英文单词
+4. 返回总字数
+*/ -}}
+
+{{- $content := .Content -}}
+{{- $plainContent := $content | plainify -}}
+
+{{- /* 移除代码块内容（```包裹的内容） */ -}}
+{{- $plainContent = replaceRE "```[\\s\\S]*?```" "" $plainContent -}}
+
+{{- /* 移除行内代码（`包裹的内容） */ -}}
+{{- $plainContent = replaceRE "`[^`]*?`" "" $plainContent -}}
+
+{{- /* 移除Markdown链接语法，保留链接文字 */ -}}
+{{- $plainContent = replaceRE "\\[([^\\]]+)\\]\\([^)]+\\)" "$1" $plainContent -}}
+
+{{- /* 移除图片语法 */ -}}
+{{- $plainContent = replaceRE "!\\[[^\\]]*\\]\\([^)]+\\)" "" $plainContent -}}
+
+{{- /* 移除多余的空白字符 */ -}}
+{{- $plainContent = replaceRE "\\s+" " " $plainContent -}}
+
+{{- /* 统计中文字符（包括中文标点） */ -}}
+{{- $chineseChars := findRE "[\\x{4e00}-\\x{9fa5}\\x{3000}-\\x{303F}\\x{FF00}-\\x{FFEF}]" $plainContent -}}
+{{- $chineseCount := len $chineseChars -}}
+
+{{- /* 移除所有中文字符后统计英文单词 */ -}}
+{{- $englishContent := replaceRE "[\\x{4e00}-\\x{9fa5}\\x{3000}-\\x{303F}\\x{FF00}-\\x{FFEF}]" "" $plainContent -}}
+{{- $englishContent = replaceRE "[^a-zA-Z0-9\\s]" "" $englishContent -}}
+{{- $englishContent = strings.TrimSpace $englishContent -}}
+
+{{- $englishWords := 0 -}}
+{{- if ne $englishContent "" -}}
+  {{- $wordsList := split $englishContent " " -}}
+  {{- $validWords := slice -}}
+  {{- range $wordsList -}}
+    {{- if ne (strings.TrimSpace .) "" -}}
+      {{- $validWords = $validWords | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $englishWords = len $validWords -}}
+{{- end -}}
+
+{{- /* 总字数 = 中文字符数 + 英文单词数 */ -}}
+{{- $totalWords := add $chineseCount $englishWords -}}
+
+{{- /* 如果计算结果为0，使用Hugo内置的WordCount作为后备 */ -}}
+{{- if eq $totalWords 0 -}}
+  {{- $totalWords = .WordCount -}}
+{{- end -}}
+
+{{- $totalWords -}}
+

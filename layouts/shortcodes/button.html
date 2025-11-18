@@ -1,0 +1,85 @@
+{{- /* 
+按钮短代码
+用法:
+{{< button "按钮文字" >}} 或者
+{{< button href="链接地址" text="按钮文字" >}} 或者
+{{< button href="链接地址" >}}按钮文字{{< /button >}}
+
+参数:
+- href: 链接地址（可选，不提供则渲染为普通按钮）
+- text: 按钮文字（可选，如果提供则忽略Inner内容）
+- icon: 图标类名（FontAwesome图标，可选）
+- color: 按钮颜色（可选：primary, success, warning, danger, info, default）
+- size: 按钮大小（可选：small, normal, large）
+- outline: 是否使用描边样式（可选：true/false）
+- block: 是否块级按钮（可选：true/false）
+- target: 链接打开方式（可选：_blank, _self等）
+- rel: 链接rel属性（可选：nofollow, noopener等）
+
+示例:
+{{< button href="https://example.com" text="访问示例" >}}
+{{< button href="/posts/" color="primary" size="large" >}}查看文章{{< /button >}}
+{{< button href="#" icon="fas fa-download" color="success" >}}下载文件{{< /button >}}
+{{< button href="#" color="danger" outline="true" >}}危险按钮{{< /button >}}
+*/ -}}
+
+{{- $href := .Get "href" | default "" -}}
+{{- $text := .Get "text" | default "" -}}
+{{- $icon := .Get "icon" | default "" -}}
+{{- $color := .Get "color" | default "default" -}}
+{{- $size := .Get "size" | default "normal" -}}
+{{- $outline := .Get "outline" | default "false" -}}
+{{- $block := .Get "block" | default "false" -}}
+{{- $target := .Get "target" | default "_self" -}}
+{{- $rel := .Get "rel" | default "" -}}
+
+{{- /* 获取按钮文字 */ -}}
+{{- $buttonText := "" -}}
+{{- $hasInner := false -}}
+{{- if $text -}}
+  {{- $buttonText = $text -}}
+{{- else if .Inner -}}
+  {{- $buttonText = .Inner | markdownify -}}
+  {{- $hasInner = true -}}
+{{- else -}}
+  {{- $buttonText = "按钮" -}}
+{{- end -}}
+
+{{- /* 构建按钮类名 */ -}}
+{{- $buttonClasses := printf "shortcode-button shortcode-button-%s shortcode-button-%s" $color $size -}}
+{{- if eq $outline "true" -}}
+  {{- $buttonClasses = printf "%s shortcode-button-outline" $buttonClasses -}}
+{{- end -}}
+{{- if eq $block "true" -}}
+  {{- $buttonClasses = printf "%s shortcode-button-block" $buttonClasses -}}
+{{- end -}}
+
+{{- /* 构建属性 */ -}}
+{{- $attrs := "" -}}
+{{- if $href -}}
+  {{- $attrs = printf "href=\"%s\"" $href -}}
+{{- end -}}
+{{- if and $href (ne $target "_self") -}}
+  {{- $attrs = printf "%s target=\"%s\"" $attrs $target -}}
+{{- end -}}
+{{- if and $href $rel -}}
+  {{- $attrs = printf "%s rel=\"%s\"" $attrs $rel -}}
+{{- end -}}
+
+{{- /* 渲染按钮 */ -}}
+{{- if $href -}}
+  <a class="{{ $buttonClasses }}" {{ $attrs | safeHTMLAttr }}>
+    {{- if $icon -}}
+      <i class="{{ $icon }}"></i>
+    {{- end -}}
+    <span>{{- if $hasInner }}{{ $buttonText | safeHTML }}{{ else }}{{ $buttonText }}{{ end -}}</span>
+  </a>
+{{- else -}}
+  <button class="{{ $buttonClasses }}" type="button">
+    {{- if $icon -}}
+      <i class="{{ $icon }}"></i>
+    {{- end -}}
+    <span>{{- if $hasInner }}{{ $buttonText | safeHTML }}{{ else }}{{ $buttonText }}{{ end -}}</span>
+  </button>
+{{- end -}}
+

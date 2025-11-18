@@ -1,0 +1,234 @@
+/* 标签云组件 */
+.tags-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景图片/颜色模式 */
+.tags-card-with-bg {
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 背景遮罩层 */
+.tags-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 内容容器 */
+.tags-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* 分类组件背景模式 */
+.categories-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.categories-card-with-bg {
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categories-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.categories-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* 分类云样式 - 与标签云保持一致 */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag-link {
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s, color 0.3s;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+}
+  
+  /* 随机背景色（12 个循环） */
+  .tag-link:nth-child(12n+1) {
+    background: #e57373;
+    color: #fff;
+  }
+  
+  .tag-link:nth-child(12n+2) {
+    background: #81c784;
+    color: #fff;
+  }
+  
+  .tag-link:nth-child(12n+3) {
+    background: #64b5f6;
+    color: #fff;
+  }
+  
+  .tag-link:nth-child(12n+4) {
+    background: #ffb74d;
+    color: #fff;
+  }
+  
+  .tag-link:nth-child(12n+5) {
+    background: #ba68c8;
+    color: #fff;
+  }
+  
+  .tag-link:nth-child(12n+6) {
+    background: #4db6ac;
+    color: #fff;
+  }
+  
+  .tag-link:nth-child(12n+7) {
+    background: #f06292;
+    color: #fff;
+  }
+  
+  .tag-link:nth-child(12n+8) {
+    background: #aed581;
+    color: #fff;
+  }
+  
+  .tag-link:nth-child(12n+9) {
+    background: #90caf9;
+    color: #fff;
+  }
+  
+  .tag-link:nth-child(12n+10) {
+    background: #ff8a65;
+    color: #fff;
+  }
+  
+  .tag-link:nth-child(12n+11) {
+    background: #7986cb;
+    color: #fff;
+  }
+  
+  .tag-link:nth-child(12n+12) {
+    background: #4fc3f7;
+    color: #fff;
+  }
+  
+  .tag-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-color: var(--accent);
+    color: #fff !important;
+    background: var(--accent) !important;
+  }
+  
+  .tag-link sup {
+    margin-left: 0.2rem;
+    font-size: 0.65rem;
+    opacity: 0.85;
+  }
+  
+  [data-theme="dark"] .tag-link {
+    filter: brightness(0.9);
+  }
+
+/* 背景模式下的标签样式优化 */
+.tags-card-with-bg .tag-link {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: inherit !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] .tags-card-with-bg .tag-link {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.tags-card-with-bg .tag-link:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] .tags-card-with-bg .tag-link:hover {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 背景模式下的标签数字徽章 */
+.tags-card-with-bg .tag-link sup {
+  opacity: 1;
+}
+
+/* 背景模式下的标题样式 */
+.tags-card-with-bg .aside-title {
+  opacity: 1;
+}
+
+/* ===================================================================
+   分类组件背景模式下的样式优化
+   =================================================================== */
+
+/* 背景模式下的分类标签样式优化 */
+.categories-card-with-bg .tag-link {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: inherit !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] .categories-card-with-bg .tag-link {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.categories-card-with-bg .tag-link:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] .categories-card-with-bg .tag-link:hover {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 背景模式下的分类数字徽章 */
+.categories-card-with-bg .tag-link sup {
+  opacity: 1;
+}
+
+/* 背景模式下的标题样式 */
+.categories-card-with-bg .aside-title {
+  opacity: 1;
+}

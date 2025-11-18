@@ -1,0 +1,24 @@
+{{- if .Site.Params.video.enable -}}
+{{- $id := .Get "id" -}}
+{{- $autoplay := .Get "autoplay" | default "false" -}}
+{{- $start := .Get "start" -}}
+
+{{- if $id -}}
+<div class="video-container youtube-video" data-platform="youtube">
+  <div class="video-wrapper">
+    <iframe 
+      src="https://www.youtube.com/embed/{{ $id }}?autoplay={{ if eq $autoplay "true" }}1{{ else }}0{{ end }}{{ if $start }}&start={{ $start }}{{ end }}" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+  </div>
+  <div class="video-info">
+    <i class="fab fa-youtube"></i>
+    <span>YouTube 视频</span>
+  </div>
+</div>
+{{- end -}}
+{{- end -}}
+

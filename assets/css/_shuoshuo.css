@@ -1,0 +1,397 @@
+/* 说说页面样式 */
+:root {
+    --liushen-card-bg: #fff;
+    --liushen-card-border: 1px solid #e3e8f7;
+    --card-box-shadow: 0 3px 8px 6px rgba(7,17,27,0.09);
+    --card-hover-box-shadow: 0 3px 8px 6px rgba(7,17,27,0.2);
+    --liushen-card-secondbg: #f1f3f8;
+    --liushen-button-hover-bg: #2679cc;
+    --liushen-text: #4c4948;
+    --liushen-button-bg: #f1f3f8;
+    --liushen-fancybox-bg: rgba(255,255,255,0.5);
+}
+
+:root, [data-theme=dark] {
+    --liushen-card-bg: #181818;
+    --liushen-card-secondbg: #30343f;
+    --liushen-card-border: 1px solid #42444a;
+    --card-box-shadow: 0 3px 8px 6px rgba(7,17,27,0.09);
+    --card-hover-box-shadow: 0 3px 8px 6px rgba(7,17,27,0.2);
+    --liushen-button-bg: #30343f;
+    --liushen-button-hover-bg: #2679cc;
+    --liushen-text: rgba(255,255,255,0.702);
+    --liushen-fancybox-bg: rgba(0,0,0,0.5);
+}
+
+/* 卡片初始化 */
+#talk .talk_item {
+    width: calc(33.333% - 6px);
+    background: var(--liushen-card-bg);
+    border: var(--liushen-card-border);
+    box-shadow: var(--card-box-shadow);
+    transition: box-shadow .3s ease-in-out;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 9px;
+    margin-right: 9px;
+    overflow: visible;
+}
+
+/* 包含音乐播放器的卡片增加底部外边距，避免与下方卡片粘连 */
+#talk .talk_item:has(.talk_music) {
+    margin-bottom: 115px;
+}
+
+#talk .talk_item:hover {
+    box-shadow: var(--card-hover-box-shadow);
+}
+
+@media (max-width: 900px) {
+    #talk .talk_item {
+      width: calc(50% - 5px);
+    }
+}
+@media (max-width: 450px) {
+    #talk .talk_item {
+      width: calc(100%);
+    }
+}
+
+#talk{
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#talk .talk_meta .avatar {
+    margin: 0 !important;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+}
+#talk .talk_bottom,
+#talk .talk_meta {
+    display: flex;
+    align-items: center;    
+}
+#talk .talk_meta {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed grey;
+}
+#talk .talk_bottom {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed grey;
+    justify-content: space-between;
+}
+#talk .talk_meta .info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+#talk .talk_meta .info .talk_nick {
+    color: #6dbdc3;
+    font-size: 1.2rem;
+}
+#talk .talk_meta .info svg.is-badge.icon {
+    width: 15px;
+    padding-top: 3px;
+}
+#talk .talk_meta .info span.talk_date {
+    opacity: .6;
+}
+#talk .talk_item .talk_content {
+    margin-top: 10px;
+}
+#talk .talk_item .talk_content .zone_imgbox {
+    display: flex;
+    flex-wrap: wrap;
+    --w: calc(25% - 8px);
+    gap: 10px;
+    margin-top: 10px;
+}
+#talk .talk_item .talk_content .zone_imgbox a {
+    display: block;
+    border-radius: 12px;
+    width: var(--w);
+    aspect-ratio: 1/1;
+    position: relative;
+}
+#talk .talk_item .talk_content .zone_imgbox a:first-child {
+    width: 100%;
+    aspect-ratio: 1.8;
+}
+#talk .talk_item .talk_content .zone_imgbox img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    object-fit: cover;
+}
+/* 底部 */
+#talk .talk_item .talk_bottom {
+    opacity: .9;
+}
+#talk .talk_item .talk_bottom .icon {
+    float: right;
+    transition: all .3s;
+}
+#talk .talk_item .talk_bottom .icon:hover {
+    color: #49b1f5;
+}
+#talk .talk_item .talk_bottom span.talk_tag,
+#talk .talk_item .talk_bottom span.location_tag {
+    font-size: 14px;
+    background-color: var(--liushen-card-secondbg);
+    border-radius: 12px;
+    padding: 3px 15px 3px 10px;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#talk .talk_item .talk_bottom span.location_tag {
+    margin-left: 5px;
+}
+
+#talk .talk_item .talk_bottom span.talk_tag:hover,
+#talk .talk_item .talk_bottom span.location_tag:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+#talk .talk_item .talk_content>a {
+    margin: 0 3px;
+    color: #ff7d73 !important;
+}
+#talk .talk_item .talk_content>a:hover{
+    text-decoration: none !important;
+    color: #ff5143 !important
+}
+
+@media screen and (max-width: 900px) {
+    #talk .talk_item .talk_content .zone_imgbox {
+        --w: calc(33% - 5px);
+    }
+    #talk .talk_item #post-comment{
+        margin: 0 3px
+    }
+}
+@media screen and (max-width: 768px) {
+    .zone_imgbox {
+        gap: 6px;
+    }
+    .zone_imgbox {
+        --w: calc(50% - 3px);
+    }
+    span.talk_date {
+        font-size: 14px;
+    }
+}
+
+#talk .talk_item .talk_content .douban-card {
+    margin-top: 10px !important;
+    text-decoration: none;
+    align-items: center;
+    border-radius: 12px;
+    color: #faebd7;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    max-width: 400px;
+    overflow: hidden;
+    padding: 15px;
+    position: relative;
+}
+
+.douban-card .douban-card-bgimg {
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    filter: blur(15px) brightness(.6);
+    height: 115%;
+    position: absolute;
+    width: 115%;
+}
+
+.douban-card .douban-card-left {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.douban-card .douban-card-left .douban-card-img {
+    transition: all .5s ease;
+    height: 130px;
+    position: relative;
+    width: 80px;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.douban-card .douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card .douban-card-right {
+    color: #faebd7;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-left: 12px;
+    position: relative;
+}
+
+.douban-card .douban-card-right .douban-card-item  {
+    margin-top: 4px;
+    max-width: 95%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 外链卡片 */
+#talk .talk_item .talk_content .shuoshuo-external-link {
+    width: 100%;
+    height: 80px;
+    margin-top: 10px;
+    border-radius: 12px;
+    background-color: var(--liushen-card-secondbg);
+    color: var(--liushen-card-text);
+    border: var(--liushen-card-border);
+    transition: background-color .3s ease-in-out;    
+}
+
+.shuoshuo-external-link:hover {
+    background-color: var(--liushen-button-hover-bg);
+}
+
+.shuoshuo-external-link .external-link {
+    display: flex;
+    color: var(--liushen-text) !important;
+    width: 100%;
+    height: 100%;
+}
+
+.shuoshuo-external-link .external-link:hover {
+    color: white !important;
+}
+
+.shuoshuo-external-link .external-link:hover {
+    text-decoration: none !important;
+}
+
+.shuoshuo-external-link .external-link-left {
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+}
+
+.shuoshuo-external-link .external-link-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 80px);
+    padding: 10px;
+}
+
+.shuoshuo-external-link .external-link-right .external-link-title {
+    font-size: 1.0rem;
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.shuoshuo-external-link .external-link-right i {
+    margin-left: 5px;
+}
+
+/* 音乐播放器样式 */
+#talk .talk_item .talk_content .talk_music {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    width: 100%;
+}
+
+#talk .talk_item .talk_content meting-js {
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+#talk .talk_item .talk_content .aplayer {
+    position: relative !important;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* 确保音乐播放器不会遮挡其他卡片 - 移除高z-index */
+
+/* 视频样式 - 参考Moments简洁风格 */
+#talk .talk_item .talk_content .talk_video {
+    margin-top: 10px;
+    position: relative;
+    width: 100%;
+}
+
+/* 16:9 响应式视频容器 */
+#talk .talk_item .talk_content .talk_video .video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 宽高比 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #000;
+}
+
+#talk .talk_item .talk_content .talk_video .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+/* 直接视频文件样式 */
+#talk .talk_item .talk_content .talk_video video {
+    display: block;
+    width: 100%;
+    max-height: 400px;
+    border-radius: 8px;
+    background: #000;
+    object-fit: contain;
+}
+
+/* 移动端视频调整 */
+@media screen and (max-width: 768px) {
+    #talk .talk_item .talk_content .talk_video video {
+        max-height: 250px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #talk .talk_item .talk_content .talk_video video {
+        max-height: 200px;
+    }
+}
+
+.limit {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}

@@ -1,0 +1,83 @@
+{{ if .Site.Params.aside.showVisitorInfo | default true }}
+{{ $visitorConfig := .Site.Params.aside.visitorInfo }}
+{{ $enableBg := $visitorConfig.enableBackground | default false }}
+{{ $bgImage := $visitorConfig.backgroundImage }}
+{{ $bgColor := $visitorConfig.backgroundColor }}
+{{ $bgSize := $visitorConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $visitorConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $visitorConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $visitorConfig.textColor }}
+{{ $textShadow := $visitorConfig.textShadow | default false }}
+{{ $overlayColor := $visitorConfig.overlayColor }}
+{{ $borderRadius := $visitorConfig.borderRadius }}
+
+<section class="aside-card visitor-info-card{{ if $enableBg }} visitor-info-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="visitor-info-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="visitor-info-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title">
+      <i class="fas fa-globe"></i> {{ $visitorConfig.title | default "访客信息" }}
+    </h3>
+    <div class="visitor-info-body" id="visitorInfoMessage">
+      <p class="visitor-loading">🌍 小伙伴你好呀！ 🌍</p>
+      <p class="visitor-loading">正在寻找你的足迹...</p>
+    </div>
+  </div>
+  {{ if $visitorConfig.showFriendsLinks | default false }}
+  <hr class="visitor-info-divider" />
+  <div class="visitor-friends-links">
+    <p class="visitor-friends-text">🚇 继续探索未知 👇️👇️ 发现更多精彩 🚇</p>
+    {{ if $visitorConfig.travellingsLink | default true }}
+    <a href="https://www.travellings.cn/go.html" target="_blank" rel="noopener" title="开往-友链接力" aria-label="开往-友链接力" class="visitor-friends-link">
+      <img src="https://www.travellings.cn/assets/logo.gif" alt="开往-友链接力" width="120" />
+    </a>
+    {{ end }}
+    {{ if $visitorConfig.blogsClubLink | default true }}
+    <a href="https://blogs.quest" target="_blank" rel="noopener" title="空间穿梭-随机访问 BlogsClub 成员博客" aria-label="空间穿梭-随机访问 BlogsClub 成员博客" class="visitor-friends-link">
+      <img src="https://www.blogsclub.org/images/shuttle_4.png" alt="空间穿梭" />
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+</section>
+
+{{/* 传递API配置到JavaScript */}}
+<script>
+  window.visitorInfoConfig = {
+    enabled: {{ $visitorConfig.enabled | default true }},
+    {{ if $visitorConfig.apiKey }}
+    apiKey: '{{ $visitorConfig.apiKey }}',
+    {{ end }}
+    customLat: {{ $visitorConfig.customLat | default 0.0 }},
+    customLng: {{ $visitorConfig.customLng | default 0.0 }},
+    siteName: '{{ $visitorConfig.siteName | default "本站" }}',
+    fontColor: '{{ $visitorConfig.fontColor | default "deepskyblue" }}'
+  };
+</script>
+{{ end }}
+

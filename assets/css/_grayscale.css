@@ -1,0 +1,26 @@
+/* 全站灰度模式样式 */
+/* 当启用灰度模式时，整个网站变为黑白效果 */
+
+html.grayscale-mode {
+  /* WebKit浏览器（Chrome, Safari, Edge等） */
+  -webkit-filter: grayscale(100%);
+  
+  /* Firefox */
+  -moz-filter: grayscale(100%);
+  
+  /* IE10+ */
+  -ms-filter: grayscale(100%);
+  
+  /* Opera */
+  -o-filter: grayscale(100%);
+  
+  /* 标准CSS滤镜 */
+  filter: grayscale(100%);
+  
+  /* 旧版IE滤镜 */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+  
+  /* SVG滤镜支持（更好的兼容性） */
+  filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0'/></filter></svg>#grayscale");
+}
+

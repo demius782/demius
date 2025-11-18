@@ -1,0 +1,96 @@
+{{- /* 
+音乐播放器 Shortcode (基于 MetingJS)
+用法:
+{{< music server="平台" type="类型" id="ID" >}}
+
+支持的平台 (server):
+- netease: 网易云音乐
+- tencent: QQ音乐
+- kugou: 酷狗音乐
+- xiami: 虾米音乐
+- baidu: 百度音乐
+
+支持的类型 (type):
+- song: 单曲
+- playlist: 播放列表
+- album: 专辑
+- search: 搜索关键词
+- artist: 歌手
+
+参数说明:
+- server: 音乐平台（必填）
+- type: 类型（必填）
+- id: ID或关键词（必填）
+- api: 自定义API地址（可选）
+- autoplay: 是否自动播放 (true/false, 默认false)
+- theme: 主题颜色 (默认 #2980b9)
+- loop: 循环模式 (all/one/none, 默认all)
+- order: 播放顺序 (list/random, 默认list)
+- volume: 音量 (0-1, 默认0.7)
+- lrcType: 歌词类型 (0/1/3, 默认0)
+- listFolded: 列表是否折叠 (true/false, 默认false)
+- listMaxHeight: 列表最大高度 (默认340px)
+- fixed: 固定模式 (true/false, 默认false)
+- mini: 迷你模式 (true/false, 默认false)
+
+示例:
+{{< music server="netease" type="song" id="1234567" >}}
+{{< music server="tencent" type="playlist" id="456789" >}}
+{{< music server="kugou" type="album" id="abc123" >}}
+{{< music server="netease" type="search" id="海阔天空" >}}
+{{< music server="netease" type="artist" id="123" autoplay="true" theme="#ff0000" >}}
+
+混合播放列表（本地文件）:
+{{< music name="歌曲名" artist="歌手" url="/music/song.mp3" cover="/img/cover.jpg" fixed="true" >}}
+*/ -}}
+
+{{- /* 检查是否为本地文件模式 */ -}}
+{{- $isLocal := and (.Get "name") (.Get "url") -}}
+
+{{- if $isLocal -}}
+  {{- /* 本地文件模式 */ -}}
+  <meting-js
+    name="{{ .Get "name" | default "Unknown" }}"
+    artist="{{ .Get "artist" | default "Unknown" }}"
+    url="{{ .Get "url" }}"
+    {{- if .Get "cover" }} cover="{{ .Get "cover" }}"{{ end }}
+    {{- if .Get "lrc" }} lrc="{{ .Get "lrc" }}"{{ end }}
+    {{- if .Get "fixed" }} fixed="{{ .Get "fixed" }}"{{ end }}
+    {{- if .Get "mini" }} mini="{{ .Get "mini" }}"{{ end }}
+    {{- if .Get "autoplay" }} autoplay="{{ .Get "autoplay" }}"{{ end }}
+    {{- if .Get "theme" }} theme="{{ .Get "theme" }}"{{ end }}
+    {{- if .Get "loop" }} loop="{{ .Get "loop" }}"{{ end }}
+    {{- if .Get "order" }} order="{{ .Get "order" }}"{{ end }}
+    {{- if .Get "volume" }} volume="{{ .Get "volume" }}"{{ end }}
+    {{- if .Get "lrcType" }} lrc-type="{{ .Get "lrcType" }}"{{ end }}
+    {{- if .Get "listFolded" }} list-folded="{{ .Get "listFolded" }}"{{ end }}
+    {{- if .Get "listMaxHeight" }} list-max-height="{{ .Get "listMaxHeight" }}"{{ end }}
+    {{- if .Get "storageName" }} storage-name="{{ .Get "storageName" }}"{{ end }}>
+    {{- if .Get "lrc" -}}
+    <pre hidden>{{ .Get "lrc" | safeHTML }}</pre>
+    {{- end -}}
+  </meting-js>
+{{- else -}}
+  {{- /* MetingJS 音乐平台模式 */ -}}
+  <meting-js
+    {{- if .Get "server" }} server="{{ .Get "server" }}"{{ end }}
+    {{- if .Get "type" }} type="{{ .Get "type" }}"{{ end }}
+    {{- if .Get "id" }} id="{{ .Get "id" }}"{{ end }}
+    {{- if .Get "api" }} api="{{ .Get "api" }}"{{ else if site.Params.music.metingApi }} api="{{ site.Params.music.metingApi }}"{{ end }}
+    {{- if .Get "auto" }} auto="{{ .Get "auto" }}"{{ end }}
+    {{- if .Get "fixed" }} fixed="{{ .Get "fixed" }}"{{ end }}
+    {{- if .Get "mini" }} mini="{{ .Get "mini" }}"{{ end }}
+    {{- if .Get "autoplay" }} autoplay="{{ .Get "autoplay" }}"{{ end }}
+    {{- if .Get "theme" }} theme="{{ .Get "theme" }}"{{ end }}
+    {{- if .Get "loop" }} loop="{{ .Get "loop" }}"{{ end }}
+    {{- if .Get "order" }} order="{{ .Get "order" }}"{{ end }}
+    {{- if .Get "volume" }} volume="{{ .Get "volume" }}"{{ end }}
+    {{- if .Get "lrcType" }} lrc-type="{{ .Get "lrcType" }}"{{ end }}
+    {{- if .Get "listFolded" }} list-folded="{{ .Get "listFolded" }}"{{ end }}
+    {{- if .Get "listMaxHeight" }} list-max-height="{{ .Get "listMaxHeight" }}"{{ end }}
+    {{- if .Get "mutex" }} mutex="{{ .Get "mutex" }}"{{ end }}
+    {{- if .Get "preload" }} preload="{{ .Get "preload" }}"{{ end }}
+    {{- if .Get "storageName" }} storage-name="{{ .Get "storageName" }}"{{ end }}>
+  </meting-js>
+{{- end -}}
+

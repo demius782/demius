@@ -1,0 +1,60 @@
+# 追番星球数据源（B站追番追剧数据）
+# 参考：https://github.com/HCLonely/hexo-bilibili-bangumi
+
+# 追番列表配置
+bangumi:
+  # 想看列表（计划要看的番剧）
+  wantWatch:
+    - title: "鬼灭之刃"
+      cover: "/img/bangumi/鬼灭之刃.webp"
+      score: "9.5"
+      totalCount: "全12话"
+      area: "日本"
+      type: "番剧"
+      des: "这是一部非常有趣的番剧..."
+      link: "https://www.bilibili.com/bangumi/play/example"
+      progress: "12/12"
+    - title: "海绵宝宝"
+      cover: "/img/bangumi/海绵宝宝.webp"
+      score: "9.5"
+      totalCount: "全12话"
+      area: "日本"
+      type: "番剧"
+      des: "这是一部非常有趣的番剧..."
+      link: "https://www.bilibili.com/bangumi/play/example"
+      progress: "12/12"
+      
+  # 在看列表（正在追的番剧）
+  watching:
+    - title: "灵笼"
+      cover: "/img/bangumi/灵笼.webp"
+      score: "9.2"
+      totalCount: "全24话"
+      area: "日本"
+      type: "番剧"
+      des: "正在追的番剧，非常精彩..."
+      link: "https://www.bilibili.com/bangumi/play/example2"
+      progress: "8/24"
+      
+  # 看过列表（已看完的番剧）
+  watched:
+    - title: "一人之下"
+      cover: "/img/bangumi/一人之下.webp"
+      score: "9.8"
+      totalCount: "全12话"
+      area: "日本"
+      type: "番剧"
+      des: "已经看完的优秀作品，强烈推荐..."
+      link: "https://www.bilibili.com/bangumi/play/example3"
+      progress: "12/12"
+
+# 追剧列表配置（影视剧）
+cinema:
+  # 想看列表
+  wantWatch: []
+  
+  # 在看列表
+  watching: []
+  
+  # 看过列表
+  watched: []

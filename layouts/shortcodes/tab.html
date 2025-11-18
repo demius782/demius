@@ -1,0 +1,8 @@
+{{- /* 单个选项卡内容 shortcode */ -}}
+{{- $index := .Get "index" | default "1" -}}
+{{- $defaultTab := .Parent.Get "default" | default "1" -}}
+
+<div class="tab-pane{{ if eq $index $defaultTab }} active{{ end }}" data-tab="{{ $index }}">
+  {{ .Inner | markdownify }}
+</div>
+

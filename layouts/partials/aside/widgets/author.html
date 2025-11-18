@@ -1,0 +1,53 @@
+{{ if .Site.Params.aside.showAuthor | default true }}
+{{ $authorConfig := .Site.Params.aside.author }}
+{{ $enableBg := $authorConfig.enableBackground | default false }}
+{{ $bgImage := $authorConfig.backgroundImage }}
+{{ $bgColor := $authorConfig.backgroundColor }}
+{{ $bgSize := $authorConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $authorConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $authorConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $authorConfig.textColor }}
+{{ $textShadow := $authorConfig.textShadow | default false }}
+{{ $overlayColor := $authorConfig.overlayColor }}
+{{ $borderRadius := $authorConfig.borderRadius }}
+
+<section class="aside-card author-card{{ if $enableBg }} author-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="author-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="author-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <div class="aside-avatar">
+      <img src="{{ .Site.Params.images.avatar | relURL }}"
+           alt="avatar"
+           onerror="this.src='{{ .Site.Params.images.fallbackImage | relURL }}'">
+    </div>
+
+    <div class="aside-name">{{ .Site.Params.author }}</div>
+    <div class="aside-desc">{{ .Site.Params.description }}</div>
+  </div>
+</section>
+{{ end }}

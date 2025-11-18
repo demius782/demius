@@ -1,0 +1,80 @@
+{{ if .Site.Params.aside.showPopularPosts | default true }}
+{{ $popularConfig := index .Site.Params.aside "popular-Posts" }}
+{{ $enableBg := $popularConfig.enableBackground | default false }}
+{{ $bgImage := $popularConfig.backgroundImage }}
+{{ $bgColor := $popularConfig.backgroundColor }}
+{{ $bgSize := $popularConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $popularConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $popularConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $popularConfig.textColor }}
+{{ $textShadow := $popularConfig.textShadow | default false }}
+{{ $overlayColor := $popularConfig.overlayColor }}
+{{ $borderRadius := $popularConfig.borderRadius }}
+
+ 
+
+<section class="aside-card popular-posts-card{{ if $enableBg }} popular-posts-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+  data-debug-enable-bg="{{ $enableBg }}"
+  data-debug-bg-image="{{ $bgImage }}"
+  data-debug-bg-color="{{ $bgColor }}"
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="popular-posts-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="popular-posts-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title">
+      <i class="fas fa-fire"></i> 热门文章
+    </h3>
+    <div class="popular-posts">
+      {{ $popularPosts := where .Site.RegularPages "Type" "posts" }}
+      {{ $popularCount := .Site.Params.aside.popularCount | default 5 }}
+      
+      {{ range first $popularCount $popularPosts.ByDate.Reverse }}
+        <a class="popular-item" href="{{ .RelPermalink }}">
+          {{ $defaultCover := $.Site.Params.images.defaultCover | default "/img/default-cover.jpg" }}
+          {{ $fallbackImage := $.Site.Params.images.fallbackImage | default "/img/404.jpg" }}
+          {{ $cover := .Params.cover | default $defaultCover }}
+          <div class="popular-thumb">
+            <img src="{{ $cover | relURL }}" 
+                 alt="{{ .Title }}"
+                 onerror="this.onerror=null; this.src='{{ $fallbackImage | relURL }}'">
+          </div>
+          <div class="popular-meta">
+            <div class="popular-title">{{ .Title }}</div>
+            <div class="popular-stats">
+              <span class="popular-date">{{ .Date.Format "2006-01-02" }}</span>
+            </div>
+          </div>
+        </a>
+      {{ else }}
+        <div class="aside-empty">暂无热门文章</div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+ 
+{{ end }}

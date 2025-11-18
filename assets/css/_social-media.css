@@ -1,0 +1,187 @@
+/* 社交媒体样式 */
+.social-media-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景图片/颜色模式 */
+.social-media-card-with-bg {
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 背景遮罩层 */
+.social-media-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 内容容器 */
+.social-media-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.social-media-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.6rem;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* 确保图标和文字在自定义背景色下清晰可见 */
+.social-link i,
+.social-link .social-name {
+  color: var(--liushen-fontcolor);
+  transition: color 0.2s ease;
+}
+
+/* 当社交链接有自定义背景色时，强制使用高对比度颜色 */
+.social-link[style*="background"] {
+  position: relative;
+}
+
+/* 对于有自定义背景色的链接，确保图标和文字清晰可见 */
+.social-link[style*="background"] i,
+.social-link[style*="background"] .social-name {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 暗色模式下，如果背景色较亮，使用深色文字 */
+[data-theme="dark"] .social-link[style*="background"] i,
+[data-theme="dark"] .social-link[style*="background"] .social-name {
+  /* 使用混合模式，确保在暗色模式下也能清晰可见 */
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* 背景模式下的社交链接样式优化 */
+.social-media-card-with-bg .social-link {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .social-media-card-with-bg .social-link {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.social-link:hover {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  transform: translateX(2px);
+}
+
+/* hover 状态下保持图标和文字清晰 */
+.social-link:hover i,
+.social-link:hover .social-name {
+  color: var(--liushen-fontcolor);
+}
+
+.social-link[style*="background"]:hover i,
+.social-link[style*="background"]:hover .social-name {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.social-media-card-with-bg .social-link:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateX(3px) scale(1.02);
+}
+
+[data-theme="dark"] .social-media-card-with-bg .social-link:hover {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.social-name {
+  font-size: 0.9rem;
+}
+
+/* 自定义内容区域 */
+.social-custom {
+  border-top: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.social-media-card-with-bg .social-custom {
+  border-top-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .social-media-card-with-bg .social-custom {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+.custom-title {
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+  color: color-mix(in srgb, var(--fg) 80%, transparent);
+}
+
+.social-media-card-with-bg .custom-title {
+  opacity: 1;
+}
+
+.custom-content {
+  font-size: 0.85rem;
+}
+
+.social-media-card-with-bg .custom-content {
+  opacity: 1;
+}
+
+/* 背景模式下的标题样式 */
+.social-media-card-with-bg .aside-title {
+  opacity: 1;
+}
+
+.custom-share-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.custom-link {
+  color: var(--accent);
+  text-decoration: none;
+  padding: 0.3rem 0;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.custom-link:hover {
+  color: color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.share-qrcode {
+  max-width: 100%;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  align-self: center;
+}

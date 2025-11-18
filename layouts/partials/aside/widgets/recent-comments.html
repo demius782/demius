@@ -1,0 +1,55 @@
+{{ if .Site.Params.aside.recentComments.enable }}
+{{ $commentsConfig := .Site.Params.aside.recentComments }}
+{{ $enableBg := $commentsConfig.enableBackground | default false }}
+{{ $bgImage := $commentsConfig.backgroundImage }}
+{{ $bgColor := $commentsConfig.backgroundColor }}
+{{ $bgSize := $commentsConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $commentsConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $commentsConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $commentsConfig.textColor }}
+{{ $textShadow := $commentsConfig.textShadow | default false }}
+{{ $overlayColor := $commentsConfig.overlayColor }}
+{{ $borderRadius := $commentsConfig.borderRadius }}
+
+<section class="aside-card recent-comments-card{{ if $enableBg }} recent-comments-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="recent-comments-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="recent-comments-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title"><i class="far fa-comments"></i> 最新评论</h3>
+    <div class="aside-recent-comments"
+         data-recent-comments
+         data-enable="true"
+         data-limit="{{ .Site.Params.aside.recentComments.count | default 5 }}"
+         data-server="{{ .Site.Params.comment.artalk.server | safeURL }}"
+         data-site-name="{{ .Site.Params.comment.artalk.site }}"
+         data-gravatar="{{ .Site.Params.comment.artalk.gravatar | default `mp` }}">
+      <p class="loading">加载中…</p>
+    </div>
+  </div>
+</section>
+{{ end }}

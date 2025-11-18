@@ -1,0 +1,435 @@
+/* ===== 文章互动功能样式（点赞 + 打赏 + 转发） ===== */
+
+/* 容器布局：水平排列，三等分 */
+.post-actions-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  max-width: 800px;
+}
+
+/* 每个功能项 */
+.post-action-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* 统一按钮样式 */
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  min-width: 120px;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 50px;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+}
+
+.action-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border-color: var(--accent);
+}
+
+.action-button i {
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.action-text {
+  font-size: 0.95rem;
+}
+
+/* ===== 点赞按钮特定样式 ===== */
+.like-button {
+  position: relative;
+}
+
+.like-button:hover {
+  border-color: #ff6b6b;
+}
+
+.like-button:hover i {
+  color: #ff6b6b;
+  animation: heartBeat 0.6s ease-in-out;
+}
+
+/* 点赞数量 */
+.action-count {
+  display: inline-block;
+  min-width: 1.5rem;
+  padding: 0.2rem 0.5rem;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+/* 已点赞状态 */
+.like-button.liked {
+  background: var(--card-bg);
+  border-color: #ff6b6b;
+  color: var(--text-color);
+}
+
+.like-button.liked i {
+  color: #ff6b6b; /* 已点赞图标显示红色 */
+  animation: likeAnimation 0.5s ease;
+}
+
+.like-button.liked .action-count {
+  background: #ff6b6b;
+  color: #fff;
+}
+
+/* 点赞动画 */
+@keyframes likeAnimation {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(0.9); }
+  75% { transform: scale(1.05); }
+}
+
+/* ===== 打赏按钮特定样式 ===== */
+.reward-button {
+  position: relative;
+}
+
+.reward-button:hover {
+  border-color: #ffa502;
+}
+
+.reward-button:hover i {
+  color: #ffa502;
+  animation: bounce 0.5s ease;
+}
+
+/* 打赏面板 */
+.reward-panel {
+  position: absolute;
+  bottom: calc(100% + 1rem);
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  min-width: 300px;
+}
+
+.reward-panel::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 10px solid transparent;
+  border-top-color: var(--border-color);
+}
+
+.reward-button:hover + .reward-panel,
+.reward-panel:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+}
+
+.reward-title {
+  text-align: center;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.reward-qrcodes {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.reward-qrcode {
+  text-align: center;
+}
+
+.reward-qrcode img {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+  transition: transform 0.3s ease;
+}
+
+.reward-qrcode img:hover {
+  transform: scale(1.05);
+}
+
+.reward-qrcode p {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-color-light);
+}
+
+/* ===== 转发按钮特定样式 ===== */
+.share-button {
+  position: relative;
+}
+
+.share-button:hover {
+  border-color: #5468ff;
+}
+
+.share-button:hover i {
+  color: #5468ff;
+  animation: shareRotate 0.5s ease;
+}
+
+/* 转发面板 */
+.share-panel {
+  position: absolute;
+  bottom: calc(100% + 1rem);
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  min-width: 280px;
+}
+
+.share-panel::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 10px solid transparent;
+  border-top-color: var(--border-color);
+}
+
+.share-button:hover + .share-panel,
+.share-panel:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+}
+
+.share-platforms {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+
+.share-platform-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.8rem;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.share-platform-item:hover {
+  background: var(--platform-color);
+  border-color: var(--platform-color);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.share-platform-item i {
+  font-size: 1.5rem;
+  color: var(--platform-color); /* 默认状态下图标使用平台颜色 */
+  transition: all 0.3s ease;
+}
+
+.share-platform-item:hover i {
+  color: #fff; /* 悬停时图标变白色 */
+}
+
+.share-platform-item span {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* 微信分享特殊处理（显示二维码） */
+.share-platform-item[data-platform="微信"] .qrcode-popup {
+  position: absolute;
+  bottom: calc(100% + 1rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 110;
+}
+
+.share-platform-item[data-platform="微信"]:hover .qrcode-popup {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 复制链接成功提示 */
+.copy-success-tip {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  z-index: 9999;
+  opacity: 0;
+  animation: showTip 2s ease;
+}
+
+@keyframes showTip {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  15% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+/* 转发动画 */
+@keyframes shareRotate {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ===== 暗色模式适配 ===== */
+[data-theme="dark"] .action-button {
+  background: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+  color: var(--dark-text-color);
+}
+
+[data-theme="dark"] .action-button:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .reward-panel,
+[data-theme="dark"] .share-panel {
+  background: var(--dark-card-bg);
+  border-color: var(--dark-border-color);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .reward-panel::after,
+[data-theme="dark"] .share-panel::after {
+  border-top-color: var(--dark-border-color);
+}
+
+[data-theme="dark"] .reward-qrcode img,
+[data-theme="dark"] .share-platform-item {
+  border-color: var(--dark-border-color);
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+  .post-actions-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .post-action-item {
+    width: 100%;
+  }
+  
+  .action-button {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .reward-panel,
+  .share-panel {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) scale(0.8);
+  }
+  
+  .reward-panel:hover,
+  .share-panel:hover,
+  .reward-button:hover + .reward-panel,
+  .share-button:hover + .share-panel {
+    transform: translateX(-50%) scale(1);
+  }
+  
+  .share-platforms {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .reward-qrcodes {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .action-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .action-button i {
+    font-size: 1rem;
+  }
+  
+  .share-platforms {
+    grid-template-columns: 1fr;
+  }
+}
+

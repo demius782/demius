@@ -1,0 +1,230 @@
+{{ define "content" }}
+<div class="data-page">
+  <header class="data-header">
+    <h1 class="data-title">{{ .Title }}</h1>
+    {{ with .Content }}
+    <div class="data-description">
+      {{ . }}
+    </div>
+    {{ end }}
+  </header>
+
+  <div class="data-container">
+    <!-- Umami实时统计数据区域（通过API获取） -->
+    {{ if and site.Params.analytics.umami.enable site.Params.analytics.umami.showInDataPage site.Params.analytics.umami.apiUrl }}
+    <section class="data-section umami-api-stats">
+      <h2 class="section-title">
+        <i class="fas fa-chart-line"></i> 访问统计
+      </h2>
+      
+      <!-- 统计数据卡片网格 -->
+      <div class="analytics-grid" id="umami-analytics" data-api-url="{{ site.Params.analytics.umami.apiUrl }}">
+        <!-- 今日访客 -->
+        <div class="analytics-card">
+          <div class="analytics-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="analytics-content">
+            <div class="analytics-label">今日访客</div>
+            <div class="analytics-value" data-stat="today_uv">
+              <span class="loading-skeleton">--</span>
+            </div>
+            <div class="analytics-unit">UV</div>
+          </div>
+        </div>
+        
+        <!-- 今日浏览 -->
+        <div class="analytics-card">
+          <div class="analytics-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <i class="fas fa-eye"></i>
+          </div>
+          <div class="analytics-content">
+            <div class="analytics-label">今日浏览</div>
+            <div class="analytics-value" data-stat="today_pv">
+              <span class="loading-skeleton">--</span>
+            </div>
+            <div class="analytics-unit">PV</div>
+          </div>
+        </div>
+        
+        <!-- 昨日访客 -->
+        <div class="analytics-card">
+          <div class="analytics-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="analytics-content">
+            <div class="analytics-label">昨日访客</div>
+            <div class="analytics-value" data-stat="yesterday_uv">
+              <span class="loading-skeleton">--</span>
+            </div>
+            <div class="analytics-unit">UV</div>
+          </div>
+        </div>
+        
+        <!-- 昨日浏览 -->
+        <div class="analytics-card">
+          <div class="analytics-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+          <div class="analytics-content">
+            <div class="analytics-label">昨日浏览</div>
+            <div class="analytics-value" data-stat="yesterday_pv">
+              <span class="loading-skeleton">--</span>
+            </div>
+            <div class="analytics-unit">PV</div>
+          </div>
+        </div>
+        
+        <!-- 本月浏览 -->
+        <div class="analytics-card">
+          <div class="analytics-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <div class="analytics-content">
+            <div class="analytics-label">本月浏览</div>
+            <div class="analytics-value" data-stat="last_month_pv">
+              <span class="loading-skeleton">--</span>
+            </div>
+            <div class="analytics-unit">PV</div>
+          </div>
+        </div>
+        
+        <!-- 本年浏览 -->
+        <div class="analytics-card">
+          <div class="analytics-icon" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+            <i class="fas fa-chart-area"></i>
+          </div>
+          <div class="analytics-content">
+            <div class="analytics-label">本年浏览</div>
+            <div class="analytics-value" data-stat="last_year_pv">
+              <span class="loading-skeleton">--</span>
+            </div>
+            <div class="analytics-unit">PV</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 加载错误提示 -->
+      <div class="analytics-error" id="analytics-error" style="display: none;">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p class="error-message">统计数据加载失败</p>
+        <p class="error-detail" style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--text-muted);"></p>
+      </div>
+    </section>
+    {{ end }}
+
+    <!-- 其他数据区域（预留，可扩展） -->
+    <section class="data-section other-stats">
+      <h2 class="section-title">
+        <i class="fas fa-database"></i> 其他数据
+      </h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{ len (where .Site.RegularPages "Type" "posts") }}</div>
+            <div class="stat-label">文章总数</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-tags"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{ len .Site.Taxonomies.tags }}</div>
+            <div class="stat-label">标签数量</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-folder"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{ len .Site.Taxonomies.categories }}</div>
+            <div class="stat-label">分类数量</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-calendar"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{ now.Year }}</div>
+            <div class="stat-label">运行年份</div>
+          </div>
+        </div>
+
+        {{ if site.Params.data.showTotalWords | default true }}
+        {{ $totalWords := 0 }}
+        {{ range where .Site.RegularPages "Type" "posts" }}
+          {{ $content := .Content | plainify | chomp }}
+          {{ $totalWords = add $totalWords (len $content) }}
+        {{ end }}
+        <div class="stat-card" id="stat-total-words">
+          <div class="stat-icon">
+            <i class="fas fa-edit"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value stat-value-small loading-skeleton" data-words="{{ $totalWords }}">--</div>
+            <div class="stat-label">全站字数</div>
+          </div>
+        </div>
+        {{ end }}
+
+        {{ if site.Params.data.showResponseTime | default true }}
+        <div class="stat-card" id="stat-response-time">
+          <div class="stat-icon">
+            <i class="fas fa-tachometer-alt"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value loading-skeleton">--</div>
+            <div class="stat-label">响应耗时</div>
+          </div>
+        </div>
+        {{ end }}
+
+        {{ if site.Params.data.showLastUpdate | default true }}
+        <div class="stat-card" id="stat-last-update">
+          <div class="stat-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value loading-skeleton">--</div>
+            <div class="stat-label">最后更新</div>
+          </div>
+        </div>
+        {{ end }}
+
+        {{ if and site.Params.data.showCommentCount (site.Params.comment.enable | default false) (eq site.Params.comment.system "artalk") }}
+        <div class="stat-card" id="stat-comment-count">
+          <div class="stat-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value loading-skeleton">--</div>
+            <div class="stat-label">评论数目</div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </section>
+  </div>
+</div>
+
+{{/* 传递Artalk配置到JavaScript（用于获取评论数目） */}}
+{{ if and site.Params.comment.enable (eq site.Params.comment.system "artalk") }}
+<script>
+  window.artalkConfig = {
+    server: '{{ site.Params.comment.artalk.server }}',
+    site: '{{ site.Params.comment.artalk.site }}'
+  };
+</script>
+{{ end }}
+
+{{ end }}
+

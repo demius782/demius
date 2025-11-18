@@ -1,0 +1,179 @@
+{{ define "content" }}
+
+<!-- 直接输出目录调试
+<div style="background: yellow; padding: 20px; margin: 20px 0; border: 2px solid red;">
+  <h3>直接输出 TableOfContents 调试：</h3>
+  <div style="background: white; padding: 10px;">
+    {{ .TableOfContents }}
+  </div>
+  <p><strong>目录长度：</strong>{{ len .TableOfContents }}</p>
+</div> -->
+
+<article class="post post-detail{{ if .Site.Params.postPageTransparentMode }} post-page-transparent{{ if eq .Site.Params.postPageTransparentType "full" }} post-page-transparent-full{{ end }}{{ end }}" 
+  {{ if .Params.password }}data-password="{{ .Params.password | sha256 }}" data-slug="{{ .Params.slug }}" data-hint="{{ .Params.passwordHint }}"{{ end }}>
+  <header class="post-header">
+    <h1 class="post-title">{{ .Title }}</h1>
+    
+    <div class="post-meta">
+      <!-- 发布日期 -->
+      <time class="meta-item post-date">
+        <i class="far fa-calendar-alt"></i> {{ .Date.Format "2006年01月02日" }}
+      </time>
+      
+      <!-- 更新日期（如果有） -->
+      {{ if ne .Lastmod .Date }}
+      <time class="meta-item post-updated">
+        <i class="fas fa-sync-alt"></i> {{ .Lastmod.Format "2006年01月02日" }}
+      </time>
+      {{ end }}
+      
+      <!-- 分类（可点击跳转） -->
+      {{ with .Params.categories }}
+      <span class="post-cats">
+        <i class="fas fa-folder"></i>
+        {{ range . }}
+        <a href="{{ "categories/" | relURL }}{{ . | urlize }}/" class="meta-item">{{ . }}</a>
+        {{ end }}
+      </span>
+      {{ end }}
+      
+      <!-- 字数统计 -->
+      <span class="meta-item post-word-count">
+        <i class="fas fa-file-word"></i> {{ partial "word-count.html" . }} 字
+      </span>
+      
+      <!-- 浏览量统计 -->
+      <span class="meta-item post-view-count" data-page-url="{{ .RelPermalink }}">
+        <i class="fas fa-eye"></i> <span class="view-count-number">--</span> 次浏览
+      </span>
+      
+      <!-- 阅读时长统计 -->
+      <span class="meta-item post-reading-time" data-word-count="{{ partial "word-count.html" . }}">
+        <i class="fas fa-clock"></i> <span class="reading-time-number">--</span> 分钟
+      </span>
+    </div>
+  </header>
+  
+  {{ with .Params.cover }}
+  <div class="post-cover">
+    <img class="post-bg" src="{{ . }}" alt="cover" onerror="this.src='/img/404.jpg'">
+  </div>
+  {{ end }}
+  
+  <!--文章部分-->
+  <div class="post-content">
+    <!-- 隐藏的目录，供 JavaScript 使用 -->
+  <div id="TableOfContents" style="display: none;">
+    {{ .TableOfContents }}
+  </div>
+    
+    <!-- 文章正文 -->
+    {{ .Content }}
+  </div>
+  
+  <!-- 简化标签区域：直接显示标签，无标题和图标 -->
+  {{ with .Params.tags }}
+  <div class="post-tags-simple">
+    <div class="tags-divider-top"></div>
+    <div class="tags-simple-list">
+      {{ range . }}
+      <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="tag-simple">{{ . }}</a>
+      {{ end }}
+    </div>
+    <div class="tags-divider-bottom"></div>
+  </div>
+  {{ end }}
+  
+  <!-- 文章互动区域：点赞 + 打赏 + 转发 -->
+  <div class="post-actions-container">
+    <!-- 点赞按钮 -->
+    {{ if .Site.Params.postActions.like.enable }}
+    <div class="post-action-item post-like">
+      <button class="action-button like-button" id="likeButton" data-post-url="{{ .RelPermalink }}">
+        <i class="{{ .Site.Params.postActions.like.icon | default "fas fa-heart" }}"></i>
+        <span class="action-text">{{ .Site.Params.postActions.like.text | default "点赞" }}</span>
+        <span class="action-count" id="likeCount">0</span>
+      </button>
+    </div>
+    {{ end }}
+    
+    <!-- 打赏按钮 -->
+    {{ if .Site.Params.reward.enable }}
+    <div class="post-action-item post-reward">
+      <button class="action-button reward-button" id="rewardButton">
+        <i class="fas fa-coffee"></i>
+        <span class="action-text">{{ .Site.Params.reward.buttonText | default "感谢支持" }}</span>
+      </button>
+      <div class="reward-panel" id="rewardPanel">
+        <div class="reward-title">{{ .Site.Params.reward.title | default "如果觉得文章有帮助，可以请我喝杯咖啡~" }}</div>
+        <div class="reward-qrcodes">
+          {{ if .Site.Params.reward.wechat }}
+          <div class="reward-qrcode">
+            <img src="{{ .Site.Params.reward.wechat }}" alt="微信支付">
+            <p>微信支付</p>
+          </div>
+          {{ end }}
+          {{ if .Site.Params.reward.alipay }}
+          <div class="reward-qrcode">
+            <img src="{{ .Site.Params.reward.alipay }}" alt="支付宝">
+            <p>支付宝</p>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+    
+    <!-- 转发按钮 -->
+    {{ if .Site.Params.postActions.share.enable }}
+    <div class="post-action-item post-share">
+      <button class="action-button share-button" id="shareButton">
+        <i class="{{ .Site.Params.postActions.share.icon | default "fas fa-share-alt" }}"></i>
+        <span class="action-text">{{ .Site.Params.postActions.share.text | default "分享" }}</span>
+      </button>
+      <div class="share-panel" id="sharePanel">
+        <div class="share-platforms">
+          {{ range .Site.Params.postActions.share.platforms }}
+          <a href="javascript:void(0);" 
+             class="share-platform-item" 
+             data-platform="{{ .name }}" 
+             data-url="{{ if .url }}{{ .url }}{{ end }}"
+             style="--platform-color: {{ .color | default "#666666" }};">
+            <i class="{{ .icon }}"></i>
+            <span>{{ .name }}</span>
+          </a>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+  
+  <div class="post-copyright">
+    <p><i class="fas fa-info-circle"></i> 文章作者：<strong><a href="{{ site.BaseURL }}" rel="noopener noreferrer">{{ site.Params.author }}</a></strong></p>
+    <p><i class="fas fa-link"></i> 文章链接：
+      <a href="{{ .RelPermalink }}">{{ strings.TrimSuffix "/" site.BaseURL }}{{ .RelPermalink }}</a>
+    </p>
+    
+    <!-- <script>
+    /* 无引号冲突：href 保持编码，text 解码显示 */
+    const encoded = '{{ .RelPermalink }}';
+    const decoded = decodeURIComponent(encoded);
+    const link = document.getElementById('pretty-link');
+    link.textContent = '{{ strings.TrimSuffix "/" site.BaseURL }}' + decoded;
+    link.href = encoded;   // 保持编码，跳转正确
+    </script> -->
+    <p><i class="fas fa-copyright"></i> 版权声明: 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <strong><a href="{{ site.BaseURL }}" rel="noopener noreferrer">{{ site.Params.author }}</a></strong></p>
+  </div>
+  
+  <nav class="post-pager">
+    {{ with .PrevInSection }}<a class="pager-prev" href="{{ .RelPermalink }}">
+      <span>← 上一篇</span><br>{{ .Title }}
+    </a>{{ end }}
+    {{ with .NextInSection }}<a class="pager-next" href="{{ .RelPermalink }}">
+      <span>下一篇 →</span><br>{{ .Title }}
+    </a>{{ end }}
+  </nav>
+  {{ partial "comment.html" . }}  <!-- 评论系统 -->
+ </article>
+{{ end }}

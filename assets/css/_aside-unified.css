@@ -1,0 +1,288 @@
+/* ===== 侧栏一体化模式样式 ===== */
+
+/* 一体化模式容器 */
+.aside-unified {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.aside-unified:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* 一体化模式下的卡片样式调整 */
+.aside-unified .aside-card {
+  background: transparent;
+  border-radius: 0;
+  padding: 1rem 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--border-color, rgba(0, 0, 0, 0.08));
+}
+
+/* 最后一个卡片不显示底部边框 */
+.aside-unified .aside-card:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* 第一个卡片上边距调整 */
+.aside-unified .aside-card:first-child {
+  padding-top: 0;
+}
+
+/* 一体化模式下的标题样式 */
+.aside-unified .aside-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--heading-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* 标题图标样式 */
+.aside-unified .aside-title i,
+.aside-unified .aside-title svg {
+  color: var(--primary-color);
+  font-size: 1.1em;
+}
+
+/* 一体化模式下的内容间距 */
+.aside-unified .aside-content {
+  margin-top: 0.5rem;
+}
+
+/* 一体化模式下的列表样式 */
+.aside-unified .aside-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.aside-unified .aside-list li {
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.aside-unified .aside-list li:hover {
+  background: var(--hover-bg, rgba(0, 0, 0, 0.03));
+}
+
+.aside-unified .aside-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* 一体化模式下的标签云样式 */
+.aside-unified .tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.aside-unified .tag-link {
+  background: var(--tag-bg, rgba(79, 195, 247, 0.1));
+  color: var(--primary-color);
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  border: 1px solid var(--tag-border, rgba(79, 195, 247, 0.3));
+  transition: all 0.2s ease;
+}
+
+.aside-unified .tag-link:hover {
+  background: var(--primary-color);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(79, 195, 247, 0.3);
+}
+
+/* 一体化模式下的作者卡片样式 */
+.aside-unified .aside-avatar {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.aside-unified .aside-avatar img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary-color);
+  transition: transform 0.3s ease;
+}
+
+.aside-unified .aside-avatar img:hover {
+  transform: scale(1.05) rotate(5deg);
+}
+
+.aside-unified .aside-name {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.75rem 0 0.25rem;
+  color: var(--heading-color);
+}
+
+.aside-unified .aside-desc {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+/* 一体化模式下的社交媒体图标 */
+.aside-unified .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.aside-unified .social-icons a {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--social-bg, rgba(0, 0, 0, 0.05));
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.aside-unified .social-icons a:hover {
+  background: var(--primary-color);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* 一体化模式下的目录样式 */
+.aside-unified .toc-widget .toc-content {
+  max-height: 50vh;
+  overflow-y: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  padding-right: 8px;
+}
+
+.aside-unified .toc-widget .toc-content ul {
+  margin: 0;
+  padding-left: 1rem;
+  list-style: none;
+}
+
+.aside-unified .toc-widget .toc-content a {
+  color: var(--text-color);
+  text-decoration: none;
+  display: block;
+  padding: 0.35rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.aside-unified .toc-widget .toc-content a:hover,
+.aside-unified .toc-widget .toc-content a.active {
+  background: var(--hover-bg, rgba(79, 195, 247, 0.1));
+  color: var(--primary-color);
+  padding-left: 0.75rem;
+}
+
+/* 一体化模式下的滚动条样式 */
+.aside-unified ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.aside-unified ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.aside-unified ::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb, rgba(0, 0, 0, 0.2));
+  border-radius: 3px;
+}
+
+.aside-unified ::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover, rgba(0, 0, 0, 0.3));
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .aside-unified {
+  background: var(--bg-dark, #1a1a1a);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .aside-unified:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .aside-unified .aside-card {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .aside-unified .aside-list li:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .aside-unified .tag-link {
+  background: rgba(79, 195, 247, 0.15);
+  border-color: rgba(79, 195, 247, 0.4);
+}
+
+[data-theme="dark"] .aside-unified .social-icons a {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .aside-unified ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .aside-unified ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .aside-unified {
+    padding: 1.25rem;
+  }
+  
+  .aside-unified .aside-card {
+    padding: 0.75rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .aside-unified {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .aside-unified .aside-card {
+    padding: 0.5rem 0;
+  }
+  
+  .aside-unified .aside-title {
+    font-size: 0.95rem;
+  }
+  
+  .aside-unified .aside-avatar img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* 平滑过渡动画 */
+.aside-unified * {
+  transition-property: background-color, color, transform, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+

@@ -1,0 +1,272 @@
+{{/* 安全跳转中转页面 - 独立页面，不使用baseof模板 */}}
+{{ $redirectConfig := site.Params.linkCard.redirect }}
+{{ $countdown := $redirectConfig.countdown | default 3 }}
+{{ $showCountdown := $redirectConfig.showCountdown | default true }}
+{{ $showButton := $redirectConfig.showButton | default true }}
+{{ $safeMessage := $redirectConfig.safeMessage | default "😃 来自本站，本站可确保其安全性，请放心点击跳转" }}
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="{{ if site.Params.darkMode }}dark{{ else }}light{{ end }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>安全跳转 - {{ site.Title }}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --bg-light: #f0f8ff;
+      --bg-container-light: #ffffff;
+      --fg-light: #222222;
+      --fg-secondary-light: #666666;
+      --accent-light: #0066cc;
+      --bg-dark: #1a1a1a;
+      --bg-container-dark: #2a2a2a;
+      --fg-dark: #e0e0e0;
+      --fg-secondary-dark: #b0b0b0;
+      --accent-dark: #4a9eff;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      background: var(--bg-light);
+      color: var(--fg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .go-container {
+      max-width: 600px;
+      width: 100%;
+      background: var(--bg-container-light);
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      text-align: center;
+    }
+    
+    .go-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 40px;
+    }
+    
+    .go-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--fg-light);
+    }
+    
+    .go-url {
+      font-size: 14px;
+      color: var(--accent-light);
+      word-break: break-all;
+      margin: 20px 0;
+      padding: 12px;
+      background: rgba(0, 102, 204, 0.1);
+      border-radius: 8px;
+    }
+    
+    .go-tips {
+      font-size: 14px;
+      color: var(--fg-secondary-light);
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+    
+    .go-tips p {
+      color: var(--fg-secondary-light);
+    }
+    
+    .go-button {
+      display: inline-block;
+      padding: 12px 32px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .go-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    .go-countdown {
+      font-size: 14px;
+      color: var(--fg-secondary-light);
+      margin-top: 16px;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: var(--bg-dark);
+        color: var(--fg-dark);
+      }
+      
+      .go-container {
+        background: var(--bg-container-dark);
+      }
+      
+      .go-title {
+        color: var(--fg-dark);
+      }
+      
+      .go-url {
+        color: var(--accent-dark);
+        background: rgba(74, 158, 255, 0.15);
+      }
+      
+      .go-tips {
+        color: var(--fg-secondary-dark);
+      }
+      
+      .go-tips p {
+        color: var(--fg-secondary-dark);
+      }
+      
+      .go-countdown {
+        color: var(--fg-secondary-dark);
+      }
+    }
+    
+    [data-theme="dark"] body {
+      background: var(--bg-dark);
+      color: var(--fg-dark);
+    }
+    
+    [data-theme="dark"] .go-container {
+      background: var(--bg-container-dark);
+    }
+    
+    [data-theme="dark"] .go-title {
+      color: var(--fg-dark);
+    }
+    
+    [data-theme="dark"] .go-url {
+      color: var(--accent-dark);
+      background: rgba(74, 158, 255, 0.15);
+    }
+    
+    [data-theme="dark"] .go-tips {
+      color: var(--fg-secondary-dark);
+    }
+    
+    [data-theme="dark"] .go-tips p {
+      color: var(--fg-secondary-dark);
+    }
+    
+    [data-theme="dark"] .go-countdown {
+      color: var(--fg-secondary-dark);
+    }
+  </style>
+</head>
+<body>
+  <div class="go-container">
+    <div class="go-icon">
+      <i class="fas fa-shield-alt"></i>
+    </div>
+    <h1 class="go-title">安全跳转</h1>
+    <div class="go-tips">
+      <p>您即将离开本站，跳转到以下地址：</p>
+    </div>
+    <div class="go-url" id="targetUrl">加载中...</div>
+    <div class="go-tips">
+      <p>{{ $safeMessage }}</p>
+    </div>
+    {{ if $showCountdown }}
+    <div class="go-countdown" id="countdown" style="display: none;">{{ $countdown }} 秒后自动跳转...</div>
+    {{ end }}
+    {{ if $showButton }}
+    <button class="go-button" id="goButton">立即跳转</button>
+    {{ end }}
+  </div>
+  
+  <link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css">
+  <script>
+    (function() {
+      // 获取URL参数
+      function getUrlParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+      
+      const goUrl = decodeURIComponent(getUrlParam('goUrl') || '');
+      const type = getUrlParam('type') || 'goDown';
+      
+      const countdownTime = {{ $countdown }};
+      const showCountdown = {{ $showCountdown }};
+      const showButton = {{ $showButton }};
+      
+      if (!goUrl) {
+        document.getElementById('targetUrl').textContent = '无效的跳转地址';
+        if (showButton) {
+          const btn = document.getElementById('goButton');
+          if (btn) btn.style.display = 'none';
+        }
+        if (showCountdown) {
+          const countdownEl = document.getElementById('countdown');
+          if (countdownEl) countdownEl.style.display = 'none';
+        }
+        return;
+      }
+      
+      // 显示目标URL
+      document.getElementById('targetUrl').textContent = goUrl;
+      
+      // 倒计时
+      let countdownInterval = null;
+      if (showCountdown && countdownTime > 0) {
+        const countdownEl = document.getElementById('countdown');
+        if (countdownEl) {
+          countdownEl.style.display = 'block';
+          let countdown = countdownTime;
+          countdownInterval = setInterval(function() {
+            countdown--;
+            if (countdown > 0) {
+              countdownEl.textContent = countdown + ' 秒后自动跳转...';
+            } else {
+              countdownEl.textContent = '正在跳转...';
+              clearInterval(countdownInterval);
+              window.location.href = goUrl;
+            }
+          }, 1000);
+        }
+      }
+      
+      // 立即跳转按钮
+      if (showButton) {
+        const goButton = document.getElementById('goButton');
+        if (goButton) {
+          goButton.addEventListener('click', function() {
+            if (countdownInterval) {
+              clearInterval(countdownInterval);
+            }
+            window.location.href = goUrl;
+          });
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

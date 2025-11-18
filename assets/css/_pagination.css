@@ -1,0 +1,128 @@
+/* 方案二：线条现代风（带背景色） */
+.pagination-wrapper {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.pagination li {
+  margin: 0;
+}
+
+.pagination a,
+.pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  padding: 0 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+
+/* 普通页码按钮 */
+.pagination a {
+  color: var(--fg);
+  opacity: 0.8;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--fg) 20%, transparent);
+}
+
+.pagination a:hover {
+  opacity: 1;
+  color: var(--accent);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  transform: translateY(-1px);
+}
+
+/* 当前页样式 - 带背景色 */
+.pagination .current {
+  color: #fff;
+  opacity: 1;
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 600;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+/* 统一左右跳转按钮样式 */
+.pagination .page-item:first-child a,
+.pagination .page-item:last-child a {
+  min-width: auto;
+  padding: 0 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  /* 与普通页码保持一致 */
+  border: 1px solid color-mix(in srgb, var(--fg) 20%, transparent);
+  background: transparent;
+}
+
+.pagination .page-item:first-child a:hover,
+.pagination .page-item:last-child a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  transform: translateY(-1px);
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .pagination {
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+  
+  .pagination a,
+  .pagination span {
+    min-width: 2rem;
+    height: 2rem;
+    font-size: 0.8rem;
+    padding: 0 0.4rem;
+  }
+  
+  .pagination .page-item:first-child a,
+  .pagination .page-item:last-child a {
+    padding: 0 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .search-form {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .search-button {
+    width: 100%;
+    padding: 0.7rem;
+  }
+}
+
+/* 其他通用样式 */
+.aside-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.aside-list li {
+  margin-bottom: 0.5rem;
+}
+
+.aside-list small {
+  opacity: 0.7;
+}

@@ -1,0 +1,81 @@
+/* ===================================================================
+   评论区统一样式（所有页面）
+   参考友链页面样式，确保所有页面的评论区保持一致的视觉效果
+   =================================================================== */
+
+/* 通用评论区容器样式（与友链页面保持一致） */
+#artalk-comment {
+  margin: 2rem 0 !important;
+  border: 1px dashed color-mix(in srgb, var(--fg) 20%, transparent) !important;
+  padding: 20px !important;
+  min-height: 200px !important;
+  background: var(--bg) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] #artalk-comment {
+  border-color: color-mix(in srgb, var(--fg) 20%, transparent) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 亮色模式下评论区文字为黑色 */
+:not([data-theme="dark"]) #artalk-comment {
+  color: #000;
+}
+
+:not([data-theme="dark"]) #artalk-comment p,
+:not([data-theme="dark"]) #artalk-comment span,
+:not([data-theme="dark"]) #artalk-comment div,
+:not([data-theme="dark"]) #artalk-comment li,
+:not([data-theme="dark"]) #artalk-comment td,
+:not([data-theme="dark"]) #artalk-comment th {
+  color: #000;
+}
+
+/* 暗色模式下评论区文字为白色 */
+[data-theme="dark"] #artalk-comment {
+  color: #fff;
+}
+
+[data-theme="dark"] #artalk-comment p,
+[data-theme="dark"] #artalk-comment span,
+[data-theme="dark"] #artalk-comment div,
+[data-theme="dark"] #artalk-comment li,
+[data-theme="dark"] #artalk-comment td,
+[data-theme="dark"] #artalk-comment th {
+  color: #fff;
+}
+
+/* 亮色模式下评论区的输入框字体为黑色 */
+:not([data-theme="dark"]) #artalk-comment input,
+:not([data-theme="dark"]) #artalk-comment input[type="text"],
+:not([data-theme="dark"]) #artalk-comment input[type="email"],
+:not([data-theme="dark"]) #artalk-comment input[type="url"],
+:not([data-theme="dark"]) #artalk-comment textarea,
+:not([data-theme="dark"]) #artalk-comment .atk-input,
+:not([data-theme="dark"]) #artalk-comment .atk-textarea {
+  color: #000 !important;
+}
+
+/* 暗色模式下评论区的输入框字体为白色 */
+[data-theme="dark"] #artalk-comment input,
+[data-theme="dark"] #artalk-comment input[type="text"],
+[data-theme="dark"] #artalk-comment input[type="email"],
+[data-theme="dark"] #artalk-comment input[type="url"],
+[data-theme="dark"] #artalk-comment textarea,
+[data-theme="dark"] #artalk-comment .atk-input,
+[data-theme="dark"] #artalk-comment .atk-textarea {
+  color: #fff !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  #artalk-comment {
+    padding: 15px !important;
+    margin: 1.5rem 0 !important;
+    border-radius: 8px !important;
+  }
+}
+

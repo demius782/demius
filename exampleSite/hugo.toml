@@ -1,0 +1,1174 @@
+# ===== Hugo Demius 主题配置文件 =====
+# 本配置文件包含了 Demius 主题的所有功能配置
+# 请根据您的需求修改相应的配置项
+
+# ===== 站点基础配置 =====
+baseURL = 'https://example.com'          # 网站基础URL，生产环境需改为实际域名
+languageCode = 'zh-CN'                     # 网站语言代码
+title = 'Demius Theme'                         # 网站标题
+theme = 'demius'                           # 使用的主题名称
+
+# 忽略特定的日志警告
+ignoreLogs = ['warning-goldmark-raw-html']
+
+# ===== RSS订阅配置 =====
+copyright = "Copyright © 2024-2025 字·兮·书"  # RSS版权信息
+rssLimit = 20                              # RSS输出的最大文章数量
+
+# ===== 分页配置 =====
+[pagination]
+  pagerSize = 12                            # 每页文章数量（单栏/双栏布局生效）
+
+# ===== 多语言和区域设置 =====
+defaultContentLanguage = 'zh'              # 默认内容语言
+hasCJKLanguage = true                      # 启用中日韩语言支持，优化中文排版
+
+# ===== 永久链接和分类配置 =====
+# 配置文章永久链接规则，避免文章URL每次更新后都变化，导致SEO问题
+[permalinks]
+  posts = "/posts/:slug.html"              # 文章永久链接格式
+[taxonomies]
+  tag = "tags"                             # 标签分类名称
+  category = "categories"                  # 分类名称
+
+# ===== 输出格式配置 =====
+[outputs]
+  home = ["HTML", "RSS", "JSON"]           # 主页输出 HTML + RSS + JSON（RSS用于订阅，JSON用于本地搜索索引）
+
+# ===== 菜单配置 =====
+[menu]
+  # 主导航菜单配置
+  [[menu.main]]
+    name = "首页"
+    url = "/"
+    weight = 1
+    [menu.main.params]
+      icon = "/img/icons/shouye.svg"         # 菜单图标路径
+
+  # 统计菜单（一级菜单，包含二级菜单）
+  [[menu.main]]
+    name = "统计"
+    url = "#"
+    weight = 2
+    identifier = "statistics"         # 用于二级菜单的父级标识
+    [menu.main.params]
+      icon = "/img/icons/tongji.svg"
+
+  # 归档（二级菜单，属于"统计"菜单）
+  [[menu.main]]
+    name = "归档"
+    url = "/posts/"
+    weight = 1
+    parent = "statistics"             # 指定父级菜单为"统计"
+    [menu.main.params]
+      icon = "/img/icons/blog.svg"
+
+  # 分类（二级菜单，属于"统计"菜单）
+  [[menu.main]]
+    name = "分类"
+    url = "/categories/"
+    weight = 2
+    parent = "statistics"             # 指定父级菜单为"统计"
+    [menu.main.params]
+      icon = "/img/icons/fenlei.svg"
+
+  # 标签（二级菜单，属于"统计"菜单）
+  [[menu.main]]
+    name = "标签"
+    url = "/tags/"
+    weight = 3
+    parent = "statistics"             # 指定父级菜单为"统计"
+    [menu.main.params]
+      icon = "/img/icons/biaoqian.svg"
+  
+  # 数据（二级菜单，属于"统计"菜单）
+  [[menu.main]]
+    name = "数据"
+    url = "/data/"
+    weight = 4
+    parent = "statistics"             # 指定父级菜单为"统计"
+    [menu.main.params]
+      icon = "/img/icons/shuju.svg"
+
+  # 网友菜单（一级菜单，包含二级菜单）
+  [[menu.main]]
+    name = "网友"
+    url = "#"
+    weight = 3
+    identifier = "friends"              # 用于二级菜单的父级标识
+    [menu.main.params]
+      icon = "/img/icons/youlian.svg"   # 网友菜单图标路径（如果不存在会使用默认图标）
+
+  # 友链（二级菜单，属于"网友"菜单）
+  [[menu.main]]
+    name = "友链"
+    url = "/links/"
+    weight = 1
+    parent = "friends"                  # 指定父级菜单为"网友"
+    [menu.main.params]
+      icon = "/img/icons/youlian.svg"
+
+  # 网友圈（二级菜单，属于"网友"菜单）
+  [[menu.main]]
+    name = "网友圈"
+    url = "/friends-circle/"
+    weight = 2
+    parent = "friends"                  # 指定父级菜单为"网友"
+    [menu.main.params]
+      icon = "/img/icons/youlian.svg"  # 网友圈菜单图标路径（如果不存在会使用默认图标）
+
+  # 生活菜单（一级菜单，包含二级菜单）
+  [[menu.main]]
+    name = "生活"
+    url = "#"
+    weight = 4
+    identifier = "life"               # 用于二级菜单的父级标识
+    [menu.main.params]
+      icon = "/img/icons/shenghuo.svg"
+  
+  # 相册（二级菜单，属于"生活"菜单）
+  [[menu.main]]
+    name = "相册"
+    url = "/gallery/"
+    weight = 1
+    parent = "life"                   # 指定父级菜单为"生活"
+    [menu.main.params]
+      icon = "/img/icons/xiangce.svg"
+  
+  # 装备（二级菜单，属于"生活"菜单）
+  [[menu.main]]
+    name = "装备"
+    url = "/gear/"
+    weight = 2
+    parent = "life"                   # 指定父级菜单为"生活"
+    [menu.main.params]
+      icon = "/img/icons/zhuangbei.svg"
+  
+  # 说说（二级菜单，属于"生活"菜单）
+  [[menu.main]]
+    name = "说说"
+    url = "/shuoshuo/"
+    weight = 3
+    parent = "life"                   # 指定父级菜单为"生活"
+    [menu.main.params]
+      icon = "/img/icons/shuoshuo.svg"
+  
+  # 愿望清单（二级菜单，属于"生活"菜单）
+  [[menu.main]]
+    name = "愿望清单"
+    url = "/wishlist/"
+    weight = 4
+    parent = "life"                   # 指定父级菜单为"生活"
+    [menu.main.params]
+      icon = "/img/icons/yuanwang.svg"
+
+  # 音乐星球（二级菜单，属于"生活"菜单）
+  [[menu.main]]
+    name = "音乐星球"
+    url = "/music-planet/"
+    weight = 5
+    parent = "life"
+    [menu.main.params]
+      icon = "/img/icons/yinyue.svg"
+
+  # 追番星球（二级菜单，属于"生活"菜单）
+  [[menu.main]]
+    name = "追番星球"
+    url = "/bangumi-planet/"
+    weight = 6
+    parent = "life"
+    [menu.main.params]
+      icon = "/img/icons/zhuifan.svg"
+
+  # 小说书单（二级菜单，属于"生活"菜单）
+  [[menu.main]]
+    name = "小说书单"
+    url = "/booklist/"
+    weight = 7
+    parent = "life"
+    [menu.main.params]
+      icon = "/img/icons/xiaoshuo.svg"
+
+  [[menu.main]]
+    name = "留言"
+    url = "/message/"
+    weight = 5
+    [menu.main.params]
+      icon = "/img/icons/liuyan.svg"
+
+  [[menu.main]]
+    name = "关于"
+    identifier = "about"
+    weight = 6
+    [menu.main.params]
+      icon = "/img/icons/guanyu.svg"
+
+  [[menu.main]]
+    name = "关于本站"
+    url = "/about/"
+    weight = 1
+    parent = "about"
+    [menu.main.params]
+      icon = "/img/icons/guanyu.svg"
+
+  [[menu.main]]
+    name = "支持清单"
+    url = "/supporters/"
+    weight = 2
+    parent = "about"
+    [menu.main.params]
+      icon = "/img/icons/zhichi.svg"
+
+  # 多级菜单示例
+  [[menu.main]]
+    name = "项目"
+    identifier = "projects"
+    weight = 7
+    [menu.main.params]
+      icon = "/img/icons/web.svg"
+
+  [[menu.main]]
+    name = "Web开发"
+    url = "https://blog.demius.tech/"
+    weight = 1
+    parent = "projects"
+    [menu.main.params]
+      icon = "/img/icons/web.svg"
+
+  [[menu.main]]
+    name = "移动应用"
+    url = "https://blog.demius.tech/"
+    weight = 2
+    parent = "projects"
+    [menu.main.params]
+      icon = "/img/icons/shouji.svg"
+
+# ===== 主题参数配置 =====
+[params]
+  # ===== 全站灰度模式配置 =====
+  grayscaleMode = false                     # 全站变灰模式（一键开启，适用于特殊纪念日等场景）
+  
+  # ===== 基础信息配置 =====
+  author = "Demius Theme"                      # 网站作者/所有者
+  description = "A fully featured demo site for the Demius theme"  # 网站描述，用于SEO
+  
+  # ===== 布局显示配置 =====
+  homeColumns = 3                # 首页中间栏引擎：1=单列|2=双列|3=瀑布流
+  mainSections = ["posts"]                 # 首页主内容来源的 Section 列表（驱动卡片列表）
+  summaryLength = 120                      # 文章摘要截取长度(字符数)，用于列表摘要
+  
+  # ===== 文章卡片透明背景模式 =====
+  postCardTransparentMode = false          # 启用文章卡片透明背景模式（true=透明效果，false=默认背景）
+  postCardTransparentType = "full"        # 透明效果类型：glass（透明毛玻璃效果）或 full（全透明效果）
+  
+  # ===== 文章详情页透明背景模式 =====
+  postPageTransparentMode = false          # 启用文章详情页透明背景模式（true=透明效果，false=默认背景）
+  postPageTransparentType = "full"       # 透明效果类型：glass（透明毛玻璃效果）或 full（全透明效果）
+  
+  # ===== 功能开关配置 =====
+  darkMode = true                          # 默认启用暗色模式，false为默认亮色
+  tocOpen = true                           # 文章目录默认展开，false为默认折叠
+  pjax = true                              # 启用无刷新页面切换，false为传统页面跳转
+  stickyHeader = true                      # 页面下滑时导航栏固定在顶部，false为不固定
+  
+  # ===== 全站字体配置 =====
+  [params.font]
+    enable = false                         # 是否启用自定义字体（true=启用，false=使用系统默认字体）
+    type = "local"                        # 字体类型：online（在线字体，如Google Fonts）或 local（本地字体）
+    # 在线字体配置（type = "online" 时使用）
+    onlineUrl = ""                         # 在线字体链接（如：https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap）
+    fontFamily = ""                        # 字体名称（如：'Noto Sans SC', sans-serif）
+    # 本地字体配置（type = "local" 时使用）
+    localName = "字魂白鸽天行体"                         # 本地字体名称（用于font-family，如：'HarmonyOS Sans SC'）
+    localPath = "/fonts/字魂白鸽天行体.ttf"                         # 本地字体文件路径（支持woff2/woff/ttf格式，如：/fonts/HarmonyOS-Sans-SC.woff2）
+    localFormat = "ttf"                  # 本地字体格式：woff2、woff 或 ttf
+  
+  # ===== 开发者工具防护配置（保护代码安全） =====
+  [params.devToolsProtection]
+    enabled = false                        # 是否启用开发者工具防护（true=启用，false=禁用）
+    disableRightClick = true               # 是否禁用右键菜单（true=禁用，false=允许）
+    disableTextSelection = false           # 是否禁用文本选择（true=禁用，false=允许）
+    detectDevTools = true                  # 是否检测开发者工具打开（true=检测，false=不检测）
+    devToolsThreshold = 160                # 开发者工具检测阈值（像素），当窗口尺寸差异超过此值时认为开发者工具已打开
+    disableConsole = false                 # 是否禁用控制台输出（true=禁用，false=允许）
+    disableDebugger = false                # 是否使用debugger阻止调试（true=启用，false=禁用）
+    preventIframe = true                   # 是否阻止通过iframe打开页面（true=阻止，false=允许）
+    onDevToolsOpen = "none"                 # 检测到开发者工具打开时的行为：none（无操作）、redirect（跳转）、clear（清空页面）、close（尝试关闭）、debugger（使用debugger）
+    redirectUrl = "/"                      # 当onDevToolsOpen为redirect时，跳转的URL
+  
+  # ===== 打赏按钮配置 =====
+  [params.reward]
+    enable = true                          # 是否启用打赏按钮
+    buttonText = "☕ 感谢支持"              # 按钮显示文字
+    title = "如果觉得文章有帮助，可以请我喝杯杯咖啡~"  # 打赏提示文字
+    wechat = "/img/weixin.webp"    # 微信收款码图片URL
+    alipay = "/img/zhifubao.jpg"    # 支付宝收款码图片URL
+  
+  # ===== 文章互动功能配置 =====
+  [params.postActions]
+    # 点赞功能
+    [params.postActions.like]
+      enable = true                        # 是否启用点赞功能
+      icon = "fas fa-heart"                # 点赞图标（FontAwesome图标类名）
+      text = "点赞"                        # 按钮文字
+      likedText = "已赞"                   # 已点赞时的文字
+    
+    # 转发功能
+    [params.postActions.share]
+      enable = true                        # 是否启用转发功能
+      icon = "fas fa-share-alt"            # 转发图标（FontAwesome图标类名）
+      text = "分享"                        # 按钮文字
+      
+      # 转发平台配置（按顺序显示）
+      # 支持的平台：微信、微博、QQ、复制链接，{ name = "Twitter", icon = "fab fa-twitter", color = "#1DA1F2", url = "https://twitter.com/intent/tweet?url={url}&text={title}" },
+      #  { name = "Facebook", icon = "fab fa-facebook", color = "#1877F2", url = "https://www.facebook.com/sharer/sharer.php?u={url}" },
+      #  { name = "微博", icon = "fab fa-weibo", color = "#E6162D", url = "https://service.weibo.com/share/share.php?url={url}&title={title}" },
+      platforms = [
+        { name = "微信", icon = "fab fa-weixin", color = "#07C160" },
+        
+        { name = "QQ", icon = "fab fa-qq", color = "#12B7F5", url = "https://connect.qq.com/widget/shareqq/index.html?url={url}&title={title}&summary={description}" },
+        
+        { name = "复制链接", icon = "fas fa-link", color = "#666666" }
+      ]
+  
+  # ===== 视频支持配置 =====
+  [params.video]
+    enable = true                          # 是否启用视频嵌入功能（支持B站、抖音、YouTube等）
+  
+  # ===== 置顶文章样式配置 =====
+  [params.pinned]
+    # 置顶徽章图标和文字颜色配置
+    iconColor = "#4CEC12"                  # 图标颜色（默认：#FFFFFF 白色）
+    textColor = "#4CEC12"                  # 文字颜色（默认：#FFFFFF 白色）
+    
+    # 暗色模式颜色（可选，不配置则使用亮色模式的颜色）
+    iconColorDark = "#4CEC12"              # 暗色模式图标颜色
+    textColorDark = "#4CEC12"              # 暗色模式文字颜色
+  
+  # ===== 文章加密功能配置 =====
+  [params.encryption]
+    enable = true                          # 是否启用加密功能
+    fullHint = "🔒 此文章已加密，请输入密码查看完整内容"  # 全文加密提示文字
+    partialHint = "🔐 此部分内容已加密，请输入密码查看"     # 部分加密提示文字
+    wrongPasswordHint = "❌ 密码错误，请重试"                # 密码错误提示文字
+    
+    # 全文加密弹窗样式配置
+    popupTextColor = "#ffffff"             # 全文加密弹窗文字和图标颜色（默认白色）
+    popupBackgroundColor = ""  # 全文加密弹窗背景色（支持单色或渐变，如："#667eea" 或 "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+    popupBackgroundImage = "/img/bj.jpg"              # 全文加密弹窗背景图路径（留空则不使用背景图，如："/img/bg/encryption.jpg"）
+    
+    # 部分加密弹窗样式配置（独立设置，互不影响）
+    partialPopupTextColor = "#ffffff"             # 部分加密弹窗文字和图标颜色（留空则使用默认主题色）
+    partialPopupBackgroundColor = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"       # 部分加密弹窗背景色（支持单色或渐变，留空则使用默认背景）
+    partialPopupBackgroundImage = ""       # 部分加密弹窗背景图路径（留空则不使用背景图）
+  
+  # ===== 轮播图配置 =====
+  [params.carousel]
+    enable = true                          # 是否启用轮播图功能
+    height = 200                           # 轮播图高度(px)
+    autoplay = true                        # 是否自动播放
+    interval = 5000                        # 自动播放间隔(毫秒)
+    direction = "horizontal"               # 切换方向：horizontal(左右) / vertical(上下)
+    showOnPages = ["home"]                 # 显示页面：home(首页) / all(所有页面) / ["home", "posts"]
+    transparentMode = false                 # 启用轮播图透明背景模式（true=透明效果，false=默认背景）
+    transparentType = "full"              # 透明效果类型：glass（透明毛玻璃效果）或 full（全透明效果）
+    
+    # 注意：轮播项配置已移至 data/carousel.yaml 文件中
+    # 如需修改轮播项，请编辑 data/carousel.yaml 文件
+  
+  # ===== 搜索模块配置 =====
+  [params.search]
+    engine = "local"                       # 搜索引擎：local（本地索引）/ algolia（预留）
+    indexPath = "/index.json"              # 本地索引路径（需在 [outputs].home 启用 JSON）
+
+  # ===== 侧边栏显示控制 =====
+  [params.aside]
+    # 侧栏一体化模式
+    unifiedMode = false                 # 启用侧栏一体化模式（true=一体化，false=分割卡片）
+    
+    # 侧栏组件透明背景模式
+    transparentMode = false             # 启用侧栏组件透明背景模式（true=透明毛玻璃效果，false=默认背景）
+    
+    # 侧栏组件宽度模式
+    wideMode = "false"                   # 侧栏宽度模式：false或"normal"=260px（默认），"medium"=332px（中宽），true或"wide"=415px（超宽）
+    
+    # 左右栏模块顺序配置
+    left  = ["author","announcement","visitor-info","life-time","recent-Comments","popular-Posts","advertisement"]
+    right = ["toc","tags","social-Media","hitokoto","random-image","music","series-posts","related-Posts", "recent-Posts","categories", "archive","data-stats"]
+
+    # 各组件显示开关（默认true表示不配置时默认显示）
+    showAuthor = true                      # 作者信息卡片
+    showToc = true                         # 目录组件
+    showTags = false                        # 标签云
+    showRecent = false                      # 最新文章
+    showCategories = false                  # 分类组件
+    showArchive = false                     # 归档组件
+    showPopularPosts = false                # 热门文章
+    showRelatedPosts = false                # 相关文章
+    showSocialMedia = true                # 社交媒体
+    showAdvertisement = false              # 广告位
+    showAnnouncement = true                # 公告栏
+    showLifeTime = false                    # 逆行人生时间倒计时组件
+    showDataStats = false                   # 数据统计组件
+    showHitokoto = true                   # 一言组件
+    showVisitorInfo = false                 # 访客信息组件
+    showRandomImage = false                 # 随机图片组件
+    showMusic = false                       # 音乐组件
+
+    # 作者组件配置
+    [params.aside.author]
+      enableBackground = false         # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 公告组件配置
+    [params.aside.announcement]
+      enableBackground = false         # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #ffa502 0%, #ff6348 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 逆行人生时间倒计时组件配置
+    [params.aside.lifeTime]
+      title = "逆行人生"                   # 组件标题
+      enableBackground = false             # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                  # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 数据统计组件配置
+    [params.aside.dataStats]
+      title = "数据统计"                   # 组件标题
+      enableBackground = false             # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                  # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+      # 数据项显示开关
+      showPostsCount = true                # 文章总数
+      showTagsCount = true                 # 标签数量
+      showCategoriesCount = true           # 分类数量
+      showRunningYear = false               # 运行年份
+      showTotalWords = true                # 全站字数
+      showResponseTime = true              # 响应耗时
+      showLastUpdate = true                # 最后更新时间
+      showCommentCount = true              # 评论数目（需要Artalk API支持）
+
+    # 一言组件配置
+    [params.aside.hitokoto]
+      title = "一言"                       # 组件标题
+      enabled = true                       # 是否启用组件
+      apiType = "jinrishici"                    # API类型：nsmao（青桔API）或 jinrishici（今日诗词）
+      showFrom = true                      # 是否显示来源
+      # 青桔API配置
+      nsmaoApiKey = ""      # 青桔API密钥（示例留空，使用者需自行配置）
+      nsmaoApiUrl = ""  # 青桔API地址（示例留空，使用者需自行配置）
+      enableBackground = false             # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                  # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 随机图片组件配置
+    [params.aside.randomImage]
+      title = "随机图片"                   # 组件标题
+      enabled = true                       # 是否启用组件
+      # API配置（支持多个API，会随机选择一个）
+      apis = [
+        "https://api.example.com/random-image?key=YOUR_API_KEY",
+        "https://other-api.example.com/random-image?key=YOUR_API_KEY"
+      ]
+      refreshInterval = 0                  # 自动刷新间隔（秒，0表示不自动刷新）
+      showRefreshButton = true             # 是否显示刷新按钮
+      enableBackground = false             # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                  # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 访客信息组件配置
+    [params.aside.visitorInfo]
+      title = "访客信息"                   # 组件标题
+      enabled = true                       # 是否启用组件
+      apiKey = ""                          # 青桔API密钥（示例留空，使用者需自行配置）
+      customLat = 0.0                      # 自定义纬度（站点位置，用于计算距离）
+      customLng = 0.0                     # 自定义经度（站点位置，用于计算距离）
+      siteName = "示例站点"                    # 站点名称（替代"本站"显示在距离信息中）
+      fontColor = "deepskyblue"            # 高亮文字颜色（位置、IP、距离等）
+      showFriendsLinks = true             # 是否显示友情链接（开往、空间穿梭）
+      travellingsLink = true               # 是否显示开往友链接力
+      blogsClubLink = false                 # 是否显示空间穿梭,BlogsCloub友链接
+      enableBackground = false             # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                  # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 音乐组件配置（侧栏音乐组件，与悬浮播放器配置分离）
+    [params.aside.music]
+      title = "音乐"                       # 组件标题
+      enabled = true                       # 是否启用组件
+      enableBackground = true             # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                  # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+      # 音乐列表配置（支持多个音乐项）
+      # 方式1：使用内联数组（推荐）
+      # items = [
+      #   { server = "netease", type = "playlist", id = "2854093572", badge = "violet" }
+      # ]
+      # 方式2：使用数组表（支持多个音乐项，推荐）
+       [[params.aside.music.items]]
+         server = "netease"              # 音乐平台：netease（网易云）、tencent（QQ音乐）、kugou（酷狗）、xiami（虾米）、baidu（百度）、local（本地文件）
+         type = "playlist"                # 类型：song（单曲）、playlist（歌单）、album（专辑）、artist（歌手）、search（搜索）
+         id = "2854093572"                # 音乐ID（必填，本地文件除外）
+         badge = "violet"                 # 徽章颜色：violet、cyan、gold、pink、blue（可选）
+         autoplay = false                 # 是否自动播放（可选）
+      #   theme = "#2980b9"                # 主题颜色（可选）
+      #   loop = "all"                     # 循环模式：all、one、none（可选）
+      #   order = "list"                   # 播放顺序：list、random（可选）
+      #   volume = 0.7                     # 音量：0-1（可选）
+         listFolded = true               # 列表是否折叠（可选）
+      #   listMaxHeight = "340px"          # 列表最大高度（可选）
+      #   mini = false                     # 迷你模式（可选）
+      #   fixed = false                    # 固定模式（可选）
+      # [[params.aside.music.items]]
+      #   server = "local"                 # 本地文件模式
+      #   url = "/audio/demo.mp3"         # 音频文件URL（必填）
+      #   name = "示例音乐"                # 歌曲名称（可选）
+      #   artist = "Demius"                # 歌手名称（可选）
+      #   cover = "/img/default-cover.jpg" # 封面图片（可选）
+      #   badge = "blue"                   # 徽章颜色（可选）
+
+    # 社交媒体组件配置
+    [params.aside.social-Media]
+      enableBackground = false      # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 组件显示数量控制
+    popularCount = 5                       # 热门文章显示数量
+    recentCount = 5                        # 最新文章显示数量
+    relatedCount = 5                       # 相关文章显示数量
+    tagsCount = 20                         # 标签云显示数量（0表示显示全部）
+
+    # 最新文章组件配置
+    [params.aside.recent-Posts]
+      enableBackground = false         # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 相关文章组件配置
+    [params.aside.related-Posts]
+      enableBackground = true             # 是否启用背景图片/颜色
+      backgroundImage = "/img/bg.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #fa709a 0%, #fee140 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 目录组件配置
+    [params.aside.toc]
+      enableBackground = true             # 是否启用背景图片/颜色
+      backgroundImage = "/img/bg.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+      # 手机端目录按钮弹出内容设置
+      mobilePopupMode = "sidebar"           # 手机端弹出模式："sidebar"（弹出整个右侧栏）或 "toc-only"（仅弹出目录）
+
+    # 标签组件配置
+    [params.aside.tags]
+      enableBackground = true             # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 分类组件配置
+    [params.aside.categories]
+      enableBackground = true             # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #ff8a65 0%, #fee140 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 广告组件配置
+    [params.aside.advertisement]
+      enableBackground = true          # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"      # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 热门文章组件配置
+    [params.aside.popular-Posts]
+      enableBackground = false         # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                # 文字颜色（留空则使用默认颜色）
+      textShadow = true                    # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 最新评论组件配置
+    [params.aside.recentComments]
+      enable = false                        # 是否启用最新评论组件
+      count = 5                            # 显示的评论数量
+      
+      # 背景配置
+      enableBackground = false         # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+
+    # 归档组件配置
+    [params.aside.archive]
+      defaultOpenCurrentYear = true        # 默认展开当前年份
+      defaultOpenCurrentMonth = false      # 是否默认展开"当前月份"
+      showStats = true                     # 显示统计信息，归档卡片顶部显示"共 X 篇文章 / Y 个年份"的统计条
+      groupBy = "month"                    # 分组方式：year, month, day
+      
+      # 背景配置
+      enableBackground = false         # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #a8e063 0%, #56ab2f 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+    
+    # 系列文章组件配置
+    [params.aside.seriesPosts]
+      enable = false                        # 是否启用系列文章组件
+      enableCarousel = false                # 是否启用轮播功能（多个系列时）
+      carouselInterval = 8000              # 轮播间隔(毫秒)
+      
+      # 背景配置
+      enableBackground = false         # 是否启用背景图片/颜色
+      backgroundImage = "/img/bj.jpg"                 # 背景图片URL（留空则不显示背景图）
+      backgroundColor = ""                 # 背景色（留空则不显示背景色，支持渐变，例如："linear-gradient(135deg, #667eea 0%, #764ba2 100%)"）
+      backgroundSize = "cover"             # 背景图片尺寸：cover（覆盖）| contain（包含）| auto（自动）
+      backgroundPosition = "center"        # 背景图片位置：center | top | bottom | left | right
+      backgroundRepeat = "no-repeat"       # 背景图片重复：no-repeat | repeat | repeat-x | repeat-y
+      textColor = ""                       # 文字颜色（留空则使用默认颜色）
+      textShadow = false                   # 是否为文字添加阴影（提高在背景图上的可读性）
+      overlayColor = ""                    # 遮罩层颜色（在背景图上添加半透明遮罩，例如："rgba(0, 0, 0, 0.3)"）
+      borderRadius = ""                    # 圆角大小（留空则使用默认圆角）
+      
+      # 系列文章列表
+      [[params.aside.seriesPosts.series]]
+        name = "Hugo 博客搭建系列"
+        description = " Demius主题功能使用文档 "
+        slugs = ["a5wxauo6","ge0yozpt","5cilldeb"]  # 文章slug列表
+      
+      [[params.aside.seriesPosts.series]]
+        name = "Demius 主题使用"
+        description = "Demius 主题功能详解"
+        slugs = ["lyb5xlt2", "7hsd4t0x", "pkdvxhfn"]
+
+  # ===== 相关文章配置 =====
+  [related]
+    threshold = 80                         # 相关性阈值，只有相关性分数高于此值的文章才会被显示 (0-100)
+    includeNewer = true                    # 是否在相关文章中包含比当前文章更新的文章
+    toLower = true                         # 在匹配标签或分类时是否忽略大小写
+    
+    # 定义第一个相关性判断依据：标签
+    [[related.indices]]
+      name = "tags"                        # 用于计算相关性的文章参数，这里使用标签
+      weight = 100                         # 权重值，表示此参数在计算相关性时的重要程度 (1-100)
+    
+    # 定义第二个相关性判断依据：分类
+    [[related.indices]]
+      name = "categories"                  # 用于计算相关性的文章参数，这里使用分类
+      weight = 80                          # 权重值，低于标签，但依然是重要的关联因素
+
+  # ===== 广告配置 =====
+  [params.advertisement]
+    enable = true                          # 是否启用广告位
+    title = "推荐产品"                     # 广告标题
+    description = "产品描述信息：广告位测试"  # 广告描述
+    image = "https://mpimg.cn/view.php/7fc51efccb605654697bee5740ee2b44.jpg"  # 广告图片URL
+    link = "https://example.com/product"      # 广告链接
+
+  # ===== 公告配置 =====
+  [params.announcement]
+    enable = true                          # 是否启用公告栏
+    important = false                      # 是否为重要公告（影响显示样式）
+    title = "Demius 主题公告"                 # 公告标题
+    content = "Demius 主题演示站正在运行中，文档中部署相关内容仅为示例，请根据自身需求进行配置。<strong style=\"color: #2ecc71;\">QQ群：1065475281</strong>"  # 公告内容
+    date = "2025-10-26"                    # 公告日期
+  [params.announcement.link]
+      text = "了解更多"                    # 链接文本
+      url = "/about"                       # 链接地址
+
+  # ===== 联系信息配置 =====
+  [params.contact]
+    email = "admin@example.com"            # 联系邮箱
+
+  # ===== 社交链接配置 =====
+  [params.social]
+    # 关注我们的链接
+    links = [
+      { name = "GitHub", icon = "fab fa-github", url = "https://github.com/your-account", color = "#333333" },
+      { name = "邮箱", icon = "fas fa-envelope", url = "mailto:hello@example.com", color = "#333333" },
+      { name = "RSS", icon = "fas fa-rss", url = "/index.xml", color = "#333333" }
+    ]
+
+    # 自定义内容区域
+    [params.social.custom]
+      enable = true                        # 是否启用自定义内容
+      title = "推荐阅读"                   # 自定义内容标题
+      content = """
+      <div class="custom-share-content">
+        <a href="https://blog.demius.tech" target="_blank">
+          <img src="/img/bj.jpg" alt="推荐阅读" class="share-qrcode" style="margin-top: 0.5rem;">
+        </a>
+      </div>
+      """
+
+  # ===== 背景图配置 =====
+  [params.background]
+    # 主题三栏布局背景图配置
+    effect_mode = "transparent"            # 背景效果模式：transparent（透明）、glass（毛玻璃）、translucent（半透明）、solid（纯色，支持十六进制颜色值如#4fc3f7）
+    
+    # 整站背景图配置
+    [params.background.site]
+      enable = true                        # 是否启用整站背景图
+      image = "/img/haibian.jpg"  # 背景图URL
+      blur = 0                             # 背景模糊程度(px)
+      brightness = 100                     # 背景亮度(%)
+      opacity = 70                         # 背景透明度(%)
+  
+  # ===== 背景粒子特效配置 =====
+  # 参考 BeaconNav 主题实现，支持背景粒子特效
+  [params.particleEffect]
+    enable = true                         # 是否启用背景粒子特效（true=启用，false=禁用）
+    count = 150                             # 粒子数量（建议范围：50-150，数量越多性能消耗越大）
+    color = ""                             # 粒子颜色（留空则根据主题自动适配：暗色模式白色，亮色模式黑色）
+                                          # 格式：rgba(255, 255, 255, 0.5) 或 #ffffff
+    lineColor = ""                         # 连线颜色（留空则根据主题自动适配）
+                                          # 格式：rgba(255, 255, 255, 0.1) 或 #ffffff
+    lineDistance = 150                       # 连线距离（像素，粒子之间距离小于此值时会连线）
+    speed = 0.5                            # 粒子移动速度（建议范围：0.1-2.0）
+    radius = 1.5                           # 粒子半径（像素）
+    interactive = true                     # 是否启用鼠标交互（true=鼠标移动时粒子会响应，false=不响应）
+    zIndex = 0                             # 层级（0=最底层背景，数值越大越靠前）
+    
+  # ===== 主页大图配置 =====
+  [params.homeBigImage]
+    enable = true                          # 是否启用主页大图功能
+    mode = "mode2"                         # 大图模式：mode1（中间栏大图）或 mode2（全屏大图）
+    
+    # 共用配置
+    title = "字·兮·书"                     # 大图标题
+    subtitle = "时间就是生命，Life is money，Money is life"  # 大图副标题
+    
+    # 模式一专属配置（中间栏大图）
+    [params.homeBigImage.mode1]
+      backgroundImage = "/img/index.png"   # 中间栏大图
+      arrowAnimation = false               # 是否显示导航箭头
+      scrollSpeed = 500                    # 滚动速度
+      cardAnimation = true                 # 是否启用卡片汇聚动画
+      cardAnimationSpeed = "normal"        # 动画速度：slow, normal, fast
+    
+    # 模式二专属配置（使用整站背景图）
+    [params.homeBigImage.mode2]
+      fullScreen = true                    # 是否全屏显示
+      overlayOpacity = 0.5                 # 遮罩层透明度
+      customBackgroundImage = "/img/index.png"  # 独立背景图配置，为空时使用整站背景图
+      
+      # 打字机效果配置（仅Mode2模式的副标题）
+      typewriterEnable = true              # 是否启用打字机效果
+      typewriterSpeed = 100                # 打字速度（毫秒/字符，建议50-200）
+      typewriterDelay = 1000               # 开始延迟（毫秒，建议500-2000）
+      typewriterCursor = true              # 是否显示闪烁光标
+      typewriterLoop = false               # 是否循环播放
+ 
+  # ===== 图片资源配置 =====
+  [params.images]
+    avatar = "/img/avatar.png"             # 作者头像图片路径
+    defaultCover = "/img/default-cover.webp"  # 文章默认封面图片路径
+    fallbackImage = "/img/404.jpg"         # 图片加载失败时的备用图片
+    favicon = "/img/favicon.ico"           # 网站图标(favicon)
+    logo = "/img/logo.png"                 # 网站LOGO图片(可选)
+
+  # ===== 浮动按钮配置 =====
+  [params.floatButtons]
+    position = "right"                     # 浮动按钮位置：left 或 right
+    showBackToTop = true                   # 是否显示返回顶部按钮
+    showThemeToggle = true                 # 是否显示主题切换按钮
+    showSidebarToggle = true               # 是否显示侧边栏切换按钮
+    showImmersiveMode = false               # 是否显示沉浸阅读按钮（只在文章页生效）
+
+# ===== 内容渲染配置 =====
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2                         # 目录从h2标题(##)开始生成
+    endLevel = 6                           # 目录到h4标题(####)结束  
+    ordered = false                        # 目录不显示序号
+
+# ===== 评论系统配置 =====
+[params.comment]
+  enable = false                           # 是否启用评论系统
+  system = "artalk"                        # 当前使用的评论系统，支持 artalk、disqus、gitalk 等（后续可扩展）
+
+# 弹幕功能配置
+[params.danmaku]
+  enable = false                          # 是否启用弹幕功能
+  scope = "all"                           # 弹幕范围：all（全站）、page（当前页面）、post（当前文章）
+  speed = 3                               # 弹幕速度（1-5，数字越大越快）
+  fontSize = 16                           # 弹幕字体大小（px）
+  opacity = 0.9                           # 弹幕不透明度（0.1-1）
+  maxCount = 50                           # 最多显示弹幕数量
+  updateInterval = 30000                  # 更新间隔（毫秒，30000 = 30秒）
+  showAvatar = true                       # 是否显示头像
+  showTime = true                         # 是否显示时间
+  loop = true                             # 是否循环播放弹幕（评论播放完后重新开始）
+  randomPosition = true                   # 是否随机Y轴位置（false则按固定轨道）
+  colorful = true                         # 是否启用彩色弹幕（false则使用主题色）
+  antiOverlap = true                      # 是否启用防重叠（智能检测避免弹幕碰撞）
+
+# Artalk 配置（https://artalk.js.org）
+[params.comment.artalk]
+  server = "https://artalk.example.com"      # Artalk 后端地址
+  site = "demo-site"                          # 站点名称（与 Artalk 后台一致）
+  placeholder = "说点什么吧~"               # 输入框提示语
+  darkMode = true                          # 是否启用暗色模式适配
+  locale = "zh-CN"                         # 语言
+  gravatar = "mp"                          # Gravatar 头像源
+  pageSize = 10                            # 每页评论数
+  emoticons = true                         # 是否启用表情包
+  heightLimit = 500                        # 评论区最大高度（px）
+
+  # 资源加载配置
+  useLocal = true                          # true=使用本地文件  false=使用下方指定的CDN
+
+  # CDN 配置（当 useLocal = false 时生效）
+  cdn = [
+    { name = "jsDelivr", css = "https://cdn.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.css", js = "https://cdn.jsdelivr.net/npm/artalk@2.9.1/dist/Artalk.js" },
+    { name = "unpkg",    css = "https://unpkg.com/artalk@2.9.1/dist/Artalk.css",          js = "https://unpkg.com/artalk@2.9.1/dist/Artalk.js" },
+    { name = "elemecdn", css = "https://npm.elemecdn.com/artalk@2.9.1/dist/Artalk.css",   js = "https://npm.elemecdn.com/artalk@2.9.1/dist/Artalk.js" }
+  ]
+  cdnIndex = 1                             # 默认使用第 1 个 CDN
+
+# ===== Umami统计配置 =====
+[params.analytics]
+  [params.analytics.umami]
+    enable = false                         # 是否启用Umami统计
+    scriptUrl = ""                         # Umami统计脚本地址
+    websiteId = ""                         # 网站ID
+    # 数据页面展示配置
+    showInDataPage = false                 # 是否在数据页面显示统计数据
+    apiUrl = ""                            # 统计数据API地址
+    # 文章浏览量配置
+    useForPostViews = false                # 是否使用Umami API获取文章浏览量（默认true，API不可用时自动切换到localStorage方案）
+
+  # ===== 数据页面其他数据配置 =====
+  [params.data]
+    # 其他数据项显示开关
+    showTotalWords = true                  # 全站字数
+    showTotalPosts = true                  # 全站文章数
+    showResponseTime = true                # 响应耗时
+    showLastUpdate = true                 # 最后更新时间
+    showCommentCount = true                # 评论数目（需要Artalk API支持）
+
+# ===== 分类/标签详情页配置 =====
+[params.taxonomy]
+  # 文章列表背景色模式
+  colorMode = "custom"                     # 背景色模式：random(随机彩色) / custom(自定义颜色)
+  customColor = "#454141"                  # 自定义背景色（当colorMode="custom"时生效）支持#RRGGBB格式
+
+# ===== 友链页面配置 =====
+[params.links]
+  # 友链卡片背景色模式
+  cardColorMode = "random"            # 背景色模式：transparent(透明) / random(随机彩色) / custom(自定义颜色)
+  cardCustomColor = "#f5f5f5"              # 自定义背景色（当cardColorMode="custom"时生效）支持#RRGGBB格式
+
+# ===== 网友圈页面配置 =====
+[params.friendsCircle]
+  # 数据源配置（全部从预生成JSON获取，不使用RSS直接抓取）
+  # 预生成JSON数据源
+  # 使用服务端抓取RSS并生成JSON文件，避免前端CORS限制
+  # 可以使用 GitHub Actions 或其他方式定期抓取RSS并生成JSON文件，参考：https://github.com/willow-god/Friend-Circle-Lite
+  # 本地生成：运行 python generate_friends_circle_json.py 生成 all.json 文件到 static/all.json
+  preGeneratedJsonUrl = ""                # 预生成的JSON数据源URL（如："/all.json" 或 "https://fc.example.com/all.json"）
+  
+  # 显示配置
+  initialDisplayCount = 10             # 初始显示卡片数量
+  loadMoreCount = 10                   # 每次加载更多显示的卡片数量
+  
+  # 文章卡片背景色模式配置
+  cardColorMode = "custom"        # 背景色模式：transparent(透明) / random(随机彩色) / custom(自定义颜色)
+  cardCustomColor = "#1a1a1a"          # 自定义背景色（当cardColorMode="custom"时生效）支持#RRGGBB格式
+  
+  # 分组选项卡背景色模式配置
+  tabColorMode = "custom"             # 背景色模式：default(默认样式) / random(随机彩色) / custom(自定义颜色)
+  tabCustomColor = "#667eea"           # 自定义背景色（当tabColorMode="custom"时生效）支持#RRGGBB格式
+  
+  # 文章显示规则配置（按时间筛选）
+  defaultArticleDays = 3                # 默认显示最近N天内的文章（所有分组通用，除非在 groupArticleDays 中单独配置）
+  
+  # 分组专属时间配置（可选，优先级高于 defaultArticleDays）
+  # 可以为每个分组单独配置显示最近N天内的文章
+  [[params.friendsCircle.groupArticleDays]]
+    name = "博客组织"                    # 分组名称（支持模糊匹配）
+    days = 1                            # 显示最近N天内的文章
+  
+  # 可以添加更多分组配置
+  [[params.friendsCircle.groupArticleDays]]
+    name = "技术博客"
+    days = 30
+  
+  # RSS获取配置
+  rssTimeout = 10000                   # RSS获取超时时间（毫秒）
+  rssCacheTime = 3600000               # RSS缓存时间（毫秒，1小时 = 3600000）
+
+[params.booklist]
+  # 小说书单卡片背景色模式
+  cardColorMode = "transparent"       # 背景色模式：transparent(透明) / random(随机彩色) / custom(自定义颜色)
+  cardCustomColor = "#f5f5f5"        # 自定义背景色（当cardColorMode="custom"时生效）支持#RRGGBB格式
+
+# ===== 装备页面配置 =====
+# 装备数据已移至 data/gear.yaml 文件中配置
+
+# ===== 音乐播放器配置 (基于 MetingJS) =====
+[params.music]
+  # MetingJS 配置说明：
+  # - 使用 MetingJS (https://github.com/metowolf/MetingJS)
+  # - 支持网易云音乐、QQ音乐、酷狗音乐、虾米音乐、百度音乐
+  # - 支持单曲、播放列表、专辑、搜索、歌手等多种类型
+  # - 无需配置复杂的API端点，MetingJS自动处理
+  
+  # 自定义 Meting API 地址（可选）
+  # 如果不设置，将使用 MetingJS 的默认API
+  # 如需自建API，请参考: https://github.com/metowolf/Meting
+  metingApi = ""                           # 留空使用默认API，或填入自建API地址
+  
+  # 使用示例：
+  # 单曲：{{< music server="netease" type="song" id="1234567" >}}
+  # 歌单：{{< music server="tencent" type="playlist" id="456789" >}}
+  # 专辑：{{< music server="kugou" type="album" id="abc123" >}}
+  # 搜索：{{< music server="netease" type="search" id="海阔天空" >}}
+  # 歌手：{{< music server="netease" type="artist" id="123" >}}
+  # 本地：{{< music name="歌曲名" artist="歌手" url="/music/song.mp3" >}}
+  
+
+# ===== 悬浮音乐播放器配置（独立配置，与侧栏音乐组件分离） =====
+[params.floatMusicPlayer]
+  # 是否启用悬浮音乐播放器（桌面独立小组件，位于左下角）
+  enabled = true
+  
+  # 数据源配置：从 data/music-planet.yaml 中选择数据
+  # 方式1：通过section索引选择（从0开始，支持多个索引）
+  # sectionIndexes = [0, 1]  # 选择第1和第2个section的所有音乐
+  
+  # 方式2：通过section标题匹配选择（支持部分匹配）
+  # sectionTitles = ["网易云音乐", "QQ音乐"]  # 选择标题包含这些关键词的sections
+  
+  # 方式3：通过section标题精确匹配选择
+  sectionTitle = "网易云音乐 · 歌单"  # 选择标题完全匹配的section（优先级最高）
+  
+  # 方式4：直接指定音乐项（如果设置了此项，将忽略上面的section选择方式）
+  # 直接指定时会从所有sections中查找匹配的items
+  # [[params.floatMusicPlayer.items]]
+  #   server = "netease"
+  #   type = "playlist"
+  #   id = "4977885420"
+  
+  # 播放器选项（可选）
+  autoplay = false           # 是否自动播放
+  # loop = "all"              # 循环模式：all、one、none
+  # order = "list"            # 播放顺序：list、random
+  # volume = 0.7              # 音量：0-1
+  listFolded = true         # 列表是否折叠
+  # listMaxHeight = "340px"   # 列表最大高度
+  # mini = false              # 迷你模式
+  # fixed = false             # 固定模式
+
+# ===== 页脚配置 =====
+[params.footer]
+  # beian = "粤ICP备12345678号"              # 备案号
+  
+  # 自定义内容
+  custom = """
+    <div class="footer-links">
+      <a href="/about">关于</a>
+      <a href="/sitemap.xml">网站地图</a>
+    </div>
+  """
+
+  # 运行时间显示配置
+  [params.footer.runningTime]
+    enable = true                          # 是否启用运行时间显示
+    startDate = "2024-01-01"               # 网站建站日期（格式：YYYY-MM-DD）
+    prefix = "本站已运行"                   # 前缀文字
+
+# ===== 弹窗公告配置 =====
+[params.popup]
+  enable = true                            # 是否启用弹窗公告功能
+  zIndex = 10000                            # 弹窗层级（确保在最上层）
+
+# ===== 顶部公告栏配置 =====
+[params.topAnnouncement]
+  enable = false                           # 是否启用顶部公告栏
+  mode = "custom"                          # 显示模式：custom（自定义文字）或 shuoshuo（说说轮播）
+  height = 40                               # 公告栏高度(px)
+  stickyWithHeader = false                   # 是否与导航栏一起固定（true=导航栏固定时公告栏也固定，false=公告栏不固定）
+  
+  # 自定义文字模式配置
+  [params.topAnnouncement.custom]
+    text = "欢迎来到我的博客！"              # 公告文字内容（支持HTML）
+    link = ""                               # 点击跳转链接（可选，留空则不跳转）
+    linkText = ""                           # 链接文字（可选）
+  
+  # 说说轮播模式配置
+  [params.topAnnouncement.shuoshuo]
+    apiUrl = ""                             # 说说API地址
+    count = 3                               # 轮播显示几条说说（1-5条）
+    interval = 5000                         # 轮播切换间隔(毫秒)
+    transitionDuration = 1000               # 轮播切换动画持续时间(毫秒，建议200-1000)
+    showAvatar = true                       # 是否显示头像
+    showTime = true                         # 是否显示时间
+    cacheDuration = 1800000                 # 缓存时间(毫秒，30分钟=1800000)
+    clickable = true                        # 是否可点击跳转到说说页面（true=可点击，false=不可点击）
+    shuoshuoPageUrl = "/shuoshuo/"         # 说说页面URL（用于跳转）
+
+# ===== 文章链接卡片和跳转中转配置 =====
+[params.linkCard]
+  enable = true                             # 是否启用链接卡片功能
+  cardMode = "external"                     # 卡片显示模式：none（不显示）、all（所有链接）、internal（仅内部链接）、external（仅外部链接）
+  openInNewTab = true                       # 链接是否在新标签页打开（true=新标签页，false=当前页面）
+  showArticleInfo = true                    # 是否显示文章信息（仅内部链接有效）
+  showArticleTitle = true                   # 是否显示文章标题（仅内部链接有效）
+  showArticleDate = true                     # 是否显示文章日期（仅内部链接有效）
+  showArticleSummary = true                  # 是否显示文章摘要（仅内部链接有效）
+  redirectPage = true                       # 是否启用跳转中转页（外部链接通过中转页跳转）
+  
+  # 跳转中转页配置
+  [params.linkCard.redirect]
+    pagePath = "/go/"                         # 跳转中转页路径（相对于站点根目录）
+    countdown = 3                           # 倒计时时间（秒），0表示不自动跳转
+    showCountdown = true                    # 是否显示倒计时
+    showButton = true                       # 是否显示立即跳转按钮
+    safeMessage = "😃 💡倒计时结束自动跳转，也可自行点击跳转，请注意您的账号和财产安全"  # 安全提示信息
+  
+  # 替换白名单（匹配的链接不会被替换为卡片或跳转页）
+  replaceWhitelist = [
+    # "https://example\\.com/.*",           # 正则表达式示例
+    # "https://trusted-site\\.com"          # 字符串匹配示例
+  ]
+  
+  # 页面白名单（仅在这些页面处理链接）
+  pageWhitelist = [
+    # "/posts/.*",                          # 仅文章页
+    ".*"                                  # 所有页面
+  ]
+  
+  # 元素白名单（仅在这些元素内处理链接）
+  elementWhitelist = [
+    ".post-content"                        # 文章内容区域
+    # "#article-container"                  # 其他容器示例
+  ]
+  
+  # 跳转白名单（匹配的链接使用跳转页但显示为安全）
+  redirectWhitelist = [
+    # "https://zhihu\\.com/.*",             # 知乎链接示例
+    # "https://.*\\.github\\.io/.*"         # GitHub Pages示例
+  ]
+

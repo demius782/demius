@@ -1,0 +1,17 @@
+{{- /* 
+时间线容器 Shortcode
+用法:
+{{< timeline >}}
+  {{< timeline-item "2025-10-24" "标题" "类型" >}}
+  内容
+  {{< /timeline-item >}}
+{{< /timeline >}}
+
+参数说明:
+- 无参数，作为时间线项目的容器
+*/ -}}
+
+<div class="timeline-container">
+  {{ .Inner }}
+</div>
+

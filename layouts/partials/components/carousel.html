@@ -1,0 +1,126 @@
+<!-- 轮播图组件 -->
+{{ $carouselConfig := .Site.Params.carousel }}
+{{ if and $carouselConfig $carouselConfig.enable }}
+  {{/* 从 data/carousel.yaml 读取轮播项配置 */}}
+  {{ $carouselData := index site.Data "carousel" }}
+  {{ $carouselItems := $carouselData.items | default $carouselConfig.items | default slice }}
+  
+  {{ $showOnPages := $carouselConfig.showOnPages }}
+  {{ $shouldShow := false }}
+  
+  {{/* 判断是否应该显示轮播图 */}}
+  {{ if $showOnPages }}
+    {{/* 检查 "all" 选项 */}}
+    {{ if in $showOnPages "all" }}
+      {{ $shouldShow = true }}
+    {{ else }}
+      {{/* 检查首页 */}}
+      {{ if and (eq .Kind "home") (in $showOnPages "home") }}
+        {{ $shouldShow = true }}
+      {{ end }}
+      {{/* 检查文章页 */}}
+      {{ if and (eq .Kind "page") (eq .Type "posts") (in $showOnPages "posts") }}
+        {{ $shouldShow = true }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  
+  {{ if and $shouldShow $carouselItems }}
+  <div class="carousel-container{{ if $carouselConfig.transparentMode }} carousel-transparent{{ if eq $carouselConfig.transparentType "full" }} carousel-transparent-full{{ end }}{{ end }}" 
+       data-autoplay="{{ $carouselConfig.autoplay | default true }}"
+       data-interval="{{ $carouselConfig.interval | default 5000 }}"
+       data-direction="{{ $carouselConfig.direction | default "horizontal" }}"
+       data-height="{{ $carouselConfig.height | default 200 }}"
+       style="height: {{ $carouselConfig.height | default 200 }}px;">
+    
+    <div class="carousel-wrapper">
+      <div class="carousel-track">
+        {{ range $index, $item := $carouselItems }}
+          {{ if eq $item.type "post" }}
+            {{/* 文章类型轮播项 */}}
+            {{ $posts := where $.Site.RegularPages ".Params.slug" $item.slug }}
+            {{ if gt (len $posts) 0 }}
+              {{ $post := index $posts 0 }}
+              <div class="carousel-item" data-index="{{ $index }}">
+                <a href="{{ $post.RelPermalink }}" class="carousel-link">
+                  <div class="carousel-image">
+                    {{ if $post.Params.cover }}
+                      <img src="{{ $post.Params.cover }}" alt="{{ $post.Title }}" loading="lazy" onerror="this.src='/img/default-cover.jpg'">
+                    {{ else }}
+                      <img src="/img/default-cover.jpg" alt="{{ $post.Title }}" loading="lazy">
+                    {{ end }}
+                  </div>
+                  <div class="carousel-content">
+                    <h3 class="carousel-title">{{ $post.Title }}</h3>
+                    <p class="carousel-excerpt">{{ $post.Summary | plainify | htmlUnescape | truncate 80 }}</p>
+                    <div class="carousel-meta">
+                      <span class="carousel-date">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                          <line x1="16" y1="2" x2="16" y2="6"></line>
+                          <line x1="8" y1="2" x2="8" y2="6"></line>
+                          <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        {{ $post.Date.Format "2006-01-02" }}
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            {{ end }}
+          {{ else if eq $item.type "image" }}
+            {{/* 图片类型轮播项 */}}
+            <div class="carousel-item carousel-item-image" data-index="{{ $index }}">
+              {{ if $item.link }}
+                <a href="{{ $item.link }}" class="carousel-link">
+              {{ else }}
+                <div class="carousel-link">
+              {{ end }}
+                  <div class="carousel-image carousel-image-full">
+                    <img src="{{ $item.image }}" alt="{{ $item.title }}" loading="lazy" onerror="this.src='/img/404.jpg'">
+                  </div>
+                  {{ if or $item.title $item.description }}
+                  <div class="carousel-content carousel-content-overlay">
+                    {{ if $item.title }}
+                      <h3 class="carousel-title">{{ $item.title }}</h3>
+                    {{ end }}
+                    {{ if $item.description }}
+                      <p class="carousel-excerpt">{{ $item.description }}</p>
+                    {{ end }}
+                  </div>
+                  {{ end }}
+              {{ if $item.link }}
+                </a>
+              {{ else }}
+                </div>
+              {{ end }}
+            </div>
+          {{ end }}
+        {{ end }}
+      </div>
+    </div>
+    
+    <!-- 导航按钮 -->
+    <button class="carousel-nav carousel-nav-prev" aria-label="上一个">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <button class="carousel-nav carousel-nav-next" aria-label="下一个">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+    
+    <!-- 指示器 -->
+    <div class="carousel-indicators">
+      {{ range $index, $item := $carouselItems }}
+        <button class="carousel-indicator {{ if eq $index 0 }}active{{ end }}" 
+                data-index="{{ $index }}" 
+                aria-label="跳转到第{{ add $index 1 }}个"></button>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+{{ end }}
+

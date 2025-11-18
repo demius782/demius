@@ -1,0 +1,1167 @@
+/* ===== 浮动按钮 - 优化版 ===== */
+
+/* 浮动按钮容器 */
+.floating-buttons {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1rem;  /* 更贴近右侧 */
+  display: block;
+  z-index: 999;
+  transition: right 0.3s ease;
+  --fab-spacing: calc(3rem + 0.75rem);
+  --fab-base-offset: 2;
+}
+
+.floating-buttons--left { 
+  right: auto; 
+  left: 1rem;  /* 左侧也更贴近 */
+  transition: left 0.3s ease;
+}
+
+/* 浮动按钮基础样式 - 现代化设计 */
+.floating-btn {
+  width: 3rem;  /* 增大按钮尺寸，更易点击 */
+  height: 3rem;
+  border: none;  /* 移除边框，更现代 */
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--fg);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;  /* 增大图标 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 
+              0 2px 4px rgba(0, 0, 0, 0.1);  /* 更明显的阴影 */
+  position: relative;
+  backdrop-filter: blur(10px);  /* 毛玻璃效果 */
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.floating-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2),
+              0 3px 6px rgba(0, 0, 0, 0.15);
+  background: var(--accent);
+  color: #fff;
+}
+
+.floating-btn:active {
+  transform: translateY(0) scale(0.95);
+}
+
+/* 图标样式优化 - SVG 和 FontAwesome 兼容 */
+.floating-btn i,
+.floating-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.floating-btn:hover i,
+.floating-btn:hover svg {
+  transform: scale(1.1);
+}
+
+/* SVG 图标特殊优化 */
+.floating-btn svg {
+  width: 1.25rem !important;  /* 强制统一图标尺寸 */
+  height: 1.25rem !important;  /* 强制统一图标尺寸 */
+  stroke-width: 2.5;
+  flex-shrink: 0;  /* 防止图标被压缩 */
+}
+
+/* 确保 SVG 图标垂直居中 */
+.floating-btn {
+  line-height: 0;
+}
+
+/* ---------- 右侧按钮布局 ---------- */
+/* 回到顶部按钮在最底部（滚动后可见） */
+#back-to-top { 
+  position: absolute; 
+  bottom: 0;
+  right: 0; 
+  opacity: 0; 
+  pointer-events: none; 
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 确保与设置按钮样式完全一致 */
+  padding: 0 !important;  /* 强制覆盖任何其他样式 */
+  border: none !important;  /* 强制覆盖任何其他样式 */
+  background: var(--bg) !important;  /* 确保背景色一致 */
+  width: 3rem !important;  /* 确保宽度一致 */
+  height: 3rem !important;  /* 确保高度一致 */
+  box-sizing: border-box !important;  /* 确保盒模型一致 */
+}
+
+/* 阅读进度按钮在回到顶部按钮上方 */
+#reading-progress {
+  position: absolute;
+  bottom: calc(3rem + 0.75rem);  /* 在回到顶部按钮上方 */
+  right: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* 阅读进度数字样式 */
+#reading-progress .progress-number {
+  display: block;
+  line-height: 1;
+}
+
+/* 当页面滚动时显示阅读进度按钮 */
+body.scrolled #reading-progress {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* 设置按钮在阅读进度按钮上方 */
+#fab-settings { 
+  position: absolute; 
+  bottom: calc(2 * (3rem + 0.75rem));  /* 在阅读进度按钮上方 */
+  right: 0; 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  /* 与回到顶部按钮保持一致的过渡效果 */
+  /* 确保样式明确设置，与其他按钮一致 */
+  padding: 0 !important;
+  border: none !important;
+  background: var(--bg) !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  box-sizing: border-box !important;
+}
+
+/* 当回到顶部按钮隐藏时，阅读进度按钮也隐藏，设置按钮移到底部 */
+body:not(.scrolled) #fab-settings {
+  bottom: 0;
+}
+
+body:not(.scrolled) .floating-buttons {
+  --fab-base-offset: 0;
+}
+
+.fab-extra { 
+  position: absolute; 
+  right: 0; 
+  display: flex;  /* 确保按钮渲染 */
+  opacity: 0; 
+  pointer-events: none; 
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  bottom: calc((var(--fab-base-offset, 2) + var(--fab-order, 1)) * var(--fab-spacing));
+}
+
+/* 展开状态 */
+.floating-buttons--right.fab-open .fab-extra { 
+  opacity: 1; 
+  pointer-events: auto; 
+  transform: translateY(0);
+}
+
+/* 设置按钮旋转动画 */
+.floating-buttons--right.fab-open #fab-settings i {
+  transform: rotate(90deg);
+}
+
+/* ---------- 左侧按钮布局 ---------- */
+.floating-buttons--left #back-to-top { 
+  bottom: 0; 
+  left: 0; 
+  right: auto;
+}
+
+.floating-buttons--left #reading-progress {
+  bottom: calc(3rem + 0.75rem);
+  left: 0;
+  right: auto;
+}
+
+.floating-buttons--left #fab-settings { 
+  bottom: calc(2 * (3rem + 0.75rem));
+  left: 0; 
+  right: auto;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  /* 与回到顶部按钮保持一致的过渡效果 */
+}
+
+body:not(.scrolled) .floating-buttons--left #fab-settings {
+  bottom: 0;
+}
+
+.floating-buttons--left .fab-extra { 
+  left: 0; 
+  right: auto;
+}
+
+.floating-buttons--left.fab-open .fab-extra { 
+  opacity: 1; 
+  pointer-events: auto; 
+  transform: translateY(0);
+}
+
+.floating-buttons--left.fab-open #theme-toggle { 
+  bottom: calc(3 * (3rem + 0.75rem)); 
+}
+
+.floating-buttons--left.fab-open #sidebar-toggle { 
+  bottom: calc(4 * (3rem + 0.75rem)); 
+}
+
+.floating-buttons--left.fab-open #immersive-mode {
+  bottom: calc(5 * (3rem + 0.75rem));
+}
+
+.floating-buttons--left.fab-open #danmaku-mode {
+  bottom: calc(6 * (3rem + 0.75rem));
+}
+
+body:not(.scrolled) .floating-buttons--left.fab-open #theme-toggle {
+  bottom: calc(3rem + 0.75rem);
+}
+
+body:not(.scrolled) .floating-buttons--left.fab-open #sidebar-toggle {
+  bottom: calc(2 * (3rem + 0.75rem));
+}
+
+body:not(.scrolled) .floating-buttons--left.fab-open #immersive-mode {
+  bottom: calc(3 * (3rem + 0.75rem));
+}
+
+body:not(.scrolled) .floating-buttons--left.fab-open #danmaku-mode {
+  bottom: calc(4 * (3rem + 0.75rem));
+}
+
+.floating-buttons--left.fab-open #fab-settings i {
+  transform: rotate(90deg);
+}
+
+/* ---------- 层级管理 ---------- */
+#danmaku-mode       { z-index: 999; }
+#immersive-mode     { z-index: 1000; }
+#sidebar-toggle     { z-index: 1001; }
+#theme-toggle       { z-index: 1002; }
+#fab-settings       { z-index: 1003; }
+#reading-progress   { z-index: 1004; }
+#back-to-top        { z-index: 1005; }
+
+/* 回到顶部按钮显示控制 */
+body.scrolled #back-to-top { 
+  opacity: 1; 
+  pointer-events: auto; 
+  transform: translateY(0);
+  /* 确保显示时样式与设置按钮完全一致 */
+  padding: 0 !important;  /* 强制覆盖任何其他样式 */
+  border: none !important;  /* 强制覆盖任何其他样式 */
+  background: var(--bg) !important;  /* 强制使用主题背景色 */
+  width: 3rem !important;  /* 确保宽度一致 */
+  height: 3rem !important;  /* 确保高度一致 */
+}
+
+/* ---------- 沉浸阅读模式样式 ---------- */
+/* 隐藏导航栏、侧栏和页脚 */
+body.immersive-mode .site-header,
+body.immersive-mode .site-aside-left,
+body.immersive-mode .site-aside-right,
+body.immersive-mode .site-footer {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* 中间内容区域全宽 */
+body.immersive-mode .site-main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+/* 保持浮动按钮可见 */
+body.immersive-mode .floating-buttons {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 沉浸模式激活时按钮高亮 */
+body.immersive-mode #immersive-mode {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  color: #fff;
+}
+
+/* ---------- 平板适配 (768px - 1023px) ---------- */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .floating-buttons {
+    bottom: 1.25rem;
+    right: 0.75rem;  /* 平板上更贴近边缘 */
+  }
+  
+  .floating-buttons--left {
+    left: 0.75rem;
+    right: auto;
+  }
+  
+  .floating-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.1rem;
+  }
+  
+  #back-to-top {
+    bottom: 0;
+    /* 确保平板端样式与其他按钮一致 */
+    padding: 0 !important;
+    border: none !important;
+    background: var(--bg) !important;
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* 平板端显示状态下也要保持一致尺寸 */
+  body.scrolled #back-to-top {
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+  }
+  
+  #reading-progress {
+    bottom: calc(2.75rem + 0.65rem);
+  }
+  
+  #fab-settings { 
+    bottom: calc(2 * (2.75rem + 0.65rem));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  /* 与回到顶部按钮保持一致的过渡效果 */
+    /* 确保平板端样式与其他按钮一致 */
+    padding: 0 !important;
+    border: none !important;
+    background: var(--bg) !important;
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  body:not(.scrolled) #fab-settings {
+    bottom: 0;
+  }
+  
+  .fab-extra#theme-toggle { 
+    bottom: calc(3 * (2.75rem + 0.65rem)); 
+  }
+  
+  .fab-extra#sidebar-toggle { 
+    bottom: calc(4 * (2.75rem + 0.65rem));
+    /* 确保平板端样式与其他按钮一致 */
+    padding: 0 !important;
+    border: none !important;
+    background: var(--bg) !important;
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  .fab-extra#immersive-mode {
+    bottom: calc(5 * (2.75rem + 0.65rem));
+  }
+  
+  .fab-extra#danmaku-mode {
+    bottom: calc(6 * (2.75rem + 0.65rem));
+  }
+  
+  body:not(.scrolled) .fab-extra#theme-toggle {
+    bottom: calc(2.75rem + 0.65rem);
+  }
+  
+  body:not(.scrolled) .fab-extra#sidebar-toggle {
+    bottom: calc(2 * (2.75rem + 0.65rem));
+  }
+  
+  body:not(.scrolled) .fab-extra#immersive-mode {
+    bottom: calc(3 * (2.75rem + 0.65rem));
+  }
+  
+  body:not(.scrolled) .fab-extra#danmaku-mode {
+    bottom: calc(4 * (2.75rem + 0.65rem));
+  }
+  
+  .floating-buttons--right.fab-open #theme-toggle,
+  .floating-buttons--left.fab-open #theme-toggle { 
+    bottom: calc(3 * (2.75rem + 0.65rem)); 
+  }
+  
+  .floating-buttons--right.fab-open #sidebar-toggle,
+  .floating-buttons--left.fab-open #sidebar-toggle { 
+    bottom: calc(4 * (2.75rem + 0.65rem)); 
+  }
+  
+  .floating-buttons--right.fab-open #immersive-mode,
+  .floating-buttons--left.fab-open #immersive-mode {
+    bottom: calc(5 * (2.75rem + 0.65rem));
+  }
+  
+  .floating-buttons--right.fab-open #danmaku-mode,
+  .floating-buttons--left.fab-open #danmaku-mode {
+    bottom: calc(6 * (2.75rem + 0.65rem));
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #theme-toggle,
+  body:not(.scrolled) .floating-buttons--left.fab-open #theme-toggle {
+    bottom: calc(2.75rem + 0.65rem);
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #sidebar-toggle,
+  body:not(.scrolled) .floating-buttons--left.fab-open #sidebar-toggle {
+    bottom: calc(2 * (2.75rem + 0.65rem));
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #immersive-mode,
+  body:not(.scrolled) .floating-buttons--left.fab-open #immersive-mode {
+    bottom: calc(3 * (2.75rem + 0.65rem));
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #danmaku-mode,
+  body:not(.scrolled) .floating-buttons--left.fab-open #danmaku-mode {
+    bottom: calc(4 * (2.75rem + 0.65rem));
+  }
+}
+
+/* ---------- 手机适配 (< 768px) ---------- */
+@media (max-width: 767px) {
+  /* 手机端隐藏侧栏切换按钮（包括首页） */
+  #sidebar-toggle {
+    display: none !important;
+  }
+  
+  /* 确保首页也隐藏侧栏按钮，覆盖首页特殊规则 */
+  body.home #sidebar-toggle {
+    display: none !important;
+  }
+  
+  /* 覆盖首页展开状态下显示侧栏按钮的规则 */
+  body.home .floating-buttons--right.fab-open #sidebar-toggle,
+  body.home .floating-buttons--left.fab-open #sidebar-toggle {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+  
+  .floating-buttons {
+    bottom: 1rem;
+    right: 0.5rem;  /* 手机上紧贴右侧 */
+  }
+  
+  .floating-buttons--left {
+    left: 0.5rem;
+    right: auto;
+  }
+  
+  .floating-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+  
+  #back-to-top {
+    bottom: 0;
+    /* 确保手机端样式与其他按钮一致 */
+    padding: 0 !important;
+    border: none !important;
+    background: var(--bg) !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* 手机端显示状态下也要保持一致尺寸 */
+  body.scrolled #back-to-top {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+  }
+  
+  #reading-progress {
+    bottom: calc(2.5rem + 0.5rem);
+  }
+  
+  #fab-settings { 
+    bottom: calc(2 * (2.5rem + 0.5rem));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  /* 与回到顶部按钮保持一致的过渡效果 */
+    /* 确保手机端样式与其他按钮一致 */
+    padding: 0 !important;
+    border: none !important;
+    background: var(--bg) !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  body:not(.scrolled) #fab-settings {
+    bottom: 0;
+  }
+  
+  .fab-extra#theme-toggle { 
+    bottom: calc(3 * (2.5rem + 0.5rem)); 
+  }
+  
+  .fab-extra#sidebar-toggle { 
+    bottom: calc(4 * (2.5rem + 0.5rem));
+    /* 确保手机端样式与其他按钮一致 */
+    padding: 0 !important;
+    border: none !important;
+    background: var(--bg) !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* 侧栏按钮隐藏后，其他按钮上移补位 */
+  .fab-extra#immersive-mode {
+    bottom: calc(4 * (2.5rem + 0.5rem));  /* 从位置5移到位置4 */
+  }
+  
+  .fab-extra#danmaku-mode {
+    bottom: calc(5 * (2.5rem + 0.5rem));  /* 从位置6移到位置5 */
+  }
+  
+  body:not(.scrolled) .fab-extra#theme-toggle {
+    bottom: calc(2.5rem + 0.5rem);
+  }
+  
+  body:not(.scrolled) .fab-extra#sidebar-toggle {
+    bottom: calc(2 * (2.5rem + 0.5rem));
+  }
+  
+  body:not(.scrolled) .fab-extra#immersive-mode {
+    bottom: calc(2 * (2.5rem + 0.5rem));  /* 从位置3移到位置2 */
+  }
+  
+  body:not(.scrolled) .fab-extra#danmaku-mode {
+    bottom: calc(3 * (2.5rem + 0.5rem));  /* 从位置4移到位置3 */
+  }
+  
+  .floating-buttons--right.fab-open #theme-toggle,
+  .floating-buttons--left.fab-open #theme-toggle { 
+    bottom: calc(3 * (2.5rem + 0.5rem)); 
+  }
+  
+  .floating-buttons--right.fab-open #sidebar-toggle,
+  .floating-buttons--left.fab-open #sidebar-toggle { 
+    bottom: calc(4 * (2.5rem + 0.5rem)); 
+  }
+  
+  /* 展开状态下，侧栏按钮隐藏后其他按钮上移补位 */
+  .floating-buttons--right.fab-open #immersive-mode,
+  .floating-buttons--left.fab-open #immersive-mode {
+    bottom: calc(4 * (2.5rem + 0.5rem));  /* 从位置5移到位置4 */
+  }
+  
+  .floating-buttons--right.fab-open #danmaku-mode,
+  .floating-buttons--left.fab-open #danmaku-mode {
+    bottom: calc(5 * (2.5rem + 0.5rem));  /* 从位置6移到位置5 */
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #theme-toggle,
+  body:not(.scrolled) .floating-buttons--left.fab-open #theme-toggle {
+    bottom: calc(2.5rem + 0.5rem);
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #sidebar-toggle,
+  body:not(.scrolled) .floating-buttons--left.fab-open #sidebar-toggle {
+    bottom: calc(2 * (2.5rem + 0.5rem));
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #immersive-mode,
+  body:not(.scrolled) .floating-buttons--left.fab-open #immersive-mode {
+    bottom: calc(2 * (2.5rem + 0.5rem));  /* 从位置3移到位置2 */
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #danmaku-mode,
+  body:not(.scrolled) .floating-buttons--left.fab-open #danmaku-mode {
+    bottom: calc(3 * (2.5rem + 0.5rem));  /* 从位置4移到位置3 */
+  }
+  
+  /* 手机端首页特殊处理 - 确保按钮位置正确，不互相遮挡 */
+  /* 首页未滚动时的位置 */
+  body.home:not(.scrolled) .floating-buttons--right #fab-settings {
+    bottom: 0 !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--right #theme-toggle {
+    bottom: calc(2.5rem + 0.5rem) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--right #sidebar-toggle {
+    bottom: calc(2 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  /* 首页未滚动时，侧栏按钮隐藏后其他按钮上移补位 */
+  body.home:not(.scrolled) .floating-buttons--right #immersive-mode {
+    bottom: calc(2 * (2.5rem + 0.5rem)) !important;  /* 从位置3移到位置2 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--right #danmaku-mode {
+    bottom: calc(3 * (2.5rem + 0.5rem)) !important;  /* 从位置4移到位置3 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left #fab-settings {
+    bottom: 0 !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left #theme-toggle {
+    bottom: calc(2.5rem + 0.5rem) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left #sidebar-toggle {
+    bottom: calc(2 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left #immersive-mode {
+    bottom: calc(2 * (2.5rem + 0.5rem)) !important;  /* 从位置3移到位置2 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left #danmaku-mode {
+    bottom: calc(3 * (2.5rem + 0.5rem)) !important;  /* 从位置4移到位置3 */
+  }
+  
+  /* 首页展开状态下的位置 */
+  body.home:not(.scrolled) .floating-buttons--right.fab-open #theme-toggle {
+    bottom: calc(2.5rem + 0.5rem) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--right.fab-open #sidebar-toggle {
+    bottom: calc(2 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  /* 首页展开状态，侧栏按钮隐藏后其他按钮上移补位 */
+  body.home:not(.scrolled) .floating-buttons--right.fab-open #immersive-mode {
+    bottom: calc(2 * (2.5rem + 0.5rem)) !important;  /* 从位置3移到位置2 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--right.fab-open #danmaku-mode {
+    bottom: calc(3 * (2.5rem + 0.5rem)) !important;  /* 从位置4移到位置3 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left.fab-open #theme-toggle {
+    bottom: calc(2.5rem + 0.5rem) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left.fab-open #sidebar-toggle {
+    bottom: calc(2 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left.fab-open #immersive-mode {
+    bottom: calc(2 * (2.5rem + 0.5rem)) !important;  /* 从位置3移到位置2 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left.fab-open #danmaku-mode {
+    bottom: calc(3 * (2.5rem + 0.5rem)) !important;  /* 从位置4移到位置3 */
+  }
+  
+  /* 首页已滚动时的位置 */
+  body.home.scrolled .floating-buttons--right #reading-progress {
+    bottom: calc(2.5rem + 0.5rem) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--right #fab-settings {
+    bottom: calc(2 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--right #theme-toggle {
+    bottom: calc(3 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--right #sidebar-toggle {
+    bottom: calc(4 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  /* 首页滚动状态，侧栏按钮隐藏后其他按钮上移补位 */
+  body.home.scrolled .floating-buttons--right #immersive-mode {
+    bottom: calc(4 * (2.5rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+  }
+  
+  body.home.scrolled .floating-buttons--right #danmaku-mode {
+    bottom: calc(5 * (2.5rem + 0.5rem)) !important;  /* 从位置6移到位置5 */
+  }
+  
+  body.home.scrolled .floating-buttons--right.fab-open #theme-toggle {
+    bottom: calc(3 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--right.fab-open #sidebar-toggle {
+    bottom: calc(4 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--right.fab-open #immersive-mode {
+    bottom: calc(4 * (2.5rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+  }
+  
+  body.home.scrolled .floating-buttons--right.fab-open #danmaku-mode {
+    bottom: calc(5 * (2.5rem + 0.5rem)) !important;  /* 从位置6移到位置5 */
+  }
+  
+  body.home.scrolled .floating-buttons--left #reading-progress {
+    bottom: calc(2.5rem + 0.5rem) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left #fab-settings {
+    bottom: calc(2 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left #theme-toggle {
+    bottom: calc(3 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left #sidebar-toggle {
+    bottom: calc(4 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left #immersive-mode {
+    bottom: calc(4 * (2.5rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+  }
+  
+  body.home.scrolled .floating-buttons--left #danmaku-mode {
+    bottom: calc(5 * (2.5rem + 0.5rem)) !important;  /* 从位置6移到位置5 */
+  }
+  
+  body.home.scrolled .floating-buttons--left.fab-open #theme-toggle {
+    bottom: calc(3 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left.fab-open #sidebar-toggle {
+    bottom: calc(4 * (2.5rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left.fab-open #immersive-mode {
+    bottom: calc(4 * (2.5rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+  }
+  
+  body.home.scrolled .floating-buttons--left.fab-open #danmaku-mode {
+    bottom: calc(5 * (2.5rem + 0.5rem)) !important;  /* 从位置6移到位置5 */
+  }
+}
+
+/* ---------- 超小屏幕适配 (< 480px) ---------- */
+@media (max-width: 479px) {
+  .floating-buttons {
+    bottom: 0.75rem;
+    right: 0.5rem;
+  }
+  
+  .floating-buttons--left {
+    left: 0.5rem;
+    right: auto;
+  }
+  
+  /* 超小屏幕首页特殊处理 - 确保按钮位置正确，不互相遮挡 */
+  /* 使用 2.25rem 作为按钮尺寸（超小屏幕） */
+  /* 首页未滚动时的位置 */
+  body.home:not(.scrolled) .floating-buttons--right #fab-settings {
+    bottom: 0 !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--right #theme-toggle {
+    bottom: calc(2.25rem + 0.5rem) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--right #sidebar-toggle {
+    bottom: calc(2 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  /* 超小屏幕首页未滚动时，侧栏按钮隐藏后其他按钮上移补位 */
+  body.home:not(.scrolled) .floating-buttons--right #immersive-mode {
+    bottom: calc(2 * (2.25rem + 0.5rem)) !important;  /* 从位置3移到位置2 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--right #danmaku-mode {
+    bottom: calc(3 * (2.25rem + 0.5rem)) !important;  /* 从位置4移到位置3 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left #fab-settings {
+    bottom: 0 !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left #theme-toggle {
+    bottom: calc(2.25rem + 0.5rem) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left #sidebar-toggle {
+    bottom: calc(2 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left #immersive-mode {
+    bottom: calc(2 * (2.25rem + 0.5rem)) !important;  /* 从位置3移到位置2 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left #danmaku-mode {
+    bottom: calc(3 * (2.25rem + 0.5rem)) !important;  /* 从位置4移到位置3 */
+  }
+  
+  /* 超小屏幕首页展开状态，侧栏按钮隐藏后其他按钮上移补位 */
+  body.home:not(.scrolled) .floating-buttons--right.fab-open #theme-toggle {
+    bottom: calc(2.25rem + 0.5rem) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--right.fab-open #sidebar-toggle {
+    bottom: calc(2 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--right.fab-open #immersive-mode {
+    bottom: calc(2 * (2.25rem + 0.5rem)) !important;  /* 从位置3移到位置2 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--right.fab-open #danmaku-mode {
+    bottom: calc(3 * (2.25rem + 0.5rem)) !important;  /* 从位置4移到位置3 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left.fab-open #theme-toggle {
+    bottom: calc(2.25rem + 0.5rem) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left.fab-open #sidebar-toggle {
+    bottom: calc(2 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left.fab-open #immersive-mode {
+    bottom: calc(2 * (2.25rem + 0.5rem)) !important;  /* 从位置3移到位置2 */
+  }
+  
+  body.home:not(.scrolled) .floating-buttons--left.fab-open #danmaku-mode {
+    bottom: calc(3 * (2.25rem + 0.5rem)) !important;  /* 从位置4移到位置3 */
+  }
+  
+  /* 首页已滚动时的位置 */
+  body.home.scrolled .floating-buttons--right #reading-progress {
+    bottom: calc(2.25rem + 0.5rem) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--right #fab-settings {
+    bottom: calc(2 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--right #theme-toggle {
+    bottom: calc(3 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--right #sidebar-toggle {
+    bottom: calc(4 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  /* 超小屏幕首页滚动状态，侧栏按钮隐藏后其他按钮上移补位 */
+  body.home.scrolled .floating-buttons--right #immersive-mode {
+    bottom: calc(4 * (2.25rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+  }
+  
+  body.home.scrolled .floating-buttons--right #danmaku-mode {
+    bottom: calc(5 * (2.25rem + 0.5rem)) !important;  /* 从位置6移到位置5 */
+  }
+  
+  body.home.scrolled .floating-buttons--right.fab-open #theme-toggle {
+    bottom: calc(3 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--right.fab-open #sidebar-toggle {
+    bottom: calc(4 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--right.fab-open #immersive-mode {
+    bottom: calc(4 * (2.25rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+  }
+  
+  body.home.scrolled .floating-buttons--right.fab-open #danmaku-mode {
+    bottom: calc(5 * (2.25rem + 0.5rem)) !important;  /* 从位置6移到位置5 */
+  }
+  
+  body.home.scrolled .floating-buttons--left #reading-progress {
+    bottom: calc(2.25rem + 0.5rem) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left #fab-settings {
+    bottom: calc(2 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left #theme-toggle {
+    bottom: calc(3 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left #sidebar-toggle {
+    bottom: calc(4 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left #immersive-mode {
+    bottom: calc(4 * (2.25rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+  }
+  
+  body.home.scrolled .floating-buttons--left #danmaku-mode {
+    bottom: calc(5 * (2.25rem + 0.5rem)) !important;  /* 从位置6移到位置5 */
+  }
+  
+  body.home.scrolled .floating-buttons--left.fab-open #theme-toggle {
+    bottom: calc(3 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left.fab-open #sidebar-toggle {
+    bottom: calc(4 * (2.25rem + 0.5rem)) !important;
+  }
+  
+  body.home.scrolled .floating-buttons--left.fab-open #immersive-mode {
+    bottom: calc(4 * (2.25rem + 0.5rem)) !important;  /* 从位置5移到位置4 */
+  }
+  
+  body.home.scrolled .floating-buttons--left.fab-open #danmaku-mode {
+    bottom: calc(5 * (2.25rem + 0.5rem)) !important;  /* 从位置6移到位置5 */
+  }
+  
+  .floating-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.9rem;
+  }
+  
+  #back-to-top {
+    bottom: 0;
+    /* 确保超小屏幕样式与其他按钮一致 */
+    padding: 0 !important;
+    border: none !important;
+    background: var(--bg) !important;
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* 超小屏幕显示状态下也要保持一致尺寸 */
+  body.scrolled #back-to-top {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+  }
+  
+  #reading-progress {
+    bottom: calc(2.25rem + 0.5rem);
+    font-size: 0.85rem;
+  }
+  
+  #fab-settings { 
+    bottom: calc(2 * (2.25rem + 0.5rem));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  /* 与回到顶部按钮保持一致的过渡效果 */
+    /* 确保超小屏幕样式与其他按钮一致 */
+    padding: 0 !important;
+    border: none !important;
+    background: var(--bg) !important;
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  body:not(.scrolled) #fab-settings {
+    bottom: 0;
+  }
+  
+  .fab-extra#theme-toggle { 
+    bottom: calc(3 * (2.25rem + 0.5rem)); 
+  }
+  
+  .fab-extra#sidebar-toggle { 
+    bottom: calc(4 * (2.25rem + 0.5rem));
+    /* 确保超小屏幕样式与其他按钮一致 */
+    padding: 0 !important;
+    border: none !important;
+    background: var(--bg) !important;
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* 超小屏幕，侧栏按钮隐藏后其他按钮上移补位 */
+  .fab-extra#immersive-mode {
+    bottom: calc(4 * (2.25rem + 0.5rem));  /* 从位置5移到位置4 */
+  }
+  
+  .fab-extra#danmaku-mode {
+    bottom: calc(5 * (2.25rem + 0.5rem));  /* 从位置6移到位置5 */
+  }
+  
+  body:not(.scrolled) .fab-extra#theme-toggle {
+    bottom: calc(2.25rem + 0.5rem);
+  }
+  
+  body:not(.scrolled) .fab-extra#sidebar-toggle {
+    bottom: calc(2 * (2.25rem + 0.5rem));
+  }
+  
+  body:not(.scrolled) .fab-extra#immersive-mode {
+    bottom: calc(2 * (2.25rem + 0.5rem));  /* 从位置3移到位置2 */
+  }
+  
+  body:not(.scrolled) .fab-extra#danmaku-mode {
+    bottom: calc(3 * (2.25rem + 0.5rem));  /* 从位置4移到位置3 */
+  }
+  
+  .floating-buttons--right.fab-open #theme-toggle,
+  .floating-buttons--left.fab-open #theme-toggle { 
+    bottom: calc(3 * (2.25rem + 0.5rem)); 
+  }
+  
+  .floating-buttons--right.fab-open #sidebar-toggle,
+  .floating-buttons--left.fab-open #sidebar-toggle { 
+    bottom: calc(4 * (2.25rem + 0.5rem)); 
+  }
+  
+  /* 超小屏幕展开状态，侧栏按钮隐藏后其他按钮上移补位 */
+  .floating-buttons--right.fab-open #immersive-mode,
+  .floating-buttons--left.fab-open #immersive-mode {
+    bottom: calc(4 * (2.25rem + 0.5rem));  /* 从位置5移到位置4 */
+  }
+  
+  .floating-buttons--right.fab-open #danmaku-mode,
+  .floating-buttons--left.fab-open #danmaku-mode {
+    bottom: calc(5 * (2.25rem + 0.5rem));  /* 从位置6移到位置5 */
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #theme-toggle,
+  body:not(.scrolled) .floating-buttons--left.fab-open #theme-toggle {
+    bottom: calc(2.25rem + 0.5rem);
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #sidebar-toggle,
+  body:not(.scrolled) .floating-buttons--left.fab-open #sidebar-toggle {
+    bottom: calc(2 * (2.25rem + 0.5rem));
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #immersive-mode,
+  body:not(.scrolled) .floating-buttons--left.fab-open #immersive-mode {
+    bottom: calc(2 * (2.25rem + 0.5rem));  /* 从位置3移到位置2 */
+  }
+  
+  body:not(.scrolled) .floating-buttons--right.fab-open #danmaku-mode,
+  body:not(.scrolled) .floating-buttons--left.fab-open #danmaku-mode {
+    bottom: calc(3 * (2.25rem + 0.5rem));  /* 从位置4移到位置3 */
+  }
+}
+
+/* ---------- 避免遮挡右侧栏 ---------- */
+/* 当右侧栏存在且可见时，悬浮按钮避让 */
+@media (min-width: 1024px) {
+  /* 三栏布局时，按钮位置调整 */
+  body:has(.site-aside-right:not(:empty)) .floating-buttons {
+    right: 1.5rem;  /* 给右侧栏留出空间 */
+  }
+}
+
+/* ---------- 首页特殊处理 ---------- */
+/* 确保悬浮按钮在首页正常显示，不影响首页布局 */
+/* 首页大图模式2使用z-index: 9999，需要提高悬浮按钮的层级 */
+body.home .floating-buttons {
+  z-index: 10000 !important; /* 确保悬浮按钮在首页大图之上 */
+}
+
+body.home .floating-btn {
+  z-index: 10000 !important;
+}
+
+/* 确保侧栏隐藏按钮在首页正常显示和定位 */
+/* 首页默认隐藏状态下 */
+body.home #sidebar-toggle {
+  display: flex !important;
+  position: absolute !important;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+}
+
+/* 右侧按钮布局 */
+body.home .floating-buttons--right #sidebar-toggle {
+  right: 0 !important;
+  left: auto !important;
+}
+
+/* 左侧按钮布局 */
+body.home .floating-buttons--left #sidebar-toggle {
+  left: 0 !important;
+  right: auto !important;
+}
+
+/* 首页未滚动时的位置（桌面端） */
+@media (min-width: 768px) {
+  body.home:not(.scrolled) .floating-buttons--right #sidebar-toggle {
+    bottom: calc(2 * (3rem + 0.75rem)) !important;
+  }
+
+  body.home:not(.scrolled) .floating-buttons--left #sidebar-toggle {
+    bottom: calc(2 * (3rem + 0.75rem)) !important;
+  }
+
+  body.home:not(.scrolled) .floating-buttons--right.fab-open #sidebar-toggle,
+  body.home:not(.scrolled) .floating-buttons--left.fab-open #sidebar-toggle {
+    bottom: calc(2 * (3rem + 0.75rem)) !important;
+  }
+
+  /* 首页已滚动时的位置（桌面端） */
+  body.home.scrolled .floating-buttons--right #sidebar-toggle {
+    bottom: calc(4 * (3rem + 0.75rem)) !important;
+  }
+
+  body.home.scrolled .floating-buttons--left #sidebar-toggle {
+    bottom: calc(4 * (3rem + 0.75rem)) !important;
+  }
+
+  body.home.scrolled .floating-buttons--right.fab-open #sidebar-toggle,
+  body.home.scrolled .floating-buttons--left.fab-open #sidebar-toggle {
+    bottom: calc(4 * (3rem + 0.75rem)) !important;
+  }
+}
+
+/* 首页展开状态下侧栏隐藏按钮正常显示 */
+body.home .floating-buttons--right.fab-open #sidebar-toggle,
+body.home .floating-buttons--left.fab-open #sidebar-toggle {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important;
+}
+
+/* 暗色模式优化 */
+[data-theme="dark"] .floating-btn {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 
+              0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 暗色模式下，确保目录按钮与其他按钮背景色一致（所有屏幕尺寸） */
+@media (max-width: 1023px) and (min-width: 768px) {
+  [data-theme="dark"] .fab-extra#sidebar-toggle {
+    background: var(--bg) !important;  /* 与其他按钮保持一致 */
+  }
+}
+
+@media (max-width: 767px) {
+  [data-theme="dark"] .fab-extra#sidebar-toggle {
+    background: var(--bg) !important;  /* 与其他按钮保持一致 */
+  }
+}
+
+@media (max-width: 479px) {
+  [data-theme="dark"] .fab-extra#sidebar-toggle {
+    background: var(--bg) !important;  /* 与其他按钮保持一致 */
+  }
+}
+
+[data-theme="dark"] .floating-btn:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4),
+              0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* 无障碍优化 */
+.floating-btn:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.floating-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* 动画性能优化 */
+@media (prefers-reduced-motion: reduce) {
+  .floating-btn,
+  .fab-extra {
+    transition: none;
+  }
+}

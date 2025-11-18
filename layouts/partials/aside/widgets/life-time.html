@@ -1,0 +1,89 @@
+{{ if .Site.Params.aside.showLifeTime | default true }}
+{{ $lifeTimeConfig := .Site.Params.aside.lifeTime }}
+{{ $enableBg := $lifeTimeConfig.enableBackground | default false }}
+{{ $bgImage := $lifeTimeConfig.backgroundImage }}
+{{ $bgColor := $lifeTimeConfig.backgroundColor }}
+{{ $bgSize := $lifeTimeConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $lifeTimeConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $lifeTimeConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $lifeTimeConfig.textColor }}
+{{ $textShadow := $lifeTimeConfig.textShadow | default false }}
+{{ $overlayColor := $lifeTimeConfig.overlayColor }}
+{{ $borderRadius := $lifeTimeConfig.borderRadius }}
+
+<section class="aside-card life-time-card{{ if $enableBg }} life-time-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="life-time-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="life-time-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title">
+      <i class="fas fa-hourglass-half"></i> {{ $lifeTimeConfig.title | default "逆行人生" }}
+    </h3>
+    <div class="sidebar-count">
+      <div class="content">
+        <div class="item" id="dayProgress">
+          <div class="title">今日已经过去<span></span>小时</div>
+          <div class="progress">
+            <div class="progress-bar">
+              <div class="progress-inner progress-inner-1"></div>
+            </div>
+            <div class="progress-percentage"></div>
+          </div>
+        </div>
+        <div class="item" id="weekProgress">
+          <div class="title">这周已经过去<span></span>天</div>
+          <div class="progress">
+            <div class="progress-bar">
+              <div class="progress-inner progress-inner-2"></div>
+            </div>
+            <div class="progress-percentage"></div>
+          </div>
+        </div>
+        <div class="item" id="monthProgress">
+          <div class="title">本月已经过去<span></span>天</div>
+          <div class="progress">
+            <div class="progress-bar">
+              <div class="progress-inner progress-inner-3"></div>
+            </div>
+            <div class="progress-percentage"></div>
+          </div>
+        </div>
+        <div class="item" id="yearProgress">
+          <div class="title">今年已经过去<span></span>个月</div>
+          <div class="progress">
+            <div class="progress-bar">
+              <div class="progress-inner progress-inner-4"></div>
+            </div>
+            <div class="progress-percentage"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+

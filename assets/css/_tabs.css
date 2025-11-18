@@ -1,0 +1,367 @@
+/* ===== 选项卡切换组件样式 ===== */
+
+/* 选项卡容器 */
+.tabs-container {
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* 选项卡导航栏 */
+.tabs-nav {
+  display: flex;
+  gap: 0;
+  background: rgba(0, 0, 0, 0.02);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.tabs-nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tabs-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tabs-nav::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+/* 选项卡按钮 */
+.tab-button {
+  flex: 1;
+  min-width: 100px;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  position: relative;
+  border-radius: 8px 8px 0 0;
+}
+
+/* 激活状态的下划线 - 渐变效果 */
+.tab-button::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.4);
+}
+
+/* 激活状态的背景高亮 */
+.tab-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, 
+    rgba(0, 102, 204, 0.12), 
+    rgba(0, 102, 204, 0.06));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 8px 8px 0 0;
+  z-index: -1;
+}
+
+.tab-button:hover {
+  background: rgba(0, 102, 204, 0.08);
+  color: var(--fg);
+  transform: translateY(-2px);
+}
+
+.tab-button.active {
+  color: var(--accent);
+  background: var(--bg);
+  font-weight: 700;
+  box-shadow: 
+    0 -2px 8px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(0, 102, 204, 0.15);
+  transform: translateY(-3px);
+  letter-spacing: 0.02em;
+}
+
+.tab-button.active::before {
+  transform: scaleX(1);
+}
+
+.tab-button.active::after {
+  opacity: 1;
+}
+
+/* 选项卡内容区域 */
+.tabs-content {
+  padding: 1.5rem;
+  background: var(--bg);
+  min-height: 100px;
+  position: relative;
+}
+
+/* 单个选项卡面板 */
+.tab-pane {
+  display: none;
+  animation: tabFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+/* 选项卡内的代码块 */
+.tab-pane pre {
+  margin: 1rem 0;
+  border-radius: 6px;
+}
+
+.tab-pane pre code {
+  display: block;
+  padding: 1rem;
+}
+
+/* 选项卡内的列表 */
+.tab-pane ul,
+.tab-pane ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.tab-pane li {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+/* 选项卡内的表格 */
+.tab-pane table {
+  width: 100%;
+  margin: 1rem 0;
+  border-collapse: collapse;
+}
+
+.tab-pane table th,
+.tab-pane table td {
+  padding: 0.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tab-pane table th {
+  background: rgba(0, 0, 0, 0.02);
+  font-weight: 600;
+}
+
+/* 选项卡内的引用 */
+.tab-pane blockquote {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-left: 4px solid var(--accent);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 4px;
+}
+
+/* 选项卡内的图片 */
+.tab-pane img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
+/* 选项卡内容淡入动画 - 增强版 */
+@keyframes tabFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 旧动画保留兼容 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== 响应式设计 ===== */
+
+/* 平板端 */
+@media (max-width: 768px) {
+  .tabs-container {
+    margin: 1.2rem 0;
+    border-radius: 6px;
+  }
+
+  .tab-button {
+    min-width: 80px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .tabs-content {
+    padding: 1.2rem;
+  }
+}
+
+/* 移动端 */
+@media (max-width: 480px) {
+  .tabs-container {
+    margin: 1rem 0;
+    border-radius: 4px;
+  }
+
+  .tab-button {
+    min-width: 70px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .tabs-content {
+    padding: 1rem;
+  }
+
+  .tab-pane pre code {
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== 暗色模式适配 ===== */
+
+[data-theme="dark"] .tabs-container {
+  background: var(--bg);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .tabs-nav {
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .tab-button {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="dark"] .tab-button::before {
+  box-shadow: 0 2px 8px rgba(77, 171, 247, 0.4);
+}
+
+[data-theme="dark"] .tab-button::after {
+  background: linear-gradient(180deg, 
+    rgba(77, 171, 247, 0.12), 
+    rgba(77, 171, 247, 0.06));
+}
+
+[data-theme="dark"] .tab-button:hover {
+  background: rgba(77, 171, 247, 0.1);
+  color: var(--fg);
+}
+
+[data-theme="dark"] .tab-button.active {
+  background: var(--bg);
+  color: var(--accent);
+  box-shadow: 
+    0 -2px 12px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(77, 171, 247, 0.25),
+    0 0 20px rgba(77, 171, 247, 0.15);
+}
+
+[data-theme="dark"] .tabs-content {
+  background: var(--bg);
+}
+
+[data-theme="dark"] .tab-pane blockquote {
+  background: rgba(255, 255, 255, 0.03);
+  border-left-color: var(--accent);
+}
+
+[data-theme="dark"] .tab-pane table th {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="dark"] .tab-pane table th,
+[data-theme="dark"] .tab-pane table td {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== 特殊样式 ===== */
+
+/* 选项卡数量较多时的滚动提示 */
+.tabs-nav::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.02));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tabs-nav.has-scroll::after {
+  opacity: 1;
+}
+
+[data-theme="dark"] .tabs-nav::after {
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.03));
+}
+
+/* 禁用状态（预留） */
+.tab-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tab-button:disabled:hover {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .tab-button:disabled:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* 选项卡内容为空时的提示 */
+.tab-pane:empty::before {
+  content: '暂无内容';
+  display: block;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.4);
+  padding: 2rem;
+  font-style: italic;
+}
+
+[data-theme="dark"] .tab-pane:empty::before {
+  color: rgba(255, 255, 255, 0.4);
+}
+

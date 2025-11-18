@@ -1,0 +1,511 @@
+/* ===================================================================
+   追番星球页面样式
+   参考：https://github.com/HCLonely/hexo-bilibili-bangumi
+   =================================================================== */
+
+.bangumi-planet-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.bangumi-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.bangumi-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.bangumi-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+/* 选项卡样式 */
+.bangumi-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid color-mix(in srgb, var(--fg) 10%, transparent);
+  padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+  padding: 0.6rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 6px 6px 0 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab-btn:hover {
+  color: var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
+}
+
+.tab-btn.active {
+  color: var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-primary);
+}
+
+/* 选项卡内容 */
+.bangumi-tab-content {
+  display: none;
+}
+
+.bangumi-tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 番剧网格 */
+.bangumi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* 番剧卡片 */
+.bangumi-card {
+  background: var(--bg-card);
+  border: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.bangumi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--accent-primary);
+}
+
+.bangumi-cover {
+  position: relative;
+  width: 100%;
+  padding-top: 140%; /* 16:9 比例 */
+  overflow: hidden;
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+}
+
+.bangumi-cover img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.bangumi-card:hover .bangumi-cover img {
+  transform: scale(1.1);
+}
+
+.bangumi-score {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.bangumi-info {
+  padding: 1rem;
+}
+
+.bangumi-title-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.6rem 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bangumi-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.bangumi-meta span {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  color: var(--accent-primary);
+}
+
+.bangumi-description {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0 0 0.6rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bangumi-progress {
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid color-mix(in srgb, var(--fg) 8%, transparent);
+}
+
+.bangumi-progress span {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: color-mix(in srgb, var(--fg) 10%, transparent);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+.bangumi-empty {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 2px dashed color-mix(in srgb, var(--fg) 15%, transparent);
+}
+
+/* 页面内容区域 - 使用与文章详情页一致的样式 */
+.bangumi-content {
+  margin: 2rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+  max-width: 900px;
+}
+
+/* 追番星球页面内容区域使用与文章详情页一致的样式 */
+.bangumi-content .post-content {
+  padding: 1rem 1.5rem 1.5rem;
+  line-height: 1.85;
+  font-size: 1.05rem;
+  max-width: 850px;
+  margin: 0 auto;
+  color: color-mix(in srgb, var(--fg) 90%, transparent);
+}
+
+.bangumi-content .post-content p,
+.bangumi-content .post-content ul,
+.bangumi-content .post-content ol,
+.bangumi-content .post-content dl,
+.bangumi-content .post-content blockquote,
+.bangumi-content .post-content pre,
+.bangumi-content .post-content table {
+  margin: 1.2em 0;
+}
+
+.bangumi-content .post-content p {
+  text-align: justify;
+}
+
+.bangumi-content .post-content h1,
+.bangumi-content .post-content h2,
+.bangumi-content .post-content h3,
+.bangumi-content .post-content h4,
+.bangumi-content .post-content h5,
+.bangumi-content .post-content h6 {
+  margin: 1.5em 0 0.8em;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.bangumi-content .post-content h1 { font-size: 1.6rem; }
+.bangumi-content .post-content h2 { font-size: 1.4rem; }
+.bangumi-content .post-content h3 { font-size: 1.25rem; }
+
+.bangumi-content .post-content ul,
+.bangumi-content .post-content ol {
+  padding-left: 1.8em;
+}
+
+.bangumi-content .post-content blockquote {
+  padding: 0.8em 1.2em;
+  margin: 1.5em 0;
+  border-left: 4px solid var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
+  border-radius: 4px;
+}
+
+.bangumi-content .post-content :not(pre) > code {
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  color: var(--accent-primary);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: 'Courier New', monospace;
+}
+
+.bangumi-content .post-content pre {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 1.2em;
+  overflow-x: auto;
+  line-height: 1.6;
+  margin: 1.5em 0;
+}
+
+.bangumi-content .post-content pre code {
+  background: transparent;
+  padding: 0;
+  color: var(--text-primary);
+  border-radius: 0;
+}
+
+.bangumi-content .post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5em auto;
+  display: block;
+}
+
+.bangumi-content .post-content a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.bangumi-content .post-content a:hover {
+  border-bottom-color: var(--accent-primary);
+}
+
+.bangumi-content .post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+}
+
+.bangumi-content .post-content table th,
+.bangumi-content .post-content table td {
+  padding: 0.8em;
+  border: 1px solid var(--border-light);
+  text-align: left;
+}
+
+.bangumi-content .post-content table th {
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  font-weight: 600;
+}
+
+/* 标题图标样式 */
+.bangumi-content .post-content h2,
+.bangumi-content .post-content h3,
+.bangumi-content .post-content h4,
+.bangumi-content .post-content h5,
+.bangumi-content .post-content h6 {
+  position: relative;
+  padding-left: 2rem;
+  margin-left: -0.5rem;
+}
+
+.bangumi-content .post-content h2::before,
+.bangumi-content .post-content h3::before,
+.bangumi-content .post-content h4::before,
+.bangumi-content .post-content h5::before,
+.bangumi-content .post-content h6::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size: 0.8rem;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.bangumi-content .post-content h2::before {
+  content: '\f024'; /* fa-flag */
+}
+
+.bangumi-content .post-content h3::before {
+  content: '\f0a9'; /* fa-hand-point-right */
+}
+
+.bangumi-content .post-content h4::before {
+  content: '\f058'; /* fa-check-circle */
+}
+
+.bangumi-content .post-content h5::before {
+  content: '\f0a4'; /* fa-paper-plane */
+}
+
+.bangumi-content .post-content h6::before {
+  content: '\f111'; /* fa-circle */
+  font-size: 0.6rem;
+}
+
+.bangumi-content .post-content h2:hover::before,
+.bangumi-content .post-content h3:hover::before,
+.bangumi-content .post-content h4:hover::before,
+.bangumi-content .post-content h5:hover::before,
+.bangumi-content .post-content h6:hover::before {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+  transition: all 0.3s ease;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .bangumi-planet-page {
+    padding: 1rem 0.5rem;
+  }
+  
+  .bangumi-title {
+    font-size: 1.75rem;
+  }
+  
+  .bangumi-tabs {
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  
+  .tab-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    flex: 1;
+    min-width: calc(33.333% - 0.3rem);
+  }
+  
+  .bangumi-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .bangumi-cover {
+    padding-top: 130%;
+  }
+}
+
+@media (max-width: 480px) {
+  .bangumi-tabs {
+    flex-direction: column;
+  }
+  
+  .tab-btn {
+    min-width: 100%;
+  }
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .bangumi-card {
+  background: var(--bg-card-dark);
+  border-color: var(--border-dark);
+}
+
+[data-theme="dark"] .bangumi-empty {
+  background: var(--bg-card-dark);
+  border-color: var(--border-dark);
+  color: var(--text-secondary-dark);
+}
+
+[data-theme="dark"] .bangumi-content {
+  border-top-color: var(--border-dark);
+}
+
+[data-theme="dark"] .bangumi-content .post-content pre {
+  background: var(--bg-secondary-dark);
+  border-color: var(--border-dark);
+}
+
+[data-theme="dark"] .bangumi-content .post-content table th,
+[data-theme="dark"] .bangumi-content .post-content table td {
+  border-color: var(--border-dark);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .bangumi-content .post-content h2,
+  .bangumi-content .post-content h3,
+  .bangumi-content .post-content h4,
+  .bangumi-content .post-content h5,
+  .bangumi-content .post-content h6 {
+    padding-left: 1.8rem;
+    margin-left: 0;
+  }
+  
+  .bangumi-content .post-content h2::before,
+  .bangumi-content .post-content h3::before,
+  .bangumi-content .post-content h4::before,
+  .bangumi-content .post-content h5::before,
+  .bangumi-content .post-content h6::before {
+    width: 1.3rem;
+    height: 1.3rem;
+    font-size: 0.7rem;
+  }
+  
+  .bangumi-content .post-content h6::before {
+    font-size: 0.5rem;
+  }
+}

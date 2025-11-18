@@ -1,0 +1,119 @@
+/* 侧栏访客信息组件样式 */
+.visitor-info-card {
+  margin-bottom: 1rem;
+}
+
+.visitor-info-card-with-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.visitor-info-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.visitor-info-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.visitor-info-body {
+  padding: 0.5rem 0;
+  min-height: 4rem;
+}
+
+.visitor-info-body p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.visitor-loading {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.visitor-info-divider {
+  margin: 1rem 0;
+  border: none;
+  border-top: 1px solid var(--border-color);
+  position: relative;
+  z-index: 1;
+}
+
+.visitor-friends-links {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.visitor-friends-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.visitor-friends-link {
+  display: inline-block;
+  margin: 0 0.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.visitor-friends-link:hover {
+  opacity: 0.8;
+}
+
+.visitor-friends-link img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* IP地址遮罩样式 */
+.visitor-ip-mask {
+  cursor: pointer;
+  user-select: none;
+  transition: filter 0.3s ease;
+  filter: blur(4px);
+  display: inline-block;
+}
+
+.visitor-ip-mask:hover {
+  filter: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .visitor-info-body {
+    min-height: 3.5rem;
+  }
+
+  .visitor-info-body p {
+    font-size: 0.85rem;
+  }
+
+  .visitor-friends-text {
+    font-size: 0.8rem;
+  }
+
+  .visitor-friends-link {
+    margin: 0.25rem;
+  }
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .visitor-info-divider {
+  border-top-color: var(--border-color);
+}
+
+[data-theme="dark"] .visitor-loading {
+  color: var(--text-muted);
+}
+

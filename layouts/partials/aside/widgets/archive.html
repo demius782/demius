@@ -1,0 +1,225 @@
+{{ if .Site.Params.aside.showArchive | default true }}
+{{ $archiveConfig := .Site.Params.aside.archive }}
+{{ $enableBg := $archiveConfig.enableBackground | default false }}
+{{ $bgImage := $archiveConfig.backgroundImage }}
+{{ $bgColor := $archiveConfig.backgroundColor }}
+{{ $bgSize := $archiveConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $archiveConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $archiveConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $archiveConfig.textColor }}
+{{ $textShadow := $archiveConfig.textShadow | default false }}
+{{ $overlayColor := $archiveConfig.overlayColor }}
+{{ $borderRadius := $archiveConfig.borderRadius }}
+
+<section class="aside-card archive-card{{ if $enableBg }} archive-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="archive-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="archive-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title">
+      <i class="fas fa-archive"></i> 文章归档
+    </h3>
+  
+    <div class="archive-content">
+      {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+    
+    <!-- 统计信息 - 根据配置显示 -->
+    {{ if or (not $archiveConfig) (eq $archiveConfig.showStats true) }}
+    <div class="archive-stats">
+      <span class="stat-item">
+        <i class="fas fa-file-alt"></i>
+        <strong>{{ len $pages }}</strong> 篇文章
+      </span>
+      <span class="stat-item">
+        <i class="fas fa-calendar-alt"></i>
+        <strong>{{ len ($pages.GroupByDate "2006") }}</strong> 个年份
+      </span>
+    </div>
+    {{ end }}
+
+    <div class="archive-list">
+      {{ if eq (default "year" $archiveConfig.groupBy) "day" }}
+        <!-- 按日分组 -->
+        {{ $grouped := $pages.GroupByDate "2006-01-02" }}
+        {{ range $grouped }}
+          {{ $date := .Key }}
+          {{ $datePages := .Pages }}
+          <details class="archive-day">
+            <summary class="archive-day-header">
+              <span class="day-title">
+                <i class="fas fa-calendar-day"></i>
+                {{ $date }}
+              </span>
+              <span class="day-count">({{ len $datePages }})</span>
+              <i class="fas fa-chevron-right toggle-icon"></i>
+            </summary>
+            <div class="archive-posts">
+              {{ range $datePages }}
+                <a href="{{ .RelPermalink }}" class="archive-post-link" title="{{ .Title }}">
+                  <span class="post-title">{{ .Title }}</span>
+                  <span class="post-time">{{ .Date.Format "15:04" }}</span>
+                </a>
+              {{ end }}
+            </div>
+          </details>
+        {{ else }}
+          <div class="archive-empty">
+            <i class="fas fa-inbox"></i>
+            <p>暂无文章</p>
+          </div>
+        {{ end }}
+      
+      {{ else if eq (default "year" $archiveConfig.groupBy) "month" }}
+        <!-- 按月分组 -->
+        {{ $grouped := $pages.GroupByDate "2006-01" }}
+        {{ range $grouped }}
+          {{ $month := .Key }}
+          {{ $monthPages := .Pages }}
+          {{ $monthOpen := false }}
+          {{ if and $archiveConfig (eq $archiveConfig.defaultOpenCurrentMonth true) (eq $month (now.Format "2006-01")) }}
+          {{ $monthOpen = true }}
+          {{ end }}
+
+          <details class="archive-month-single" {{ if $monthOpen }}open{{ end }}>
+            <summary class="archive-month-single-header">
+              <span class="month-single-title">
+                <i class="fas fa-calendar-alt"></i>
+                {{ $month }}
+              </span>
+              <span class="month-single-count">({{ len $monthPages }})</span>
+              <i class="fas fa-chevron-right toggle-icon"></i>
+            </summary>
+            <div class="archive-posts">
+              {{ range $monthPages }}
+                <a href="{{ .RelPermalink }}" class="archive-post-link" title="{{ .Title }}">
+                  <span class="post-title">{{ .Title }}</span>
+                  <span class="post-date">{{ .Date.Format "01-02" }}</span>
+                </a>
+              {{ end }}
+            </div>
+          </details>
+        {{ else }}
+          <div class="archive-empty">
+            <i class="fas fa-inbox"></i>
+            <p>暂无文章</p>
+          </div>
+        {{ end }}
+      
+      {{ else }}
+        <!-- 默认按年分组 -->
+        {{ $grouped := $pages.GroupByDate "2006" }}
+        {{ range $grouped }}
+          {{ $year := .Key }}
+          {{ $yearPages := .Pages }}
+          {{ $months := $yearPages.GroupByDate "January" }}
+          
+          <!-- 年份展开状态 -->
+          {{ $yearOpen := false }}
+          {{ if and $archiveConfig (eq $archiveConfig.defaultOpenCurrentYear true) (eq $year (now.Format "2006")) }}
+            {{ $yearOpen = true }}
+          {{ end }}
+          
+          <details class="archive-year" {{ if $yearOpen }}open{{ end }}>
+            <summary class="archive-year-header">
+              <span class="year-title">
+                <i class="fas fa-calendar"></i>
+                {{ $year }} 年
+              </span>
+              <span class="year-count">({{ len $yearPages }})</span>
+              <i class="fas fa-chevron-down toggle-icon"></i>
+            </summary>
+            
+            <div class="archive-months">
+              {{ range $months }}
+                {{ $month := .Key }}
+                {{ $monthPages := .Pages }}
+                
+                <!-- 月份展开状态 -->
+                {{ $monthOpen := false }}
+                {{ if and $archiveConfig (eq $archiveConfig.defaultOpenCurrentMonth true) (eq $year (now.Format "2006")) (eq $month (now.Format "January")) }}
+                  {{ $monthOpen = true }}
+                {{ end }}
+                
+                <details class="archive-month" {{ if $monthOpen }}open{{ end }}>
+                  <summary class="archive-month-header">
+                    <span class="month-title">{{ $month }}</span>
+                    <span class="month-count">({{ len $monthPages }})</span>
+                    <i class="fas fa-chevron-right toggle-icon"></i>
+                  </summary>
+                  
+                  <div class="archive-posts">
+                    {{ range $monthPages }}
+                      <a href="{{ .RelPermalink }}" class="archive-post-link" title="{{ .Title }}">
+                        <span class="post-title">{{ .Title }}</span>
+                        <span class="post-date">{{ .Date.Format "01-02" }}</span>
+                      </a>
+                    {{ end }}
+                  </div>
+                </details>
+              {{ end }}
+            </div>
+          </details>
+        {{ else }}
+          <div class="archive-empty">
+            <i class="fas fa-inbox"></i>
+            <p>暂无文章</p>
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 切换年份和月份的展开/收起状态
+  const archiveDetails = document.querySelectorAll('.archive-year, .archive-month, .archive-month-single, .archive-day');
+  
+  archiveDetails.forEach(detail => {
+    detail.addEventListener('toggle', function() {
+      const icon = this.querySelector('.toggle-icon');
+      if (!icon) return;
+      
+      if (this.open) {
+        if (this.classList.contains('archive-year')) {
+          icon.className = 'fas fa-chevron-up toggle-icon';
+        } else {
+          icon.className = 'fas fa-chevron-down toggle-icon';
+        }
+      } else {
+        if (this.classList.contains('archive-year')) {
+          icon.className = 'fas fa-chevron-down toggle-icon';
+        } else {
+          icon.className = 'fas fa-chevron-right toggle-icon';
+        }
+      }
+    });
+  });
+});
+</script>
+{{ end }}

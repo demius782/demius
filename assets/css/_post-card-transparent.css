@@ -1,0 +1,133 @@
+/* ===== 文章卡片透明背景模式样式 ===== */
+
+/* 透明模式下，所有文章卡片使用透明毛玻璃效果 */
+.home-posts-transparent .post-card {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 暗色模式下的透明效果 */
+[data-theme="dark"] .home-posts-transparent .post-card {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 透明模式下的悬停效果 */
+.home-posts-transparent .post-card:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.15),
+    0 2px 6px rgba(0, 0, 0, 0.1);
+  border-color: var(--accent);
+}
+
+[data-theme="dark"] .home-posts-transparent .post-card:hover {
+  background: rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* 透明模式下的置顶卡片样式 */
+.home-posts-transparent .post-card-pinned {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .home-posts-transparent .post-card-pinned {
+  background: rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.home-posts-transparent .post-card-pinned:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .home-posts-transparent .post-card-pinned:hover {
+  background: rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* 透明模式下的文章信息区域 */
+.home-posts-transparent .post-info {
+  position: relative;
+  z-index: 1;
+}
+
+/* 透明模式下的标签样式（保持原有样式，仅调整透明度） */
+.home-posts-transparent .post-tags {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .home-posts-transparent .post-tags {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 透明模式下的封面图容器（保持原有样式） */
+.home-posts-transparent .post-cover {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== 全透明模式样式（完全透明，无背景、无模糊、无边框） ===== */
+
+/* 全透明模式下，移除所有背景、模糊效果和边框 */
+.home-posts-transparent-full .post-card {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 全透明模式下的悬停效果（保持轻微边框和阴影以确保可读性） */
+.home-posts-transparent-full .post-card:hover {
+  background: transparent !important;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .home-posts-transparent-full .post-card:hover {
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.2),
+    0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 全透明模式下的置顶卡片样式（保持轻微边框和阴影以确保可读性） */
+.home-posts-transparent-full .post-card-pinned {
+  background: transparent !important;
+  border: 1px solid var(--accent-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .home-posts-transparent-full .post-card-pinned {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.home-posts-transparent-full .post-card-pinned:hover {
+  background: transparent !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] .home-posts-transparent-full .post-card-pinned:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* 全透明模式下的标签样式（保持轻微边框以确保可读性） */
+.home-posts-transparent-full .post-tags {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .home-posts-transparent-full .post-tags {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}

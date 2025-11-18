@@ -1,0 +1,354 @@
+/* 弹窗公告样式 */
+
+/* 弹窗容器基础样式 */
+.popup-container {
+  position: fixed;
+  font-family: var(--font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif);
+}
+
+/* 遮罩层 */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
+/* 弹窗内容 */
+.popup-content {
+  position: relative;
+  background: var(--bg, #ffffff);
+  color: var(--fg, #222222);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+/* 关闭按钮 */
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s ease;
+  color: var(--fg, #222222);
+}
+
+.popup-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: rotate(90deg);
+}
+
+.popup-close:active {
+  transform: rotate(90deg) scale(0.9);
+}
+
+.popup-close i {
+  font-size: 16px;
+}
+
+/* 弹窗头部 */
+.popup-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.popup-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--fg, #222222);
+}
+
+/* 弹窗主体 */
+.popup-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+  line-height: 1.6;
+}
+
+.popup-body p {
+  margin: 0 0 12px 0;
+}
+
+.popup-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Modal模式 - 居中 */
+.popup-modal.popup-center .popup-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Modal模式 - 顶部 */
+.popup-modal.popup-top .popup-content {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Modal模式 - 底部 */
+.popup-modal.popup-bottom .popup-content {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Modal模式 - 左上角 */
+.popup-modal.popup-top-left .popup-content {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+
+/* Modal模式 - 右上角 */
+.popup-modal.popup-top-right .popup-content {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+/* Modal模式 - 左下角 */
+.popup-modal.popup-bottom-left .popup-content {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+/* Modal模式 - 右下角 */
+.popup-modal.popup-bottom-right .popup-content {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+/* Toast模式 */
+.popup-toast .popup-content {
+  min-width: 300px;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.popup-toast.popup-top .popup-content {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.popup-toast.popup-bottom .popup-content {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.popup-toast.popup-top-left .popup-content {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+
+.popup-toast.popup-top-right .popup-content {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.popup-toast.popup-bottom-left .popup-content {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+.popup-toast.popup-bottom-right .popup-content {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.popup-toast.popup-center .popup-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Banner模式 */
+.popup-banner .popup-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  border-radius: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.popup-banner.popup-top .popup-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.popup-banner.popup-bottom .popup-content {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* 显示动画 */
+.popup-container.popup-show {
+  display: block;
+}
+
+.popup-modal.popup-show .popup-overlay {
+  animation: fadeIn 0.3s ease;
+}
+
+.popup-modal.popup-show .popup-content {
+  animation: popupModalIn 0.3s ease;
+}
+
+.popup-toast.popup-show .popup-content {
+  animation: popupToastIn 0.3s ease;
+}
+
+.popup-banner.popup-show .popup-content {
+  animation: popupBannerIn 0.3s ease;
+}
+
+/* 隐藏动画 */
+.popup-container.popup-hide .popup-overlay {
+  animation: fadeOut 0.3s ease;
+}
+
+.popup-container.popup-hide .popup-content {
+  animation: popupOut 0.3s ease;
+}
+
+/* 动画定义 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes popupModalIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes popupToastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popupBannerIn {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popupOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .popup-content {
+    max-width: 95vw;
+    margin: 10px;
+  }
+  
+  .popup-modal.popup-center .popup-content {
+    width: calc(100% - 40px) !important;
+    max-width: calc(100% - 40px) !important;
+  }
+  
+  .popup-toast .popup-content {
+    min-width: calc(100% - 40px);
+    max-width: calc(100% - 40px);
+  }
+}
+
+/* 暗色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .popup-content {
+    background: var(--bg, #1a1a1a);
+    color: var(--fg, #ffffff);
+  }
+  
+  .popup-header {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .popup-close {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--fg, #ffffff);
+  }
+  
+  .popup-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+

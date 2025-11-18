@@ -1,0 +1,73 @@
+{{ define "content" }}
+<div class="gear-page">
+  <header class="gear-header">
+    <h1 class="gear-title">{{ .Title }}</h1>
+    {{ with .Content }}
+    <div class="gear-description">
+      {{ . }}
+    </div>
+    {{ end }}
+  </header>
+
+  <div class="gear-container">
+    <!-- 装备分组区域 -->
+    <div class="gear-groups">
+      {{ if .Site.Data.gear }}
+        {{ $gearData := .Site.Data.gear }}
+        {{ range $groupIndex, $group := $gearData.groups }}
+        <div class="gear-group">
+          <div class="group-header">
+            <h2 class="group-title">{{ $group.name }}</h2>
+            {{ with $group.description }}
+            <p class="group-description">{{ . }}</p>
+            {{ end }}
+          </div>
+          
+          <div class="gear-grid">
+            {{ range $itemIndex, $item := $group.items }}
+            <div class="gear-card">
+              <!-- 装备图片 -->
+              <div class="gear-image-wrapper">
+                <img src="{{ $item.image }}" alt="{{ $item.name }}" class="gear-image" onerror="this.src='/img/404.jpg'">
+                {{ with $item.price }}
+                <div class="gear-price-tag">{{ . }}</div>
+                {{ end }}
+              </div>
+              
+              <!-- 装备信息 -->
+              <div class="gear-info">
+                <h3 class="gear-name">{{ $item.name }}</h3>
+                {{ with $item.description }}
+                <p class="gear-description-text">{{ . }}</p>
+                {{ end }}
+                
+                <!-- 购买链接 -->
+                {{ if $item.links }}
+                <div class="gear-links">
+                  {{ range $item.links }}
+                  <a href="{{ .url }}" class="gear-link-btn" target="_blank" rel="noopener noreferrer">
+                    {{ if .icon }}<span class="link-icon">{{ .icon }}</span>{{ end }}
+                    <span class="link-text">{{ .platform }}</span>
+                  </a>
+                  {{ end }}
+                </div>
+                {{ end }}
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      {{ else }}
+        <div class="no-gear-message">
+          <p>暂无装备数据，请在 data/gear.yaml 文件中添加装备信息。</p>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+
+  <!-- 评论区 -->
+  {{ partial "comment.html" . }}
+</div>
+{{ end }}
+

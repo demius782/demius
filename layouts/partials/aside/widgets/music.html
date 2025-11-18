@@ -1,0 +1,89 @@
+{{ if .Site.Params.aside.showMusic | default true }}
+{{ $musicConfig := .Site.Params.aside.music }}
+{{ $enableBg := $musicConfig.enableBackground | default false }}
+{{ $bgImage := $musicConfig.backgroundImage }}
+{{ $bgColor := $musicConfig.backgroundColor }}
+{{ $bgSize := $musicConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $musicConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $musicConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $musicConfig.textColor }}
+{{ $textShadow := $musicConfig.textShadow | default false }}
+{{ $overlayColor := $musicConfig.overlayColor }}
+{{ $borderRadius := $musicConfig.borderRadius }}
+
+<section class="aside-card music-card{{ if $enableBg }} music-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="music-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="music-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title">
+      <i class="fas fa-music"></i> {{ $musicConfig.title | default "音乐" }}
+    </h3>
+    <div class="music-list">
+      {{ $items := $musicConfig.items }}
+      {{ if $items }}
+        {{ $itemsLen := len $items }}
+        {{ if gt $itemsLen 0 }}
+          {{ range $idx, $item := $items }}
+          <div class="music-item">
+            {{ if $item.badge }}
+            <div class="planet-badge" data-color="{{ $item.badge }}"></div>
+            {{ end }}
+            {{ if eq $item.server "local" }}
+              <audio controls preload="none" src="{{ $item.url }}">
+                您的浏览器不支持 audio 标签。
+              </audio>
+            {{ else }}
+              <meting-js 
+                server="{{ $item.server }}"
+                type="{{ $item.type }}"
+                id="{{ $item.id }}"
+                {{ if site.Params.music.metingApi }}api="{{ site.Params.music.metingApi }}"{{ end }}
+                {{ if $item.autoplay }}autoplay="{{ $item.autoplay }}"{{ end }}
+                {{ if $item.theme }}theme="{{ $item.theme }}"{{ end }}
+                {{ if $item.loop }}loop="{{ $item.loop }}"{{ end }}
+                {{ if $item.order }}order="{{ $item.order }}"{{ end }}
+                {{ if $item.volume }}volume="{{ $item.volume }}"{{ end }}
+                {{ if $item.listFolded }}list-folded="{{ $item.listFolded }}"{{ end }}
+                {{ if $item.listMaxHeight }}list-max-height="{{ $item.listMaxHeight }}"{{ end }}
+                {{ if $item.mini }}mini="{{ $item.mini }}"{{ end }}
+                {{ if $item.fixed }}fixed="{{ $item.fixed }}"{{ end }}
+              ></meting-js>
+            {{ end }}
+          </div>
+          {{ end }}
+        {{ else }}
+          <div class="music-empty">暂无音乐，请在配置文件中添加音乐列表</div>
+        {{ end }}
+      {{ else }}
+        <div class="music-empty">暂无音乐，请在配置文件中添加音乐列表</div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+

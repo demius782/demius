@@ -1,0 +1,504 @@
+/* ===================================================================
+   系列文章组件样式
+   =================================================================== */
+
+.series-posts-widget {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景图片/颜色模式 */
+.series-posts-widget-with-bg {
+  position: relative;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 背景遮罩层 */
+.series-posts-widget-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 内容容器 */
+.series-posts-widget-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* 系列轮播容器 */
+.series-carousel-container {
+  position: relative;
+  min-height: 200px;
+}
+
+/* 系列列表包装器 */
+.series-list-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* 单个系列项 */
+.series-item {
+  display: none;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.series-item.active {
+  display: block;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 系列头部 */
+.series-header {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--accent-primary);
+}
+
+.series-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+}
+
+.series-description {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+/* 系列文章列表 - 与相关文章样式一致 */
+.series-posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.series-post-item {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--fg) 40%, transparent);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  color: var(--text-primary);
+  position: relative;
+}
+
+.series-post-item:last-child {
+  border-bottom: none;
+}
+
+.series-post-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+  border-radius: 6px;
+}
+
+/* 序号圆圈 - 固定尺寸，与缩略图类似 */
+.series-post-number {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  /* 亮色模式使用黑色文字，暗色模式使用白色文字 */
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* 暗色模式下序号使用白色文字 */
+[data-theme="dark"] .series-post-number {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.series-post-item:hover .series-post-number {
+  transform: scale(1.1);
+}
+
+/* 缩略图 - 与相关文章样式一致 */
+.series-post-thumb {
+  width: 64px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+}
+
+.series-post-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.series-post-item:hover .series-post-thumb img {
+  transform: scale(1.1);
+}
+
+/* 文章元信息 - 与相关文章样式一致 */
+.series-post-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 文章标题 - 与相关文章样式一致 */
+.series-post-title {
+  font-size: 0.88rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0.2rem;
+}
+
+/* 文章日期 - 与相关文章样式一致 */
+.series-post-date {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* ===================================================================
+   轮播控制器样式
+   =================================================================== */
+
+/* 轮播指示器容器 - 隐藏 */
+.series-indicators {
+  display: none;
+}
+
+.series-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-light);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.series-indicator:hover {
+  background: var(--accent-secondary);
+  transform: scale(1.2);
+}
+
+.series-indicator.active {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--accent-primary);
+}
+
+/* 轮播控制按钮 - 左右侧箭头样式（与轮播图一致） */
+.series-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  opacity: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+/* 鼠标悬停在组件上时显示控制按钮 */
+.series-posts-widget:hover .series-control {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 文章详情页隐藏控制按钮 */
+body:has(article.post) .series-posts-widget .series-control {
+  display: none !important;
+}
+
+.series-control:hover {
+  background: white;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.series-control:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.series-prev {
+  left: 0.5rem;
+}
+
+.series-next {
+  right: 0.5rem;
+}
+
+.series-control i {
+  font-size: 0.9rem;
+}
+
+/* 暗色模式 */
+[data-theme="dark"] .series-control {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+[data-theme="dark"] .series-control:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* ===================================================================
+   响应式设计
+   =================================================================== */
+
+@media (max-width: 768px) {
+  .series-name {
+    font-size: 0.95rem;
+  }
+  
+  .series-description {
+    font-size: 0.8rem;
+  }
+  
+  .series-post-item {
+    padding: 0.5rem 0;
+  }
+  
+  .series-post-number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+  
+  .series-post-thumb {
+    width: 56px;
+    height: 32px;
+  }
+  
+  .series-post-title {
+    font-size: 0.85rem;
+  }
+  
+  .series-post-date {
+    font-size: 0.7rem;
+  }
+  
+  /* 移动端箭头按钮调整 */
+  .series-control {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .series-prev {
+    left: 0.25rem;
+  }
+  
+  .series-next {
+    right: 0.25rem;
+  }
+  
+  .series-control i {
+    font-size: 0.8rem;
+  }
+}
+
+/* ===================================================================
+   暗色模式适配
+   =================================================================== */
+
+[data-theme="dark"] .series-post-item {
+  color: var(--text-primary-dark);
+}
+
+[data-theme="dark"] .series-indicator {
+  background: var(--border-dark);
+}
+
+[data-theme="dark"] .series-indicator:hover {
+  background: var(--accent-secondary);
+}
+
+[data-theme="dark"] .series-indicator.active {
+  background: var(--accent-primary);
+}
+
+/* ===================================================================
+   背景模式下的样式优化
+   =================================================================== */
+
+/* 系列头部优化 */
+.series-posts-widget-with-bg .series-header {
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .series-posts-widget-with-bg .series-header {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.series-posts-widget-with-bg .series-name {
+  opacity: 1;
+  font-weight: 700;
+}
+
+.series-posts-widget-with-bg .series-description {
+  opacity: 0.9;
+}
+
+/* 系列文章项优化 */
+.series-posts-widget-with-bg .series-post-item {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .series-posts-widget-with-bg .series-post-item {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.series-posts-widget-with-bg .series-post-item:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] .series-posts-widget-with-bg .series-post-item:hover {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* 序号徽章优化 */
+/* 背景模式下：亮色模式使用白色半透明背景和黑色文字，暗色模式使用黑色半透明背景和白色文字 */
+.series-posts-widget-with-bg .series-post-number {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  /* 亮色模式下使用黑色文字 */
+  color: #000000 !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] .series-posts-widget-with-bg .series-post-number {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+  /* 暗色模式下使用白色文字 */
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* 缩略图边框优化 */
+.series-posts-widget-with-bg .series-post-thumb {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .series-posts-widget-with-bg .series-post-thumb {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 标题和日期优化 */
+.series-posts-widget-with-bg .series-post-title {
+  opacity: 1;
+  font-weight: 600;
+}
+
+.series-posts-widget-with-bg .series-post-date {
+  opacity: 0.85;
+}
+
+/* 轮播指示器优化 */
+.series-posts-widget-with-bg .series-indicator {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] .series-posts-widget-with-bg .series-indicator {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.series-posts-widget-with-bg .series-indicator:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] .series-posts-widget-with-bg .series-indicator:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.series-posts-widget-with-bg .series-indicator.active {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="dark"] .series-posts-widget-with-bg .series-indicator.active {
+  background: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 轮播控制按钮优化 */
+.series-posts-widget-with-bg .series-control {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] .series-posts-widget-with-bg .series-control {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.series-posts-widget-with-bg .series-control:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] .series-posts-widget-with-bg .series-control:hover {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 侧栏标题优化 */
+.series-posts-widget-with-bg .aside-title {
+  opacity: 1;
+}
+

@@ -1,0 +1,54 @@
+<!-- toc.html -->
+{{ if and (.Site.Params.aside.showToc | default true) (eq .Kind "page") (eq .Type "posts") }}
+{{ $tocConfig := .Site.Params.aside.toc }}
+{{ $enableBg := $tocConfig.enableBackground | default false }}
+{{ $bgImage := $tocConfig.backgroundImage }}
+{{ $bgColor := $tocConfig.backgroundColor }}
+{{ $bgSize := $tocConfig.backgroundSize | default "cover" }}
+{{ $bgPosition := $tocConfig.backgroundPosition | default "center" }}
+{{ $bgRepeat := $tocConfig.backgroundRepeat | default "no-repeat" }}
+{{ $textColor := $tocConfig.textColor }}
+{{ $textShadow := $tocConfig.textShadow | default false }}
+{{ $overlayColor := $tocConfig.overlayColor }}
+{{ $borderRadius := $tocConfig.borderRadius }}
+
+<section class="aside-card toc-card{{ if $enableBg }} toc-card-with-bg{{ end }}"
+  {{ if $enableBg }}
+  {{ $styleStr := "" }}
+  {{ if $bgImage }}
+    {{ $styleStr = printf "background-image: url('%s');" $bgImage }}
+  {{ else if $bgColor }}
+    {{ $styleStr = printf "background: %s;" $bgColor }}
+  {{ end }}
+  {{ if or $bgImage $bgColor }}
+    {{ $styleStr = printf "%s background-size: %s; background-position: %s; background-repeat: %s;" $styleStr $bgSize $bgPosition $bgRepeat }}
+  {{ end }}
+  {{ if $borderRadius }}
+    {{ $styleStr = printf "%s border-radius: %s;" $styleStr $borderRadius }}
+  {{ end }}
+  style="{{ $styleStr | safeCSS }}"
+  {{ end }}
+>
+  {{ if and $enableBg $overlayColor }}
+  <div class="toc-card-overlay" style="background: {{ $overlayColor }};"></div>
+  {{ end }}
+  
+  <div class="toc-card-content"
+    {{ if and $enableBg $textColor }}
+    style="
+      color: {{ $textColor }};
+      {{ if $textShadow }}text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);{{ end }}
+    "
+    {{ end }}
+  >
+    <h3 class="aside-title"><i class="fas fa-list"></i> 目录</h3>
+    <div class="toc-content">
+        {{ if gt (len .TableOfContents) 32 }}
+            {{ .TableOfContents | safeHTML }}
+        {{ else }}
+            <div class="toc-empty">此文章暂无目录内容</div>
+        {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,247 @@
+/* 按钮短代码样式 */
+.shortcode-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+  background-color: var(--bg-card);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.shortcode-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+.shortcode-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.shortcode-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 按钮大小 */
+.shortcode-button-small {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.shortcode-button-normal {
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
+}
+
+.shortcode-button-large {
+  padding: 0.875rem 1.75rem;
+  font-size: 1.125rem;
+}
+
+/* 按钮颜色 - 实心样式 */
+.shortcode-button-primary {
+  background-color: var(--accent, #3498db);
+  color: #ffffff;
+  border-color: var(--accent, #3498db);
+}
+
+.shortcode-button-primary:hover {
+  background-color: var(--accent-hover, #2980b9);
+  border-color: var(--accent-hover, #2980b9);
+  color: #ffffff;
+}
+
+.shortcode-button-success {
+  background-color: #2ecc71;
+  color: #ffffff;
+  border-color: #2ecc71;
+}
+
+.shortcode-button-success:hover {
+  background-color: #27ae60;
+  border-color: #27ae60;
+  color: #ffffff;
+}
+
+.shortcode-button-warning {
+  background-color: #f39c12;
+  color: #ffffff;
+  border-color: #f39c12;
+}
+
+.shortcode-button-warning:hover {
+  background-color: #e67e22;
+  border-color: #e67e22;
+  color: #ffffff;
+}
+
+.shortcode-button-danger {
+  background-color: #e74c3c;
+  color: #ffffff;
+  border-color: #e74c3c;
+}
+
+.shortcode-button-danger:hover {
+  background-color: #c0392b;
+  border-color: #c0392b;
+  color: #ffffff;
+}
+
+.shortcode-button-info {
+  background-color: #3498db;
+  color: #ffffff;
+  border-color: #3498db;
+}
+
+.shortcode-button-info:hover {
+  background-color: #2980b9;
+  border-color: #2980b9;
+  color: #ffffff;
+}
+
+.shortcode-button-default {
+  background-color: var(--bg-card);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.shortcode-button-default:hover {
+  background-color: var(--bg);
+  color: var(--text-color);
+  border-color: var(--primary-color);
+}
+
+/* 按钮颜色 - 描边样式 */
+.shortcode-button-outline.shortcode-button-primary {
+  background-color: transparent;
+  color: var(--accent, #3498db);
+  border-color: var(--accent, #3498db);
+}
+
+.shortcode-button-outline.shortcode-button-primary:hover {
+  background-color: var(--accent, #3498db);
+  color: #ffffff;
+}
+
+.shortcode-button-outline.shortcode-button-success {
+  background-color: transparent;
+  color: #2ecc71;
+  border-color: #2ecc71;
+}
+
+.shortcode-button-outline.shortcode-button-success:hover {
+  background-color: #2ecc71;
+  color: #ffffff;
+}
+
+.shortcode-button-outline.shortcode-button-warning {
+  background-color: transparent;
+  color: #f39c12;
+  border-color: #f39c12;
+}
+
+.shortcode-button-outline.shortcode-button-warning:hover {
+  background-color: #f39c12;
+  color: #ffffff;
+}
+
+.shortcode-button-outline.shortcode-button-danger {
+  background-color: transparent;
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.shortcode-button-outline.shortcode-button-danger:hover {
+  background-color: #e74c3c;
+  color: #ffffff;
+}
+
+.shortcode-button-outline.shortcode-button-info {
+  background-color: transparent;
+  color: #3498db;
+  border-color: #3498db;
+}
+
+.shortcode-button-outline.shortcode-button-info:hover {
+  background-color: #3498db;
+  color: #ffffff;
+}
+
+.shortcode-button-outline.shortcode-button-default {
+  background-color: transparent;
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.shortcode-button-outline.shortcode-button-default:hover {
+  background-color: var(--bg-card);
+  color: var(--text-color);
+  border-color: var(--primary-color);
+}
+
+/* 块级按钮 */
+.shortcode-button-block {
+  display: flex;
+  width: 100%;
+}
+
+/* 图标样式 */
+.shortcode-button i {
+  font-size: 1em;
+  line-height: 1;
+}
+
+/* 禁用状态 */
+.shortcode-button:disabled,
+.shortcode-button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .shortcode-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .shortcode-button-small {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .shortcode-button-large {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* 暗色模式适配 */
+[data-theme="dark"] .shortcode-button-default {
+  background-color: var(--bg-card);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .shortcode-button-default:hover {
+  background-color: var(--bg);
+  border-color: var(--primary-color);
+}
+

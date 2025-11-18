@@ -1,0 +1,214 @@
+/* ===================================================================
+   打赏按钮样式
+   =================================================================== */
+
+.post-reward {
+  margin: 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+/* 打赏按钮 */
+.reward-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reward-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+  filter: brightness(1.1);
+}
+
+.reward-button:active {
+  transform: translateY(0);
+}
+
+.reward-button i {
+  font-size: 1rem;
+}
+
+/* 打赏面板 - 默认隐藏 */
+.reward-panel {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  min-width: 300px;
+  margin-bottom: 1rem;
+}
+
+/* 悬停时显示打赏面板 */
+.post-reward:hover .reward-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 打赏面板箭头 */
+.reward-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--bg-card);
+}
+
+/* 打赏标题 */
+.reward-title {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* 二维码容器 */
+.reward-qrcodes {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* 单个二维码 */
+.reward-qrcode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reward-qrcode img {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--border-light);
+  transition: all 0.3s ease;
+}
+
+.reward-qrcode img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.reward-qrcode p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ===================================================================
+   响应式设计
+   =================================================================== */
+
+@media (max-width: 768px) {
+  .reward-button {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .reward-panel {
+    min-width: 280px;
+    padding: 1.2rem;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  
+  .post-reward:hover .reward-panel {
+    transform: translateX(-50%) translateY(0);
+  }
+  
+  .reward-qrcodes {
+    gap: 1rem;
+  }
+  
+  .reward-qrcode img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .reward-title {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-reward {
+    margin: 1rem;
+  }
+  
+  .reward-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  
+  .reward-panel {
+    min-width: 260px;
+    padding: 1rem;
+  }
+  
+  .reward-qrcodes {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .reward-qrcode img {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+/* ===================================================================
+   暗色模式适配
+   =================================================================== */
+
+[data-theme="dark"] .reward-panel {
+  background: var(--bg-card-dark);
+  border-color: var(--border-dark);
+}
+
+[data-theme="dark"] .reward-panel::after {
+  border-top-color: var(--bg-card-dark);
+}
+
+[data-theme="dark"] .reward-title {
+  color: var(--text-primary-dark);
+}
+
+[data-theme="dark"] .reward-qrcode img {
+  border-color: var(--border-dark);
+}
+
+[data-theme="dark"] .reward-qrcode p {
+  color: var(--text-secondary-dark);
+}
+

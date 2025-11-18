@@ -1,0 +1,14 @@
+{{ define "content" }}
+<section class="search-page">
+  <header class="search-header">
+    <h1>搜索</h1>
+    <form action="{{ "search" | relURL }}" method="get" class="search-form">
+      <input type="text" name="q" value="{{ .Site.Home.Site.GetPage "/" }}" placeholder="输入关键词..." class="search-input" id="search-input">
+      <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+    </form>
+  </header>
+  <div id="search-result-count" class="search-count"></div>
+  <ul id="search-results" class="search-results"></ul>
+</section>
+{{ end }}
+
