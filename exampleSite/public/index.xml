@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Demius Theme</title>
+    <link>https://example.com/</link>
+    <description>Recent content on Demius Theme</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <copyright>Copyright © 2024-2025 字·兮·书</copyright>
+    <lastBuildDate>Sat, 15 Nov 2025 21:00:00 +0800</lastBuildDate>
+    <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>沉浸模式与互动组件实战</title>
+      <link>https://example.com/posts/immersive-reading.html/</link>
+      <pubDate>Wed, 05 Nov 2025 09:30:00 +0800</pubDate>
+      <guid>https://example.com/posts/immersive-reading.html/</guid>
+      <description>进一步展示 Demius 主题的沉浸阅读按钮、浮动工具条、短代码组件、视频与音乐播放，以及局部加密内容。</description>
+    </item>
+    <item>
+      <title>网友圈</title>
+      <link>https://example.com/friends-circle/</link>
+      <pubDate>Sun, 02 Nov 2025 12:00:00 +0800</pubDate>
+      <guid>https://example.com/friends-circle/</guid>
+      <description>&lt;h2 id=&#34;网友圈&#34;&gt;网友圈&lt;/h2&gt;&#xA;&lt;p&gt;这里展示友链站点的最新文章动态，点击卡片可直接跳转到对应文章。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>你好，Demius：从 0 到 1 的快速体验</title>
+      <link>https://example.com/posts/hello-demius.html/</link>
+      <pubDate>Sat, 01 Nov 2025 10:00:00 +0800</pubDate>
+      <guid>https://example.com/posts/hello-demius.html/</guid>
+      <description>带你 10 分钟跑通 Demius 主题的全部基础能力，了解三栏布局、侧栏组件、卡片风格以及沉浸式交互。</description>
+    </item>
+    <item>
+      <title>小说书单</title>
+      <link>https://example.com/booklist/</link>
+      <pubDate>Fri, 31 Oct 2025 15:00:00 +0800</pubDate>
+      <guid>https://example.com/booklist/</guid>
+      <description>&lt;h2 id=&#34;-我的书单&#34;&gt;📚 我的书单&lt;/h2&gt;&#xA;&lt;p&gt;这里记录着我读过、在读和想读的小说，每一本都是一个小小的世界 ✨&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>追番星球</title>
+      <link>https://example.com/bangumi-planet/</link>
+      <pubDate>Fri, 31 Oct 2025 12:00:00 +0800</pubDate>
+      <guid>https://example.com/bangumi-planet/</guid>
+      <description>&lt;h2 id=&#34;追番星球&#34;&gt;追番星球&lt;/h2&gt;&#xA;&lt;p&gt;这里是我在B站追番追剧的记录，包括想看、在看和看过的作品。数据来源于B站个人追番列表。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>音乐星球</title>
+      <link>https://example.com/music-planet/</link>
+      <pubDate>Thu, 30 Oct 2025 12:00:00 +0800</pubDate>
+      <guid>https://example.com/music-planet/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>愿望清单</title>
+      <link>https://example.com/wishlist/</link>
+      <pubDate>Wed, 29 Oct 2025 17:00:00 +0800</pubDate>
+      <guid>https://example.com/wishlist/</guid>
+      <description>&lt;p&gt;这里记录着我的梦想和目标，每一个愿望都是前进的动力 ✨&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>支持清单</title>
+      <link>https://example.com/supporters/</link>
+      <pubDate>Wed, 29 Oct 2025 17:00:00 +0800</pubDate>
+      <guid>https://example.com/supporters/</guid>
+      <description>&lt;p&gt;感谢所有支持本站和主题的朋友们 ❤️&lt;/p&gt;&#xA;&lt;p&gt;你们的支持是我持续创作和维护的最大动力！&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>留言板</title>
+      <link>https://example.com/message/</link>
+      <pubDate>Tue, 28 Oct 2025 18:00:00 +0800</pubDate>
+      <guid>https://example.com/message/</guid>
+      <description>&lt;h2 id=&#34;-欢迎留言&#34;&gt;💬 欢迎留言&lt;/h2&gt;&#xA;&lt;p&gt;欢迎来到留言板！在这里你可以：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;📝 &lt;strong&gt;自由留言&lt;/strong&gt;：分享你的想法、建议或问题&lt;/li&gt;&#xA;&lt;li&gt;💡 &lt;strong&gt;技术交流&lt;/strong&gt;：讨论技术话题，共同学习进步&lt;/li&gt;&#xA;&lt;li&gt;🤝 &lt;strong&gt;交个朋友&lt;/strong&gt;：认识志同道合的朋友&lt;/li&gt;&#xA;&lt;li&gt;📣 &lt;strong&gt;反馈建议&lt;/strong&gt;：对网站有什么建议都可以告诉我&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;-留言须知&#34;&gt;📋 留言须知&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;友善交流&lt;/strong&gt;：请保持友善和尊重，营造良好的交流氛围&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;相关内容&lt;/strong&gt;：欢迎与技术、学习、生活相关的话题&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;禁止内容&lt;/strong&gt;：&#xA;&lt;ul&gt;&#xA;&lt;li&gt;❌ 广告、推广、垃圾信息&lt;/li&gt;&#xA;&lt;li&gt;❌ 不文明、攻击性言论&lt;/li&gt;&#xA;&lt;li&gt;❌ 违法违规内容&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;-留言板功能&#34;&gt;🎨 留言板功能&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;✅ &lt;strong&gt;Markdown 支持&lt;/strong&gt;：支持 Markdown 语法，让留言更丰富&lt;/li&gt;&#xA;&lt;li&gt;✅ &lt;strong&gt;表情支持&lt;/strong&gt;：可以使用 emoji 表情 😊&lt;/li&gt;&#xA;&lt;li&gt;✅ &lt;strong&gt;回复功能&lt;/strong&gt;：可以回复其他人的留言&lt;/li&gt;&#xA;&lt;li&gt;✅ &lt;strong&gt;邮件通知&lt;/strong&gt;：收到回复时会邮件通知（如果开启）&lt;/li&gt;&#xA;&lt;li&gt;✅ &lt;strong&gt;实时更新&lt;/strong&gt;：留言实时显示&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;-常见问题&#34;&gt;💭 常见问题&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q-留言需要注册账号吗&#34;&gt;Q: 留言需要注册账号吗？&lt;/h3&gt;&#xA;&lt;p&gt;A: 不需要！填写昵称和邮箱即可留言，非常简单。&lt;/p&gt;&#xA;&lt;h3 id=&#34;q-留言会被公开吗&#34;&gt;Q: 留言会被公开吗？&lt;/h3&gt;&#xA;&lt;p&gt;A: 是的，所有留言都是公开的，请注意保护个人隐私。&lt;/p&gt;&#xA;&lt;h3 id=&#34;q-留言可以删除吗&#34;&gt;Q: 留言可以删除吗？&lt;/h3&gt;&#xA;&lt;p&gt;A: 可以！如果需要删除自己的留言，请联系我。&lt;/p&gt;&#xA;&lt;h3 id=&#34;q-支持什么格式&#34;&gt;Q: 支持什么格式？&lt;/h3&gt;&#xA;&lt;p&gt;A: 支持 Markdown 语法，可以使用链接、图片、代码等格式。&lt;/p&gt;&#xA;&lt;h2 id=&#34;-其他联系方式&#34;&gt;📮 其他联系方式&lt;/h2&gt;&#xA;&lt;p&gt;如果你不想公开留言，也可以通过以下方式联系我：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;📧 &lt;strong&gt;邮箱&lt;/strong&gt;：hello@example.com&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;-开始留言吧&#34;&gt;🎉 开始留言吧！&lt;/h2&gt;&#xA;&lt;p&gt;期待你的留言！👇&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>数据统计</title>
+      <link>https://example.com/data/</link>
+      <pubDate>Mon, 27 Oct 2025 20:00:00 +0800</pubDate>
+      <guid>https://example.com/data/</guid>
+      <description>&lt;p&gt;欢迎来到数据统计页面！这里展示了网站的各项数据指标。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>关于</title>
+      <link>https://example.com/about/</link>
+      <pubDate>Sat, 25 Oct 2025 20:00:00 +0800</pubDate>
+      <guid>https://example.com/about/</guid>
+      <description>&lt;h2 id=&#34;关于本站&#34;&gt;关于本站&lt;/h2&gt;&#xA;&lt;p&gt;欢迎来到我的个人博客！&lt;/p&gt;&#xA;&lt;p&gt;玩博客的经历起起伏伏，从最初的WordPress到Typecho，到Hexo，再到现在的Hugo，其他框架也尝试过，但最终还是选择了Hugo，并且选择重新开发了主题Demius&lt;/p&gt;&#xA;&lt;p&gt;这个名字有啥寓意呢，其实是创造的一个新的词，给它的含义是“天才妖精”，因为本身就是从两个英文单词天才和妖精各取一半而来，反正就是胡编乱造的，哈哈哈，希望大家喜欢&lt;/p&gt;&#xA;&lt;p&gt;目前本站正在建设中，欢迎大家关注我的博客，新的主题有很多不足之处需要不断的更新，欢迎大家提出宝贵的意见，我会不断的完善&lt;/p&gt;&#xA;&lt;p&gt;本站的很多功能样式等等都是之前用过的主题在魔改的过程中发现的一些好玩的功能，由于主题需要不断的测试调整，技术有限，有时候新增的功能还会影响已经实现的功能&lt;/p&gt;&#xA;&lt;p&gt;所以如果有新的好玩的功能，请先在评论区提出，我会尽快的实现，如果有好的建议，欢迎提出，我会及时的修改，当然个人能力有限，如果有更好的实现方式，欢迎提出&lt;/p&gt;&#xA;&lt;h3 id=&#34;-个人简介&#34;&gt;👋 个人简介&lt;/h3&gt;&#xA;&lt;p&gt;不是折腾网络就是折腾人生，折腾吃，折腾玩，折腾着活着，反正大家都一样，来这个世界几十年，开心一天算一天啦！&lt;/p&gt;&#xA;&lt;p&gt;红红火火恍恍惚惚哈哈哈哈哈&lt;/p&gt;&#xA;&lt;h3 id=&#34;-已经能熟练背诵以下技能的名子&#34;&gt;🛠️ 已经能熟练背诵以下技能的名子&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;前端开发&lt;/strong&gt;: HTML, CSS, JavaScript, Vue.js&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;后端开发&lt;/strong&gt;: Node.js, Python, Go, Java&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;博客框架&lt;/strong&gt;: Hugo, Hexo, Typecho, Wordpress&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;工具技能&lt;/strong&gt;: Git, Docker, Linux, Windows, MacOS&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;其他技能&lt;/strong&gt;: 品菜，写作，赶海，听歌，钓鱼，看书，看电影，看剧，看动漫&amp;hellip;&amp;hellip;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;-当前专注&#34;&gt;🎯 当前专注&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Hugo 主题开发与优化&lt;/li&gt;&#xA;&lt;li&gt;开源项目贡献&lt;/li&gt;&#xA;&lt;li&gt;技术博客写作与分享&lt;/li&gt;&#xA;&lt;li&gt;学习新的编程语言和框架&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;-联系方式&#34;&gt;📫 联系方式&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;📧 邮箱：hello@example.com&lt;/li&gt;&#xA;&lt;li&gt;🐱 GitHub：&lt;a href=&#34;https://github.com/demius-theme&#34;&gt;demius-theme&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;本站信息&#34;&gt;本站信息&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;主题：Demius&lt;/li&gt;&#xA;&lt;li&gt;生成器：Hugo&lt;/li&gt;&#xA;&lt;li&gt;托管：待补充&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;感谢您的访问！&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>装备</title>
+      <link>https://example.com/gear/</link>
+      <pubDate>Thu, 23 Oct 2025 12:00:00 +0800</pubDate>
+      <guid>https://example.com/gear/</guid>
+      <description>&lt;p&gt;这里展示我日常使用和推荐的各类装备，包括数码产品、办公外设等。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>相册</title>
+      <link>https://example.com/gallery/</link>
+      <pubDate>Tue, 21 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://example.com/gallery/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>日常哔哔，键盘侠的日常吐槽</title>
+      <link>https://example.com/shuoshuo/</link>
+      <pubDate>Sat, 18 Oct 2025 18:00:00 +0800</pubDate>
+      <guid>https://example.com/shuoshuo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>友链</title>
+      <link>https://example.com/links/</link>
+      <pubDate>Sat, 18 Oct 2025 17:00:00 +0800</pubDate>
+      <guid>https://example.com/links/</guid>
+      <description>&lt;h2 id=&#34;友链申请&#34;&gt;友链申请&lt;/h2&gt;&#xA;&lt;p&gt;麻烦请先添加本站友链，按照下面的模板在评论区留言，我会及时的审核，审核通过后会添加到友链中，如果有问题，请留言，我会及时的回复。&lt;/p&gt;&#xA;&lt;p&gt;已经添加的友链本站会不定时回访，如本站被下友链，请及时的通知我，我会及时的删除贵方的友链，如未通知本站即下友链，本站将视为无效友链，不予添加。&lt;/p&gt;&#xA;&lt;p&gt;本站主动添加的友链，两周内如未加友链，本站将视为无效友链，不予添加。&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;- &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;字·兮·书&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;url&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://blog.demius.tech&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;avatar&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/img/avatar.png&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;description&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;时间就是生命，Life is money，Money is life&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;tags&lt;/span&gt;: [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;技术&amp;#34;&lt;/span&gt;]&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;rss&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://blog.demius.tech/index.xml&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>安全跳转</title>
+      <link>https://example.com/go/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://example.com/go/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

@@ -1,9 +1,0 @@
-{{ if site.Params.comment.enable }}
-  {{ if eq site.Params.comment.system "artalk" }}
-    {{ partial "comment/artalk.html" . }}
-  {{ else if eq site.Params.comment.system "disqus" }}
-    {{ partial "comment/disqus.html" . }}
-  {{ else if eq site.Params.comment.system "gitalk" }}
-    {{ partial "comment/gitalk.html" . }}
-  {{ end }}
-{{ end }}

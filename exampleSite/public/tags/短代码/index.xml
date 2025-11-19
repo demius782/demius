@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>短代码 on Demius Theme</title>
+    <link>https://example.com/tags/%E7%9F%AD%E4%BB%A3%E7%A0%81/</link>
+    <description>Recent content in 短代码 on Demius Theme</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <copyright>Copyright © 2024-2025 字·兮·书</copyright>
+    <lastBuildDate>Sat, 15 Nov 2025 21:00:00 +0800</lastBuildDate>
+    <atom:link href="https://example.com/tags/%E7%9F%AD%E4%BB%A3%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>沉浸模式与互动组件实战</title>
+      <link>https://example.com/posts/immersive-reading.html/</link>
+      <pubDate>Wed, 05 Nov 2025 09:30:00 +0800</pubDate>
+      <guid>https://example.com/posts/immersive-reading.html/</guid>
+      <description>进一步展示 Demius 主题的沉浸阅读按钮、浮动工具条、短代码组件、视频与音乐播放，以及局部加密内容。</description>
+    </item>
+  </channel>
+</rss>
