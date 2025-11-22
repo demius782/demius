@@ -62,14 +62,8 @@ demius/                    # 主题源码仓库
 
 1. 从 GitHub 下载本仓库的压缩包（或使用 `git clone`）并解压
 2. 将整个仓库文件夹重命名为 `demius`，并复制到你的 Hugo 站点根目录下的 `themes/` 目录中（即 `themes/demius/`）
-3. 在你的站点配置文件（`hugo.toml` 或 `config.toml`）中添加：
-
-```toml
-theme = "demius"
-```
-
-4. 将 `yilai/` 文件夹下的**所有内容**（`package.json`、`postcss.config.js`、`go.mod`、`scripts/` 等）复制到你的站点根目录
-5. 将 `hugo.toml` 文件复制到你的站点根目录，替换原有的配置文件
+3. 将 `yilai/` 文件夹下的**所有内容**（`package.json`、`postcss.config.js`、`go.mod`、`scripts/` 等）复制到你的站点根目录
+4. 将 `hugo.toml` 文件复制到你的站点根目录，替换原有的配置文件
 
 #### 方式 2：作为 Git 子模块引入
 
