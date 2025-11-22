@@ -23,7 +23,7 @@ draft: false
 
 - 📧 邮箱：demiusking@outlook.com
 - 🐱 GitHub：[demius782](https://github.com/demius782)
-- 🌐 博客：[字·兮·书](http://localhost:1313)
+- 🌐 博客：[字·兮·书](https://blog.demius.tech/)
 
 ## 🎯 当前专注
 
