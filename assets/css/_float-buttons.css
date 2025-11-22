@@ -8,8 +8,6 @@
   display: block;
   z-index: 999;
   transition: right 0.3s ease;
-  --fab-spacing: calc(3rem + 0.75rem);
-  --fab-base-offset: 2;
 }
 
 .floating-buttons--left { 
@@ -140,10 +138,6 @@ body:not(.scrolled) #fab-settings {
   bottom: 0;
 }
 
-body:not(.scrolled) .floating-buttons {
-  --fab-base-offset: 0;
-}
-
 .fab-extra { 
   position: absolute; 
   right: 0; 
@@ -152,7 +146,39 @@ body:not(.scrolled) .floating-buttons {
   pointer-events: none; 
   transform: translateY(10px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  bottom: calc((var(--fab-base-offset, 2) + var(--fab-order, 1)) * var(--fab-spacing));
+}
+
+.fab-extra#theme-toggle { 
+  bottom: calc(3 * (3rem + 0.75rem));  /* 在设置按钮上方 */
+}
+
+.fab-extra#sidebar-toggle { 
+  bottom: calc(4 * (3rem + 0.75rem));  /* 在主题切换上方 */
+}
+
+.fab-extra#immersive-mode {
+  bottom: calc(5 * (3rem + 0.75rem));  /* 在侧栏切换上方 */
+}
+
+.fab-extra#danmaku-mode {
+  bottom: calc(6 * (3rem + 0.75rem));  /* 在沉浸阅读上方 */
+}
+
+/* 当回到顶部按钮隐藏时，调整其他按钮位置 */
+body:not(.scrolled) .fab-extra#theme-toggle {
+  bottom: calc(3rem + 0.75rem);
+}
+
+body:not(.scrolled) .fab-extra#sidebar-toggle {
+  bottom: calc(2 * (3rem + 0.75rem));
+}
+
+body:not(.scrolled) .fab-extra#immersive-mode {
+  bottom: calc(3 * (3rem + 0.75rem));
+}
+
+body:not(.scrolled) .fab-extra#danmaku-mode {
+  bottom: calc(4 * (3rem + 0.75rem));
 }
 
 /* 展开状态 */
@@ -160,6 +186,39 @@ body:not(.scrolled) .floating-buttons {
   opacity: 1; 
   pointer-events: auto; 
   transform: translateY(0);
+}
+
+.floating-buttons--right.fab-open #theme-toggle { 
+  bottom: calc(3 * (3rem + 0.75rem)); 
+}
+
+.floating-buttons--right.fab-open #sidebar-toggle { 
+  bottom: calc(4 * (3rem + 0.75rem)); 
+}
+
+.floating-buttons--right.fab-open #immersive-mode {
+  bottom: calc(5 * (3rem + 0.75rem));
+}
+
+.floating-buttons--right.fab-open #danmaku-mode {
+  bottom: calc(6 * (3rem + 0.75rem));
+}
+
+/* 当回到顶部按钮隐藏时，调整展开状态的位置 */
+body:not(.scrolled) .floating-buttons--right.fab-open #theme-toggle {
+  bottom: calc(3rem + 0.75rem);
+}
+
+body:not(.scrolled) .floating-buttons--right.fab-open #sidebar-toggle {
+  bottom: calc(2 * (3rem + 0.75rem));
+}
+
+body:not(.scrolled) .floating-buttons--right.fab-open #immersive-mode {
+  bottom: calc(3 * (3rem + 0.75rem));
+}
+
+body:not(.scrolled) .floating-buttons--right.fab-open #danmaku-mode {
+  bottom: calc(4 * (3rem + 0.75rem));
 }
 
 /* 设置按钮旋转动画 */
@@ -194,6 +253,38 @@ body:not(.scrolled) .floating-buttons--left #fab-settings {
 .floating-buttons--left .fab-extra { 
   left: 0; 
   right: auto;
+}
+
+.floating-buttons--left .fab-extra#theme-toggle { 
+  bottom: calc(3 * (3rem + 0.75rem)); 
+}
+
+.floating-buttons--left .fab-extra#sidebar-toggle { 
+  bottom: calc(4 * (3rem + 0.75rem)); 
+}
+
+.floating-buttons--left .fab-extra#immersive-mode {
+  bottom: calc(5 * (3rem + 0.75rem));
+}
+
+.floating-buttons--left .fab-extra#danmaku-mode {
+  bottom: calc(6 * (3rem + 0.75rem));
+}
+
+body:not(.scrolled) .floating-buttons--left .fab-extra#theme-toggle {
+  bottom: calc(3rem + 0.75rem);
+}
+
+body:not(.scrolled) .floating-buttons--left .fab-extra#sidebar-toggle {
+  bottom: calc(2 * (3rem + 0.75rem));
+}
+
+body:not(.scrolled) .floating-buttons--left .fab-extra#immersive-mode {
+  bottom: calc(3 * (3rem + 0.75rem));
+}
+
+body:not(.scrolled) .floating-buttons--left .fab-extra#danmaku-mode {
+  bottom: calc(4 * (3rem + 0.75rem));
 }
 
 .floating-buttons--left.fab-open .fab-extra { 

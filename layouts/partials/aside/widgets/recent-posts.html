@@ -1,4 +1,3 @@
-{{ if .Site.Params.aside.showRecent | default true }}
 {{ $recentConfig := index .Site.Params.aside "recent-Posts" }}
 {{ $enableBg := $recentConfig.enableBackground | default false }}
 {{ $bgImage := $recentConfig.backgroundImage }}
@@ -62,4 +61,3 @@
     </div>
   </div>
 </section>
-{{ end }}

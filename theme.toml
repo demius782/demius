@@ -1,42 +1,17 @@
 name = "Demius"
 license = "MIT"
-licenselink = "https://github.com/demius782/demius/blob/main/LICENSE"
-description = "A feature-rich, PJAX-enabled Hugo theme with immersive reading, multi-column layouts, and data-driven pages."
-homepage = "https://github.com/demius782/demius"
-demosite = "https://blog.demius.tech"
-tags = [
-  "blog",
-  "personal",
-  "responsive",
-  "pjax",
-  "dark mode",
-  "gallery",
-  "data widgets",
-  "shortcodes",
-  "multi-column",
-  "immersive reading"
-]
-features = [
-  "Three-column masonry layout",
-  "Floating toolbar & immersive reading",
-  "PJAX navigation with progress indicator",
-  "Data driven pages (music, bangumi, wishlist, supporters, gallery)",
-  "Built-in shortcodes (button, timeline, tabs, collapse, encrypt, video, music)",
-  "Multi-level navigation and configurable sidebars",
-  "Top announcement bar and popup system",
-  "Friends circle & say-hello pages",
-  "Transparent / glassmorphism modes",
-  "Artalk and third-party comment integrations"
-]
+licenselink = "https://github.com/demius782/demius-blog/blob/main/LICENSE"
+description = "三栏瀑布流 + 数据组件 + PJAX 的现代化 Hugo 主题。Demius 为想要在同一站点中展示博客文章、动态说说、数据面板、相册、音乐/追番/愿望清单的玩家准备了完善的配置模板与短代码集合。"
+homepage = "https://github.com/demius782/demius-blog"
+tags = ["blog", "responsive", "multilingual", "pagination", "disqus", "google-analytics", "rss", "search", "dark-mode", "pjax", "gallery", "music", "animation"]
+features = ["responsive", "multilingual", "pagination", "disqus", "google-analytics", "rss", "search", "dark-mode", "pjax", "gallery", "music", "animation"]
 min_version = "0.146.0"
-version = "2.8.8"
 
 [author]
-  name = "demius"
-  homepage = "https://blog.demius.tech"
+  name = "demius782"
+  homepage = "https://github.com/demius782"
 
-[original]
-  author = "demius"
-  homepage = "https://blog.demius.tech"
-  repo = "https://github.com/demius782/demius"
+[screenshot]
+  src = "images/screenshot.png"
+  thumbnail = "images/tn.png"
 

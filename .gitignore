@@ -1,0 +1,28 @@
+# Hugo 构建产物
+/public/
+/resources/
+.hugo_build.lock
+
+# Node.js (如果使用 npm/yarn)
+node_modules/
+package-lock.json
+yarn.lock
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE 文件
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 临时文件
+*.tmp
+*.log
+.cache/
+

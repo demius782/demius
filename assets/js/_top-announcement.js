@@ -19,7 +19,7 @@
     
     // 从配置中获取参数（通过全局配置或从元素属性读取）
     const config = window.siteConfig?.topAnnouncement || {};
-    const apiUrl = config.shuoshuo?.apiUrl || 'https://mm.demius.tech/api/memo/list';
+    const apiUrl = config.shuoshuo?.apiUrl || '';
     const count = Math.min(Math.max(config.shuoshuo?.count || 3, 1), 5); // 限制1-5条
     const interval = config.shuoshuo?.interval || 5000;
     const transitionDuration = Math.max(Math.min(config.shuoshuo?.transitionDuration || 500, 2000), 0); // 限制0-2000ms

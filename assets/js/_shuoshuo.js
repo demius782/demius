@@ -79,7 +79,15 @@ function renderTalks() {
     };
 
     const fetchAndRenderTalks = () => {
-        const url = 'https://mm.demius.tech/api/memo/list';
+        // 从配置中获取API地址，如果未配置则使用空字符串（需要用户在hugo.toml中配置）
+        const url = window.siteConfig?.topAnnouncement?.shuoshuo?.apiUrl || '';
+        if (!url) {
+            console.warn('[说说页面] 未配置API地址，请在 hugo.toml 中配置 params.topAnnouncement.shuoshuo.apiUrl');
+            if (talkContainer) {
+                talkContainer.innerHTML = '<div class="shuoshuo-error">请在配置文件中设置说说API地址</div>';
+            }
+            return;
+        }
         const cacheKey = 'talksCache';
         const cacheTimeKey = 'talksCacheTime';
         const cacheDuration = 30 * 60 * 1000;
