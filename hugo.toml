@@ -836,7 +836,6 @@ hasCJKLanguage = true                      # 启用中日韩语言支持，优�
       opacity = 70                         # 背景透明度(%)
   
   # ===== 背景粒子特效配置 =====
-  # 参考 BeaconNav 主题实现，支持背景粒子特效
   [params.particleEffect]
     enable = true                         # 是否启用背景粒子特效（true=启用，false=禁用）
     count = 150                             # 粒子数量（建议范围：50-150，数量越多性能消耗越大）
