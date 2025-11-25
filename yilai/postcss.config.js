@@ -1,6 +1,7 @@
 module.exports = {
-  plugins: {
-    autoprefixer: {}
-  }
-};
-
+  plugins: [
+    require('postcss-import')({
+      path: ['themes/demius/assets/css', 'assets/css']
+    })
+  ]
+}

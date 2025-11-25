@@ -1,27 +1,21 @@
 {
   "name": "demius-blog",
   "version": "1.0.0",
-  "description": "三栏瀑布流 + 数据组件 + PJAX 的现代化 Hugo 主题。Demius 为想要在同一站点中展示 **博客文章、动态说说、数据面板、相册、音乐/追番/愿望清单** 的玩家准备了完善的配置模板与短代码集合。",
-  "main": "postcss.config.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "node scripts/merge-css.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/demius782/demius.git"
+    "submit-urls": "python submit_urls_to_search_engine.py",
+    "build": "hugo --cleanDestinationDir",
+    "build:submit": "hugo --cleanDestinationDir && python submit_urls_to_search_engine.py"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/demius782/demius/issues"
-  },
-  "homepage": "https://github.com/demius782/demius#readme",
   "devDependencies": {
-    "autoprefixer": "^10.4.22",
     "postcss": "^8.5.6",
-    "postcss-cli": "^11.0.1"
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.1"
   }
 }
