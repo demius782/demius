@@ -24,6 +24,15 @@
       return;
     }
 
+    // 始终保持悬浮层挂在 body 下，不跟页面模式耦合
+    if (floatPlayer.parentNode !== document.body) {
+      document.body.appendChild(floatPlayer);
+    }
+    floatPlayer.classList.remove('music-player-inline-mode2');
+    // 避免历史“关闭”状态导致播放器长期隐藏
+    floatPlayer.classList.remove('closed');
+    localStorage.removeItem('musicFloatPlayerClosed');
+
     // 如果已经初始化过，跳过
     if (floatPlayer.dataset.initialized === 'true') {
       return;

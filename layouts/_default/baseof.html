@@ -2,7 +2,7 @@
 <html lang="zh-CN" data-theme="{{ if site.Params.darkMode }}dark{{ else }}light{{ end }}"{{ if site.Params.grayscaleMode }} class="grayscale-mode"{{ end }}>
   <head>
     <meta charset="utf-8">
-    <title>{{ block "title" . }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <title>{{ block "title" . }}{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}{{ end }}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="author" content="{{ .Site.Params.author }}">
     <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">

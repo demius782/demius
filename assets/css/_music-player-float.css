@@ -9,7 +9,7 @@
   position: fixed;
   left: 20px;
   bottom: 20px;
-  z-index: 9998;
+  z-index: 10000;
   user-select: none;
   transition: transform 0.3s ease, opacity 0.3s ease;
   cursor: default;
