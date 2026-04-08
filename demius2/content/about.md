@@ -45,7 +45,7 @@ comments: true
 
 ### 📫 联系方式
 
-- 📧 邮箱：hello@example.com
+- 📧 邮箱：demiusking@outlook.com
 - 🐱 GitHub：[demius-theme](https://github.com/demius-theme)
 
 ### 本站信息

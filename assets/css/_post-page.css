@@ -155,6 +155,25 @@ article.post .post-content table {
   margin: 1.2em 0;
 }
 
+/* Markdown 表格网格线 */
+article.post .post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+article.post .post-content table th,
+article.post .post-content table td {
+  border: 1px solid color-mix(in srgb, var(--fg) 22%, transparent);
+  padding: 0.6em 0.8em;
+  vertical-align: top;
+}
+
+article.post .post-content table th {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  font-weight: 700;
+}
+
 article.post .post-content p {
   text-align: justify;
 }

@@ -38,6 +38,11 @@
     {{ end }}
     {{ end }}
     <link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css">
+
+    {{/* KaTeX 支持（用于渲染正文里的 `$...$` / `$$...$$` 行内/行间公式） */}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
     
     {{/* 自定义字体加载 */}}
     {{ if and .Site.Params.font.enable (eq .Site.Params.font.type "online") .Site.Params.font.onlineUrl }}

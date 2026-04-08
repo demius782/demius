@@ -267,6 +267,8 @@
     // 重新初始化其他功能
     if (window.initCodeBlocks) window.initCodeBlocks();
     if (window.initImageViewer) window.initImageViewer();
+    if (window.initListImages) window.initListImages();
+    if (window.initMath) window.initMath();
     if (window.initToc) window.initToc();
     if (window.initSearch) window.initSearch();
     if (window.initComments) window.initComments();

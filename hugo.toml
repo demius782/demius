@@ -12,7 +12,7 @@ theme = 'demius'
 ignoreLogs = ['warning-goldmark-raw-html']
 
 # ===== RSS订阅配置 =====
-copyright = "Copyright © 2024-2025 字·兮·书"  # RSS版权信息
+copyright = "Copyright © 2024-2026 Alex书"  # RSS版权信息
 rssLimit = 20                              # RSS输出的最大文章数量
 
 # ===== 分页配置 =====
@@ -855,7 +855,7 @@ hasCJKLanguage = true                      # 启用中日韩语言支持，优�
     mode = "mode2"                         # 大图模式：mode1（中间栏大图）或 mode2（全屏大图）
     
     # 共用配置
-    title = "字·兮·书"                     # 大图标题
+    title = "Alex书"                     # 大图标题
     subtitle = "时间就是生命，Life is money，Money is life"  # 大图副标题
     
     # 模式一专属配置（中间栏大图）

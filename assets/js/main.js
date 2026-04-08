@@ -37,3 +37,5 @@ import './_random-image.js';
 import './_music-aside.js';
 import './_music-player-float.js';
 import './_particle-effect.js';
+import './_list-images.js';
+import './_math-katex.js';

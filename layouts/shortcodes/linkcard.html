@@ -1,0 +1,162 @@
+{{- $global := site.Params.linkCard | default (dict) -}}
+{{- $scratch := newScratch -}}
+
+{{- $url := .Get "url" | default (.Get 0) -}}
+{{- if not $url -}}
+  {{- warnf "linkcard shortcode requires a url parameter (page: %s)" .Page.Permalink -}}
+  {{- return -}}
+{{- end -}}
+
+{{- $siteBase := strings.TrimSuffix "/" .Site.BaseURL -}}
+{{- $isInternal := or (hasPrefix $url "/") (hasPrefix $url $siteBase) -}}
+
+{{- $scratch.Set "resolvedUrl" $url -}}
+{{- if and $isInternal (not (hasPrefix $url "http")) }}
+  {{- $scratch.Set "resolvedUrl" (relURL $url) -}}
+{{- end -}}
+
+{{- $scratch.Set "type" (lower (default "auto" $global.defaultType)) -}}
+{{- with .Get "type" }}
+  {{- $scratch.Set "type" (lower .) -}}
+{{- end }}
+{{- if eq ($scratch.Get "type") "auto" }}
+  {{- if $isInternal }}
+    {{- $scratch.Set "type" "internal" -}}
+  {{- else }}
+    {{- $scratch.Set "type" "external" -}}
+  {{- end }}
+{{- end }}
+{{- $resolvedType := $scratch.Get "type" -}}
+
+{{- $scratch.Set "openInNewTab" (default true $global.openInNewTab) -}}
+{{- with .Get "newtab" }}
+  {{- $val := lower (printf "%v" .) -}}
+  {{- if in (slice "false" "0" "no" "off") $val }}
+    {{- $scratch.Set "openInNewTab" false -}}
+  {{- else if in (slice "true" "1" "yes" "on") $val }}
+    {{- $scratch.Set "openInNewTab" true -}}
+  {{- end }}
+{{- end }}
+{{- $openInNewTab := $scratch.Get "openInNewTab" -}}
+
+{{- $scratch.Set "showArticleInfo" (default true $global.showArticleInfo) -}}
+{{- with .Get "showinfo" }}
+  {{- $val := lower (printf "%v" .) -}}
+  {{- if in (slice "false" "0" "no" "off") $val }}
+    {{- $scratch.Set "showArticleInfo" false -}}
+  {{- else if in (slice "true" "1" "yes" "on") $val }}
+    {{- $scratch.Set "showArticleInfo" true -}}
+  {{- end }}
+{{- end }}
+{{- $showArticleInfo := $scratch.Get "showArticleInfo" -}}
+
+{{- $scratch.Set "showArticleDate" (default true $global.showArticleDate) -}}
+{{- with .Get "showdate" }}
+  {{- $val := lower (printf "%v" .) -}}
+  {{- if in (slice "false" "0" "no" "off") $val }}
+    {{- $scratch.Set "showArticleDate" false -}}
+  {{- else if in (slice "true" "1" "yes" "on") $val }}
+    {{- $scratch.Set "showArticleDate" true -}}
+  {{- end }}
+{{- end }}
+
+{{- $scratch.Set "showArticleSummary" (default true $global.showArticleSummary) -}}
+{{- with .Get "showsummary" }}
+  {{- $val := lower (printf "%v" .) -}}
+  {{- if in (slice "false" "0" "no" "off") $val }}
+    {{- $scratch.Set "showArticleSummary" false -}}
+  {{- else if in (slice "true" "1" "yes" "on") $val }}
+    {{- $scratch.Set "showArticleSummary" true -}}
+  {{- end }}
+{{- end }}
+
+{{- $scratch.Set "showUrl" (default true $global.showUrl) -}}
+{{- with .Get "showurl" }}
+  {{- $val := lower (printf "%v" .) -}}
+  {{- if in (slice "false" "0" "no" "off") $val }}
+    {{- $scratch.Set "showUrl" false -}}
+  {{- else if in (slice "true" "1" "yes" "on") $val }}
+    {{- $scratch.Set "showUrl" true -}}
+  {{- end }}
+{{- end }}
+
+{{- $internalIcon := default "fas fa-link" $global.internalIcon -}}
+{{- $externalIcon := default "fas fa-external-link-alt" $global.externalIcon -}}
+{{- $scratch.Set "iconClass" $externalIcon -}}
+{{- if eq $resolvedType "internal" }}
+  {{- $scratch.Set "iconClass" $internalIcon -}}
+{{- end }}
+{{- $iconClass := $scratch.Get "iconClass" -}}
+
+{{- $scratch.Set "article" nil -}}
+{{- with .Get "ref" }}
+  {{- $scratch.Set "article" (site.GetPage .) -}}
+{{- else }}
+  {{- if $isInternal }}
+    {{- $normalized := $url -}}
+    {{- if hasPrefix $normalized $siteBase }}
+      {{- $normalized = printf "/%s" (strings.TrimPrefix $siteBase $normalized) -}}
+    {{- end }}
+    {{- if not (hasPrefix $normalized "/") }}
+      {{- $normalized = printf "/%s" $normalized -}}
+    {{- end }}
+    {{- $normalized = strings.TrimSuffix "/" $normalized -}}
+    {{- $normalized = strings.TrimSuffix ".html" $normalized -}}
+    {{- $scratch.Set "article" (site.GetPage $normalized) -}}
+    {{- if not ($scratch.Get "article") }}
+      {{- $scratch.Set "article" (site.GetPage (strings.TrimPrefix "/" $normalized)) -}}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- $article := $scratch.Get "article" -}}
+
+{{- $scratch.Set "title" (.Get "title") -}}
+{{- if not ($scratch.Get "title") }}
+  {{- if $article }}
+    {{- $scratch.Set "title" $article.Title -}}
+  {{- else }}
+    {{- $scratch.Set "title" (.Get "text") -}}
+  {{- end }}
+{{- end }}
+{{- if not ($scratch.Get "title") }}
+  {{- $scratch.Set "title" $url -}}
+{{- end }}
+
+{{- $scratch.Set "summary" (.Get "summary") -}}
+{{- if and (not ($scratch.Get "summary")) $article }}
+  {{- if $article.Description }}
+    {{- $scratch.Set "summary" $article.Description -}}
+  {{- else if $article.Params.description }}
+    {{- $scratch.Set "summary" $article.Params.description -}}
+  {{- else if $article.Summary }}
+    {{- $scratch.Set "summary" (plainify (strings.TrimSpace $article.Summary)) -}}
+  {{- end }}
+{{- end }}
+
+{{- $scratch.Set "date" (.Get "date") -}}
+{{- if and (not ($scratch.Get "date")) $article }}
+  {{- $scratch.Set "date" (time.Format "2006-01-02" $article.Date) -}}
+{{- end }}
+
+<div class="link-card-container" data-shortcode="linkcard">
+  <a class="link-card-{{ $resolvedType }}" href="{{ $scratch.Get "resolvedUrl" }}"{{ if $openInNewTab }} target="_blank" rel="noopener noreferrer"{{ end }}>
+    <div class="link-card-header">
+      <i class="{{ $iconClass }} link-card-icon"></i>
+      <div class="link-card-title">{{ $scratch.Get "title" }}</div>
+    </div>
+
+    {{- if and $showArticleInfo ($scratch.Get "date") ($scratch.Get "showArticleDate") }}
+      <div class="link-card-date">
+        <i class="fas fa-calendar-alt"></i>
+        <span>{{ $scratch.Get "date" }}</span>
+      </div>
+    {{- end }}
+
+    {{- if and $showArticleInfo ($scratch.Get "summary") ($scratch.Get "showArticleSummary") }}
+      <div class="link-card-summary">{{ $scratch.Get "summary" }}</div>
+    {{- end }}
+
+    {{- /* 链接地址不再展示，避免在卡片中泄露原始 URL */ -}}
+  </a>
+</div>
+
